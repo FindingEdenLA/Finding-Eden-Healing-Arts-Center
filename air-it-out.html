@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Air It Out</title>
+  <title>Air It Out | Finding Eden</title>
   <meta name="theme-color" content="#6f7d73" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -14,20 +14,19 @@
 
   <style>
     :root{
-      --bg:#f6f2eb;
+      --bg:#f7f3ee;
       --bg-soft:#fbf8f4;
-      --card:rgba(255,255,255,.82);
-      --card-strong:rgba(255,255,255,.92);
+      --card:rgba(255,255,255,.88);
+      --card-strong:#ffffff;
       --text:#201a17;
       --muted:#6b645c;
       --line:#e7ddd1;
-
       --sage:#6f7d73;
-      --sage-deep:#506056;
+      --sage-deep:#4f5f56;
       --lav:#bca9cf;
       --lav-deep:#7d6796;
       --wood:#8a6e57;
-      --wood-deep:#6b5446;
+      --wood-deep:#6d5446;
       --vos:#4b415b;
       --cream:#f1ebe3;
       --gold:#b39a7a;
@@ -36,7 +35,7 @@
       --radius:28px;
       --radius-sm:18px;
       --transition:.28s ease;
-      --max:1200px;
+      --max:1180px;
     }
 
     *{box-sizing:border-box}
@@ -56,6 +55,7 @@
     }
 
     button,input,textarea,select{font:inherit}
+    a{text-decoration:none;color:inherit}
     .hidden{display:none!important}
 
     .app{
@@ -155,7 +155,7 @@
       transition:transform .34s ease, box-shadow .34s ease;
     }
     .card:hover{
-      transform:translateY(-3px);
+      transform:translateY(-2px);
       box-shadow:0 34px 100px rgba(24,14,8,.10);
     }
     .card::before{
@@ -193,14 +193,16 @@
     }
 
     .hero-title{
-      font-size:clamp(2.4rem,5vw,4.6rem);
-      line-height:1.02;
+      font-size:clamp(2rem,4vw,3.3rem);
+      line-height:1.12;
+      max-width:14ch;
     }
     .hero-copy{
-      margin:0 0 14px;
+      margin:0 0 16px;
       color:#3d3732;
-      font-size:1.04rem;
-      line-height:1.82;
+      font-size:1.02rem;
+      line-height:1.92;
+      max-width:58ch;
     }
 
     .interrupt{
@@ -295,21 +297,27 @@
       line-height:1.72;
     }
 
-    .wheel-wrap{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin-top:14px;
+    .feel-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:16px;
     }
-    .wheel-label{
-      font-size:.84rem;
-      font-weight:600;
-      fill:#3d3732;
+    .feel-tag{
+      padding:10px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      text-align:center;
       cursor:pointer;
-      transition:fill var(--transition);
-      user-select:none;
+      transition:var(--transition);
+      color:#4b4641;
+      font-size:.9rem;
     }
-    .wheel-label:hover{fill:var(--vos)}
+    .feel-tag:hover{
+      background:#f4eee6;
+      transform:translateY(-1px);
+    }
 
     .states-grid{
       display:grid;
@@ -457,14 +465,15 @@
       margin-bottom:10px;
     }
     .screen-title{
-      font-size:2.2rem;
-      line-height:1.06;
+      font-size:1.95rem;
+      line-height:1.08;
+      max-width:18ch;
     }
 
     .module-visual{
-      height:200px;
+      height:170px;
       border-radius:22px;
-      margin:0 0 16px;
+      margin:0 0 18px;
       position:relative;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.56);
@@ -479,25 +488,13 @@
         linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,0));
       pointer-events:none;
     }
-    .module-visual::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.15) 48%, transparent 82%);
-      transform:translateX(-120%);
-      animation:shimmer 8s linear infinite;
-      pointer-events:none;
-    }
-    @keyframes shimmer{
-      from{transform:translateX(-120%)}
-      to{transform:translateX(130%)}
-    }
 
     .screen-copy{
       white-space:pre-line;
       color:#3d3833;
-      font-size:1.04rem;
-      line-height:1.85;
+      font-size:1rem;
+      line-height:1.95;
+      max-width:60ch;
     }
 
     .checkin-wrap,.callout,.tool-box,.prompt-box,.diagram-box,.mantra,.pause-box{
@@ -737,7 +734,8 @@
       color:var(--muted);
       font-size:.9rem;
       margin-top:18px;
-      line-height:1.65;
+      line-height:1.7;
+      padding:0 6px;
     }
 
     @media (max-width:940px){
@@ -746,12 +744,13 @@
     }
 
     @media (max-width:560px){
-      .states-grid{grid-template-columns:1fr}
+      .states-grid,.feel-grid{grid-template-columns:1fr}
       .mode-row{grid-template-columns:1fr}
       .action-row{flex-direction:column}
-      .screen-title{font-size:1.86rem}
-      .hero-title{font-size:2.55rem}
-      .module-visual{height:150px}
+      .screen-title{font-size:1.7rem}
+      .hero-title{font-size:2.2rem}
+      .module-visual{height:140px}
+      .top-actions{width:100%}
     }
   </style>
 </head>
@@ -765,7 +764,7 @@
           <p class="tagline">The stuff people don’t usually say out loud.</p>
         </div>
         <div class="top-actions">
-          <button class="ghost-btn" id="speakBtn" type="button">Read aloud</button>
+          <a class="ghost-btn" href="/">Back to site</a>
           <button class="ghost-btn" id="goHomeTop" type="button">Home</button>
           <button class="ghost-btn" id="goJournalTop" type="button">Reflections</button>
         </div>
@@ -776,21 +775,21 @@
       <div class="hero">
         <div class="card hero-main">
           <div class="eyebrow">Raw, direct, and actually useful</div>
-          <h2 class="hero-title">If your brain won’t shut up, if you feel numb and overloaded at the same time, if you already know what’s wrong but still can’t move — start here.</h2>
+          <h2 class="hero-title">If your brain won’t shut up, if you feel numb and overloaded at the same time… start here.</h2>
           <p class="hero-copy">
-            This is not here to talk down to you, hand you a fake affirmation, or treat your pain like a lesson you should already understand.
-            It’s here to actually meet the state you’re in, explain what’s going on underneath it, and give you something real to do with it.
+            This is not here to hand you fake calm or polished advice your body will reject.
+            It is here to meet the state you are actually in, slow it down enough to understand it,
+            and give you something real to do with it.
           </p>
           <p class="hero-copy">
-            You do not need to be calm to use this.
-            You do not need to be “doing the work” perfectly.
-            You just need to be honest about where you’re at.
+            You do not need to be ready. You do not need to be positive. You do not need to explain it well.
+            You just need to be honest about what is true right now.
           </p>
 
           <div class="interrupt">
             <strong>Before you start</strong>
-            If something here hits too hard, skip ahead, pause, or close the app and come back later.
-            Being honest is useful. Flooding yourself is not.
+            If something here hits too hard, skip it, pause it, close it, come back later.
+            This is meant to help you face what is real, not flood yourself trying to prove you can handle all of it at once.
           </div>
 
           <div class="mode-row">
@@ -807,7 +806,7 @@
               <span>all screens</span>
             </button>
           </div>
-          <p class="small-note">Quick for when you’re barely holding it together. Deep when you can stay longer. Full when you want the whole thing.</p>
+          <p class="small-note">Quick for when your capacity is low. Deep when you can stay longer. Full when you want the whole process.</p>
         </div>
 
         <div class="card hero-side">
@@ -827,57 +826,43 @@
 
           <div class="interrupt">
             <strong>Why this exists</strong>
-            Because a lot of people do not need more polished wellness language.
-            They need language that actually says what this feels like.
-            They need something that does not flinch when the truth gets ugly.
+            Because a lot of people do not need more self-help language.
+            They need something that actually sounds like what this feels like when it is messy, heavy, humiliating, confusing, or hard to name.
           </div>
         </div>
       </div>
 
       <div class="utility-grid">
         <div class="card utility-card">
-          <h3>Feelings wheel</h3>
-          <p>Use this when you know you feel off, but the words still aren’t landing.</p>
-          <div class="wheel-wrap">
-            <svg width="280" height="280" viewBox="0 0 280 280" role="img" aria-label="Feelings wheel">
-              <circle cx="140" cy="140" r="42" fill="#f0e8f6"></circle>
-              <circle cx="140" cy="140" r="84" fill="none" stroke="#e7ddd1" stroke-width="48"></circle>
-              <circle cx="140" cy="140" r="126" fill="none" stroke="#e7ddd1" stroke-width="48"></circle>
-
-              <path d="M140 140 L140 14 A126 126 0 0 1 229 52 Z" fill="#bca9cf" opacity=".88"></path>
-              <path d="M140 140 L229 52 A126 126 0 0 1 266 140 Z" fill="#6f7d73" opacity=".88"></path>
-              <path d="M140 140 L266 140 A126 126 0 0 1 229 229 Z" fill="#8a6e57" opacity=".88"></path>
-              <path d="M140 140 L229 229 A126 126 0 0 1 140 266 Z" fill="#bca9cf" opacity=".72"></path>
-              <path d="M140 140 L140 266 A126 126 0 0 1 51 229 Z" fill="#6f7d73" opacity=".72"></path>
-              <path d="M140 140 L51 229 A126 126 0 0 1 14 140 Z" fill="#8a6e57" opacity=".72"></path>
-              <path d="M140 140 L14 140 A126 126 0 0 1 51 52 Z" fill="#bca9cf" opacity=".58"></path>
-              <path d="M140 140 L51 52 A126 126 0 0 1 140 14 Z" fill="#6f7d73" opacity=".58"></path>
-
-              <text x="140" y="145" text-anchor="middle" class="wheel-label" style="font-weight:700;">what am I really feeling?</text>
-              <text x="140" y="42" text-anchor="middle" class="wheel-label" data-module="selfAttack">ashamed</text>
-              <text x="223" y="88" text-anchor="middle" class="wheel-label" data-module="overwhelm">anxious</text>
-              <text x="238" y="176" text-anchor="middle" class="wheel-label" data-module="anger">angry</text>
-              <text x="184" y="244" text-anchor="middle" class="wheel-label" data-module="grief">grieving</text>
-              <text x="96" y="244" text-anchor="middle" class="wheel-label" data-module="freeze">stuck</text>
-              <text x="42" y="176" text-anchor="middle" class="wheel-label" data-module="unseen">alone</text>
-              <text x="58" y="88" text-anchor="middle" class="wheel-label" data-module="numb">numb</text>
-              <text x="140" y="92" text-anchor="middle" class="wheel-label" style="font-size:.78rem;" data-module="triggered">triggered</text>
-            </svg>
+          <h3>Pick the feeling that is closest</h3>
+          <p>Use this when you know you feel off, but the exact words still are not landing.</p>
+          <div class="feel-grid">
+            <button class="feel-tag" data-module="numb">numb</button>
+            <button class="feel-tag" data-module="overwhelm">overwhelmed</button>
+            <button class="feel-tag" data-module="freeze">stuck</button>
+            <button class="feel-tag" data-module="selfAttack">ashamed</button>
+            <button class="feel-tag" data-module="anger">angry</button>
+            <button class="feel-tag" data-module="unseen">alone</button>
+            <button class="feel-tag" data-module="grief">grieving</button>
+            <button class="feel-tag" data-module="triggered">triggered</button>
           </div>
-          <p class="small-note">Tap a word to jump straight into the closest state.</p>
+          <p class="small-note">Tap one and it will take you straight into that state.</p>
         </div>
 
         <div class="card utility-card">
           <h3>What this is actually doing</h3>
-          <p>Not talking you out of your emotions. Not romanticizing them either. Just helping you stop acting like they came out of nowhere.</p>
-          <ul style="margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.7;">
-            <li>what this state really feels like</li>
+          <p>
+            Not talking you out of your emotions. Not glamorizing them either.
+            Just helping you stop acting like they came out of nowhere.
+          </p>
+          <ul style="margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.8;">
+            <li>what this state usually feels like</li>
             <li>why it makes sense</li>
-            <li>what your body is probably doing</li>
-            <li>what survival pattern may be underneath it</li>
-            <li>somatic tools that do not feel corny</li>
-            <li>expressive prompts that actually move something</li>
-            <li>a believable real-talk line to borrow</li>
+            <li>what your nervous system may be doing</li>
+            <li>what pattern may be underneath it</li>
+            <li>body-based tools that do not feel cheesy</li>
+            <li>prompts that actually move something</li>
+            <li>a more believable line to borrow when your inner voice gets vicious</li>
           </ul>
         </div>
       </div>
@@ -893,12 +878,6 @@
           <button class="state-btn wood" data-module="unseen"><strong>Alone / unseen</strong><span>Invisible, misunderstood, tired of surface-level connection.</span></button>
           <button class="state-btn sage" data-module="grief"><strong>Grief / heaviness</strong><span>Loss, ache, sadness, emptiness that lingers.</span></button>
           <button class="state-btn lav" data-module="triggered"><strong>Triggered / thrown back</strong><span>Old wound activated, body reacts fast.</span></button>
-          <button class="state-btn wood" data-module="peoplePleasing"><strong>People-pleasing</strong><span>Fawning, over-explaining, self-abandoning.</span></button>
-          <button class="state-btn sage" data-module="control"><strong>Control / perfectionism</strong><span>Clenched, hyper-vigilant, “I have to get this right.”</span></button>
-          <button class="state-btn lav" data-module="betrayal"><strong>Betrayal / heartbreak</strong><span>Knife-in-the-chest ache, replaying, attachment wounds.</span></button>
-          <button class="state-btn wood" data-module="insecurity"><strong>Body shame / insecurity</strong><span>Surface-level thoughts tied to deeper core beliefs.</span></button>
-          <button class="state-btn sage" data-module="identity"><strong>Lost self / identity confusion</strong><span>Outgrowing old versions of yourself and not knowing who you are now.</span></button>
-          <button class="state-btn lav" data-module="rebuild"><strong>Rebuilding / becoming</strong><span>Trying to live differently without going back to old survival patterns.</span></button>
         </div>
       </div>
     </section>
@@ -907,7 +886,7 @@
       <div class="journey-layout">
         <div class="card side-nav">
           <h3 class="section-title">Your process</h3>
-          <p>This is not about fixing you. It’s about understanding what is actually happening so it stops running you from the dark.</p>
+          <p>This is not about fixing you. It is about understanding what is actually happening so it stops running you from the dark.</p>
           <div class="module-list" id="moduleList"></div>
         </div>
 
@@ -933,7 +912,7 @@
 
         <div class="card journal-shell" id="journalView">
           <h3 class="journal-heading">Private reflections</h3>
-          <p>No one sees this. It saves only in this browser on this device.</p>
+          <p>Nothing here gets posted. It saves only in this browser on this device.</p>
 
           <div class="starter-prompts">
             <button class="starter-btn" type="button" data-starter="What am I not saying out loud?">What am I not saying out loud?</button>
@@ -958,9 +937,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "air_it_out_reflections_full_depth_v4";
-    const DRAFT_KEY = "air_it_out_current_draft_v4";
-
+    const STORAGE_KEY = "air_it_out_reflections_premium_v1";
     let currentMode = "quick";
     let currentModuleKey = null;
     let currentScreens = [];
@@ -974,16 +951,16 @@
         screens: [
           {
             tag: "Mirror",
-            title: "This is the part where you’re technically still here, but not really in it.",
+            title: "This is the part where you are technically still here, but not really in it.",
             copy: `You answer people.
 You go through motions.
 You might even laugh, work, or get through the day.
 
-But you’re not fully in your life.
-You’re watching it from a slight distance.
+But you are not fully in your life.
+You are watching it from a slight distance.
 
 You care, but it feels muted.
-You know something is off, but you don’t fully have access to it.
+You know something is off, but you cannot fully access it.
 Then you get frustrated with yourself for not being more present, more productive, more alive.
 
 That frustration makes sense.
@@ -994,9 +971,9 @@ They usually do it because feeling everything straight on got too expensive.`
           },
           {
             tag: "Why",
-            title: "This doesn’t mean nothing is there. It usually means too much is there.",
+            title: "This does not mean nothing is there. It usually means too much is there.",
             copy: `Numbness is often not the absence of emotion.
-It’s your nervous system reducing access to the intensity of emotion because it has been too much, too constant, or too unresolved.
+It is your nervous system reducing access to the intensity of emotion because it has been too much, too constant, or too unresolved.
 
 That can happen after long stress.
 Long grief.
@@ -1012,11 +989,7 @@ But underneath that flatness there is often a backlog of feeling your system is 
             title: "The numb loop feeds itself.",
             copy: `The more disconnected you feel, the easier it is to avoid.
 The more you avoid, the more guilt builds.
-The more guilt builds, the more your system wants to shut down again.
-
-Then you start telling yourself you’re lazy, broken, wasting time, falling behind, or incapable of change.
-Now you’re numb and ashamed.
-That makes reconnection even harder.`,
+The more guilt builds, the more your system wants to shut down again.`,
             diagram: [
               "too much for too long",
               "push through it anyway",
@@ -1053,9 +1026,7 @@ The goal is to feel one click more here than you did two minutes ago.`,
           {
             tag: "Pause",
             title: "Pause before you keep reading.",
-            copy: `Do not scroll for a second.
-
-What are you pretending doesn’t affect you as much as it actually does?`,
+            copy: `What are you pretending does not affect you as much as it actually does?`,
             reflectionPlaceholder: "Write the thing you keep minimizing."
           },
           {
@@ -1074,15 +1045,15 @@ You just need a crack in the shutdown.`,
           },
           {
             tag: "Truth",
-            title: "Don’t force fake positivity here.",
+            title: "Do not force fake positivity here.",
             copy: `If your mind has been saying “I’m lazy” or “I can’t follow through” for years, you are not going to override that with a polished quote and suddenly believe it.
 
-So don’t use a fake line.
+So do not use a fake line.
 Use an honest one.`,
             mantra: `REAL TALK TO BORROW:
 “I’ve been carrying more than I let myself admit.
 No wonder I shut down.
-That doesn’t mean I’m hopeless.
+That does not mean I’m hopeless.
 It means something in me needs care before it can reconnect.”`
           },
           {
@@ -1108,11 +1079,11 @@ And protection can soften, safely, slowly, without forcing yourself into fake al
         screens: [
           {
             tag: "Mirror",
-            title: "This is the part where your brain keeps trying to solve everything at once and your body keeps paying the price for it.",
+            title: "This is the part where your brain keeps trying to solve everything at once and your body keeps paying for it.",
             copy: `You keep replaying the same thing even though you already know the answer.
 You check your phone and feel worse.
 You try to distract yourself but your body will not let it go.
-You know you’re spiraling and that almost makes you angrier because you can see it happening and still can’t just switch it off.
+You know you’re spiraling and that almost makes you angrier because you can see it happening and still cannot just switch it off.
 
 That is what makes this state so exhausting.
 It is not just panic.
@@ -1120,10 +1091,10 @@ It is panic plus self-awareness plus frustration plus pressure.`
           },
           {
             tag: "Why",
-            title: "You’re not overreacting. Your system is overloaded.",
+            title: "You are not overreacting. Your system is overloaded.",
             copy: `This is what it feels like when too many things have been stacking in your nervous system at once.
 
-The conversation you didn’t finish.
+The conversation you did not finish.
 The fear you keep shoving down.
 The future you keep trying to control.
 The grief you keep calling stress.
@@ -1138,11 +1109,8 @@ Your body just has not caught up to what your mind keeps trying to reason throug
             tag: "Loop",
             title: "The spiral turns everything into an emergency.",
             copy: `That is why one text can feel like a collapse.
-That is why you can’t prioritize.
-That is why your mind starts scanning every possible outcome at once.
-
-The spiral does not only amplify fear.
-It flattens everything into equal urgency.`,
+That is why you cannot prioritize.
+That is why your mind starts scanning every possible outcome at once.`,
             diagram: [
               "stress builds quietly",
               "your mind tries to get ahead of it",
@@ -1161,7 +1129,7 @@ It flattens everything into equal urgency.`,
           {
             tag: "Body",
             title: "You do not need to calm down. You need to downshift.",
-            copy: `Trying to “calm down” can feel insulting when you’re already maxed out.
+            copy: `Trying to “calm down” can feel insulting when you are already maxed out.
 
 Downshifting means giving your system less to fight with for a minute.`,
             toolTitle: "Somatic downshift",
@@ -1177,9 +1145,7 @@ Downshifting means giving your system less to fight with for a minute.`,
           {
             tag: "Pause",
             title: "Pause.",
-            copy: `Do not solve your whole life from this nervous system state.
-
-What is the one thing your mind keeps circling right now?`,
+            copy: `What is the one thing your mind keeps circling right now?`,
             reflectionPlaceholder: "Name the main loop, not all the side loops."
           },
           {
@@ -1214,10 +1180,8 @@ Not every possible outcome.
 Not the entire decision tree.
 
 Just this hour.
-Maybe just the next 10 minutes.
-
-Overwhelm loses power when you stop handing it your whole future at once.`,
-            callout: `This didn’t come out of nowhere. It makes sense that your system is acting like too much is happening, because for you, too much has been happening.`
+Maybe just the next 10 minutes.`,
+            callout: `Overwhelm loses power when you stop handing it your whole future at once.`
           }
         ]
       },
@@ -1229,7 +1193,7 @@ Overwhelm loses power when you stop handing it your whole future at once.`,
         screens: [
           {
             tag: "Mirror",
-            title: "This is the part where you know what needs to happen and still can’t get yourself to move.",
+            title: "This is the part where you know what needs to happen and still cannot get yourself to move.",
             copy: `You know the answer.
 You know the task.
 You know what would help.
@@ -1240,28 +1204,22 @@ And still nothing happens.
 So now you are not just stuck.
 You are stuck and embarrassed about being stuck.
 Stuck and frustrated.
-Stuck and starting to question your own character because movement feels weirdly out of reach.
-
-That state is real.
-And it is not always laziness or lack of willpower.`
+Stuck and starting to question your own character because movement feels weirdly out of reach.`
           },
           {
             tag: "Why",
-            title: "Sometimes the problem is not that you don’t know. It’s that movement feels loaded.",
+            title: "Sometimes the problem is not that you do not know. It is that movement feels loaded.",
             copy: `Freeze often shows up when the next step carries emotional meaning your system does not want to deal with.
 
 If I move forward, then it becomes real.
 If I answer, then I have to face what comes next.
 If I start, then I can fail.
-If I choose, then I lose the fantasy of all the other choices.
-
-So the body hits the brakes before the mind fully catches up.`
+If I choose, then I lose the fantasy of all the other choices.`
           },
           {
             tag: "Loop",
             title: "Freeze keeps telling you you’ll move once you feel ready.",
             copy: `But for most people it works in reverse.
-
 Tiny action creates a little momentum.
 Momentum creates a little energy.
 Energy creates a little trust.`,
@@ -1272,13 +1230,6 @@ Energy creates a little trust.`,
               "delay creates shame",
               "shame makes movement feel even harder"
             ]
-          },
-          {
-            tag: "Check-in",
-            title: "What kind of stuck is this?",
-            copy: `Pick the one that fits best.`,
-            choices: ["I’m avoiding a hard truth", "I’m afraid of messing it up", "I’m exhausted", "I’m scared what happens after I act", "I’m numb and don’t feel urgency"],
-            note: "Naming the type of stuck often loosens it."
           },
           {
             tag: "Body",
@@ -1297,34 +1248,8 @@ Just enough movement to tell your system: we are not trapped here forever.`,
             </ul>`
           },
           {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What would moving forward force you to feel, know, or admit?`,
-            reflectionPlaceholder: "Write the part you usually skip over."
-          },
-          {
-            tag: "Release",
-            title: "Name what movement would actually bring up.",
-            copy: `A lot of freeze loosens when you stop pretending the next step is just a task and admit what it means emotionally.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “If I really moved forward, I’d have to face…”</li>
-              <li>Make a list called: “What staying stuck protects me from.”</li>
-              <li>Draw your life as it feels paused right now, then circle where movement wants to happen first.</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Use something honest, not grand.",
-            copy: `You do not need “I’m unstoppable.”
-You need something your body can believe.`,
-            mantra: `REAL TALK TO BORROW:
-“I do not need to feel fully ready to start moving.
-I just need to make one honest move and let my body catch up after.”`
-          },
-          {
             tag: "Close",
-            title: "The goal is not speed. It’s thawing.",
+            title: "The goal is not speed. It is thawing.",
             copy: `Open the document.
 Walk outside.
 Put on shoes.
@@ -1344,50 +1269,27 @@ And it matters.`
         screens: [
           {
             tag: "Mirror",
-            title: "This is the part where the loudest voice in your head sounds like the truth just because it has been there so long.",
-            copy: `You don’t just feel bad.
+            title: "This is the part where the loudest voice in your head sounds like truth just because it has been there so long.",
+            copy: `You do not just feel bad.
 You start narrating yourself badly.
 
-You zoom in on what’s wrong.
-What’s embarrassing.
+You zoom in on what is wrong.
+What is embarrassing.
 What makes you unlovable.
 What makes you hard to choose.
-What makes you feel like you’re already failing before anyone even says a word.
+What makes you feel like you are already failing before anyone even says a word.
 
-And the worst part is, you can often hear how unfair it is while it’s happening.
-That doesn’t stop it from hurting.`
+And the worst part is, you can often hear how unfair it is while it is happening.
+That does not stop it from hurting.`
           },
           {
             tag: "Why",
             title: "That voice probably did not start as yours.",
-            copy: `It may sound like you now because you’ve repeated it for so long.
+            copy: `It may sound like you now because you have repeated it for so long.
 But a lot of self-attack gets built from years of being compared, criticized, overlooked, not chosen, or made to feel like you had to earn softness.
 
 So now the brain attacks first.
-As if beating everyone else to it might somehow make it safer.
-
-It doesn’t.
-It just makes the inside of your own life feel hostile.`
-          },
-          {
-            tag: "Loop",
-            title: "The self-attack loop rewards itself with false certainty.",
-            copy: `It feels like if you can identify every flaw first, you will somehow stay in control.
-But all it really does is train your mind to look for evidence against you.`,
-            diagram: [
-              "something triggers old self-doubt",
-              "your mind zooms in on what’s wrong",
-              "you treat the thought like fact",
-              "you compare, obsess, or hide",
-              "the belief feels even more true"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What form is the self-attack taking right now?",
-            copy: `Pick the one that hits closest.`,
-            choices: ["appearance", "worth", "relationships", "failure", "being too much / not enough"],
-            note: "The surface target changes. The wound underneath is usually smaller in number and older in origin."
+As if beating everyone else to it might somehow make it safer.`
           },
           {
             tag: "Body",
@@ -1405,26 +1307,8 @@ Behind your eyes.`,
               <li>Look in the mirror for 10 seconds without adjusting anything.</li>
               <li>Notice where your body contracts first.</li>
               <li>Put one hand there and press lightly.</li>
-              <li>Exhale through your mouth like you’re fogging a mirror.</li>
+              <li>Exhale through your mouth like you are fogging a mirror.</li>
               <li>Unclench your face on purpose.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What is the cruelest sentence your mind is repeating right now?`,
-            reflectionPlaceholder: "Write it exactly how it sounds."
-          },
-          {
-            tag: "Release",
-            title: "Expose the voice instead of letting it run in the dark.",
-            copy: `You do not need to bypass the ugly thought.
-You need to stop letting it speak like it’s neutral.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “The voice in my head says…” and let it say everything.</li>
-              <li>Then write: “A more honest version is…”</li>
-              <li>Split a page into two columns: “What I fear people see” / “What I know I reduce myself to.”</li>
             </ul>`
           },
           {
@@ -1443,9 +1327,7 @@ I do not have to worship the worst voice in my head.”`
           {
             tag: "Close",
             title: "You do not need confidence first.",
-            copy: `You do not need to feel beautiful, healed, or self-assured to stop being brutal with yourself.
-
-Less cruelty is a real shift.
+            copy: `Less cruelty is a real shift.
 More steadiness is a real shift.
 That counts.`
           }
@@ -1460,41 +1342,17 @@ That counts.`
           {
             tag: "Mirror",
             title: "This is the part where something in you is done swallowing it.",
-            copy: `You’re irritated faster.
+            copy: `You are irritated faster.
 You have less patience.
 Everything feels closer to the surface.
-You may be snapping, shutting down, fantasizing about saying what you really think, or feeling pressure in your chest like something is trying to break out.
-
-And then, once it comes out, you may judge yourself for the size of the reaction.
-That does not erase the reason it built.`
+You may be snapping, shutting down, fantasizing about saying what you really think, or feeling pressure in your chest like something is trying to break out.`
           },
           {
             tag: "Why",
-            title: "Anger is often not the first emotion. It’s the one that made it to the front.",
+            title: "Anger is often not the first emotion. It is the one that made it to the front.",
             copy: `Under anger there is often hurt, humiliation, powerlessness, being dismissed, being used, or being forced to keep adapting to something that is not okay.
 
-A lot of people stay in anger because it feels stronger than the softer truth underneath it.
-And sometimes it is.
-It’s the only emotion that feels like it can push back.`
-          },
-          {
-            tag: "Loop",
-            title: "The build-up usually started earlier than the reaction.",
-            copy: `By the time anger feels loud, it usually has a history.`,
-            diagram: [
-              "something crosses a line",
-              "you talk yourself out of it at first",
-              "pressure builds underneath",
-              "you react bigger later",
-              "then you judge yourself for reacting"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What’s underneath the anger right now?",
-            copy: `Pick the one that fits most.`,
-            choices: ["hurt", "being disrespected", "being used", "not being heard", "being pushed too far"],
-            note: "Anger is valid. Knowing what it’s covering helps you use it instead of only exploding with it."
+A lot of people stay in anger because it feels stronger than the softer truth underneath it.`
           },
           {
             tag: "Body",
@@ -1507,44 +1365,22 @@ If you stay still while trying to “be rational,” the charge often just circl
               <li>Stomp in place for 20 seconds if your body wants movement.</li>
               <li>Shake out your hands, jaw, shoulders, and chest.</li>
               <li>Exhale hard through your mouth.</li>
-              <li>If safe, say out loud: “This crossed a line for me.”</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What did you talk yourself out of feeling before it turned into anger?`,
-            reflectionPlaceholder: "Name the earlier hurt."
-          },
-          {
-            tag: "Release",
-            title: "Let the unsaid version exist somewhere.",
-            copy: `A lot of anger starts soft and only gets explosive because it had nowhere honest to go earlier.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write the message you will never send.</li>
-              <li>Start with: “What I’m actually angry about is…”</li>
-              <li>Use aggressive marks or pressure on paper to match the intensity in your body.</li>
             </ul>`
           },
           {
             tag: "Truth",
             title: "Do not shame the anger or hand it the wheel.",
-            copy: `You do not need “I shouldn’t feel this.”
-That usually just turns anger into shame.`,
+            copy: `You do not need “I shouldn’t feel this.”`,
             mantra: `REAL TALK TO BORROW:
 “Something in me is not okay with this.
-I can respect that signal without letting it blow up my whole life.
-There is more under this, and I can hear that too.”`
+I can respect that signal without letting it blow up my whole life.”`
           },
           {
             tag: "Close",
             title: "Ask the harder question.",
             copy: `What boundary did I notice too late?
 What hurt did I talk myself out of?
-Where did I go against myself before I got here?
-
-That is usually where the truth lives.`
+Where did I go against myself before I got here?`
           }
         ]
       },
@@ -1563,10 +1399,8 @@ It is the ache of not feeling met.
 You show up.
 You care.
 You listen.
-You know there is more in you than what’s being touched.
-And still something about the room feels shallow, disconnected, or unable to hold what’s real.
-
-After enough of that, you start giving less of yourself before anyone even has the chance to miss you.`
+You know there is more in you than what is being touched.
+And still something about the room feels shallow, disconnected, or unable to hold what is real.`
           },
           {
             tag: "Why",
@@ -1576,36 +1410,12 @@ After enough of that, you start giving less of yourself before anyone even has t
 You downplay.
 You keep conversations fun.
 You stop going there.
-You tell yourself not to need more.
-
-But wanting depth does not make you dramatic.
-It means surface-level connection doesn’t actually feed you.`
-          },
-          {
-            tag: "Loop",
-            title: "The unseen loop reinforces itself.",
-            copy: `You brace for not being met, so you hide more, so people meet less, so you feel even more unseen.`,
-            diagram: [
-              "you want real connection",
-              "you brace for not being met",
-              "you hold parts of yourself back",
-              "the interaction stays shallow",
-              "you feel even more unseen"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What kind of unseen is this?",
-            copy: `Pick the one that hits closest.`,
-            choices: ["misunderstood", "overlooked", "not chosen", "emotionally alone", "tired of performing ease"],
-            note: "Different forms of feeling unseen land differently in the body."
+You tell yourself not to need more.`
           },
           {
             tag: "Body",
             title: "Notice where the ache sits in you.",
-            copy: `For a lot of people this lands in the chest, throat, or behind the eyes.
-
-Before you make a story out of it, just find where it lives physically.`,
+            copy: `For a lot of people this lands in the chest, throat, or behind the eyes.`,
             toolTitle: "Somatic contact",
             toolCopy: `<ul>
               <li>Put one hand on your chest and one hand over your throat or stomach.</li>
@@ -1615,40 +1425,18 @@ Before you make a story out of it, just find where it lives physically.`,
             </ul>`
           },
           {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What do you wish someone would notice about you without you having to over-explain it?`,
-            reflectionPlaceholder: "Write the thing you wish was obvious to someone who actually saw you."
-          },
-          {
-            tag: "Release",
-            title: "Let the version you usually hide have a voice.",
-            copy: `This is not about being dramatic.
-It’s about being honest.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “What I wish someone had noticed is…”</li>
-              <li>Write a letter from the version of you that is tired of pretending shallow connection is enough.</li>
-              <li>Draw two circles: “what I show” and “what I wish people saw.”</li>
-            </ul>`
-          },
-          {
             tag: "Truth",
-            title: "Use a line your body won’t reject.",
-            copy: `You do not need “I am deeply loved” if your system does not buy it.
-
-Go smaller.
-Go more honest.`,
+            title: "Use a line your body will not reject.",
+            copy: `You do not need “I am deeply loved” if your system does not buy it.`,
             mantra: `REAL TALK TO BORROW:
-“Just because I’ve felt unseen before doesn’t mean I don’t matter.
-It may just mean I’ve been in spaces that didn’t know how to meet me.”`
+“Just because I’ve felt unseen before does not mean I don’t matter.
+It may mean I’ve been in spaces that did not know how to meet me.”`
           },
           {
             tag: "Close",
             title: "You do not have to keep shrinking to survive shallow rooms.",
             copy: `You are allowed to want more depth than that.
-You are allowed to want the real thing.
-You are allowed to stop calling that “too much.”`
+You are allowed to want the real thing.`
           }
         ]
       },
@@ -1666,10 +1454,7 @@ You may still be answering people, showing up, getting through the day.
 
 But underneath that there is an ache.
 A weight.
-A kind of emotional gravity that makes everything feel slower, dimmer, less reachable.
-
-And because grief doesn’t always look dramatic, people underestimate it.
-Sometimes you do too.`
+A kind of emotional gravity that makes everything feel slower, dimmer, less reachable.`
           },
           {
             tag: "Why",
@@ -1678,37 +1463,7 @@ Sometimes you do too.`
 
 Some things are just sad.
 Some things are just gone.
-Some things leave an ache that doesn’t fit into ordinary conversation.
-
-And this world gets weirdly uncomfortable with that.
-It wants you functional, positive, grateful, moving forward.
-
-Grief does not care about timing that performs well.`
-          },
-          {
-            tag: "Loop",
-            title: "A lot of grief gets mislabeled.",
-            copy: `Stress.
-Burnout.
-Brain fog.
-Being “off.”
-
-Sometimes grief keeps getting renamed because naming it directly would make it too real.
-But it keeps showing up because it wants room, not just management.`,
-            diagram: [
-              "you try to keep functioning",
-              "the loss stays unprocessed",
-              "the body keeps carrying it",
-              "you call it something smaller",
-              "it keeps showing up anyway"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What kind of grief is this?",
-            copy: `Pick the one that feels closest.`,
-            choices: ["a person", "a relationship", "a version of me", "time I can’t get back", "a future I thought I’d have"],
-            note: "All grief counts. It does not have to come from death to be real."
+Some things leave an ache that does not fit into ordinary conversation.`
           },
           {
             tag: "Body",
@@ -1724,38 +1479,18 @@ Just notice how it lands.`,
             </ul>`
           },
           {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What are you still missing that other people seem to think you should be over by now?`,
-            reflectionPlaceholder: "Write what still hurts without defending it."
-          },
-          {
-            tag: "Release",
-            title: "Make room for what the world doesn’t know how to hold.",
-            copy: `Grief often needs a witness, even if that witness is only the page at first.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “What I miss is…” and don’t stop too soon.</li>
-              <li>Create a list called: “What changed when this happened.”</li>
-              <li>Make a playlist for the exact chapter you are grieving.</li>
-              <li>Draw or collage what was lost, what remains, and what is unresolved.</li>
-            </ul>`
-          },
-          {
             tag: "Truth",
             title: "Use a line that honors the weight.",
             copy: `No fake gratitude.
 No forced silver lining.`,
             mantra: `REAL TALK TO BORROW:
 “This still hurts because it mattered.
-I do not need to rush my way out of that.
-I can carry this honestly without letting it erase me.”`
+I do not need to rush my way out of that.”`
           },
           {
             tag: "Close",
             title: "You are allowed to miss what mattered and still keep living.",
-            copy: `Those things can exist together.
-A lot of healing starts when you stop pretending they can’t.`
+            copy: `Those things can exist together.`
           }
         ]
       },
@@ -1775,39 +1510,14 @@ A phrase.
 A delay.
 A body sensation.
 
-And suddenly the reaction is bigger than the moment seems to deserve.
-That can make you feel dramatic, embarrassed, confused, or ashamed.
-
-But what’s happening is often simpler than that:
-something current touched something older than your conscious mind had fully named in that second.`
+And suddenly the reaction is bigger than the moment seems to deserve.`
           },
           {
             tag: "Why",
             title: "Your body often remembers before your mind does.",
             copy: `That is why you can feel activated before you even have words for why.
 
-A trigger does not automatically mean the current moment is identical to the old one.
-It often means something about the present feels familiar enough to wake up a survival response fast.`
-          },
-          {
-            tag: "Loop",
-            title: "The reaction gets worse when you start judging the reaction itself.",
-            copy: `Now you are triggered and ashamed of being triggered at the same time.
-That piles fear on top of fear.`,
-            diagram: [
-              "something in the present feels familiar",
-              "your body reacts fast",
-              "your mind tries to catch up",
-              "you feel ashamed about the intensity",
-              "the reaction gets bigger because now you’re fighting it too"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "How is the activation showing up most clearly?",
-            copy: `Pick the one that fits closest.`,
-            choices: ["panic", "rage", "shutdown", "urge to run", "body tension / nausea / chest pain"],
-            note: "Different bodies express old danger in different ways."
+A trigger often means something about the present feels familiar enough to wake up a survival response fast.`
           },
           {
             tag: "Body",
@@ -1821,25 +1531,6 @@ So does reminding your nervous system where and when you are.`,
               <li>Press both feet hard into the floor for 10 seconds. Release. Repeat.</li>
               <li>Touch a solid surface and describe it: cold, smooth, rough, warm.</li>
               <li>Say today’s date, your age, and where you are.</li>
-              <li>Use a blanket or something weighted if that helps.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What about this feels familiar to your body — not just your mind?`,
-            reflectionPlaceholder: "Describe the familiarity, not the whole story."
-          },
-          {
-            tag: "Release",
-            title: "Name the old echo underneath the current moment.",
-            copy: `Not the whole explanation.
-Just the piece your body keeps recognizing.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “This reminds my body of…”</li>
-              <li>List the first 3 sensations that showed up.</li>
-              <li>Draw where the trigger landed in your body and label it with sensations, not explanations.</li>
             </ul>`
           },
           {
@@ -1855,639 +1546,7 @@ But I am here now, and I can help myself come back into this moment.”`
           {
             tag: "Close",
             title: "Needing time to come back down is not weakness.",
-            copy: `It is what care can look like after activation.
-Take the time.`
-          }
-        ]
-      },
-
-      peoplePleasing: {
-        title: "People-pleasing",
-        desc: "Fawning, over-explaining, self-abandoning.",
-        colors: ["#6f7d73","#8a6e57"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where you can feel yourself leaving yourself in real time just to keep things smooth.",
-            copy: `You explain more than you want to.
-You soften what you actually mean.
-You say yes before you even know how you feel.
-You make other people comfortable while your own body is quietly tightening underneath it all.
-
-Then later you feel drained, weirdly resentful, or frustrated that you did it again.
-
-That frustration makes sense.
-Because a part of you knows you abandoned yourself before anyone else even had the chance to.`
-          },
-          {
-            tag: "Why",
-            title: "This usually comes from learning that honesty felt riskier than adaptation.",
-            copy: `A lot of people-pleasing doesn’t come from being too nice.
-It comes from learning early that conflict cost too much, displeasing people felt dangerous, or staying likable felt safer than staying honest.
-
-So now you read the room before you read yourself.
-You manage tone.
-You over-explain.
-You smooth things over automatically.
-
-That’s not random.
-That’s a survival pattern that got really good at its job.`
-          },
-          {
-            tag: "Loop",
-            title: "People-pleasing creates short-term peace and long-term self-betrayal.",
-            copy: `It works fast, which is why it becomes automatic.
-But the cost shows up later.`,
-            diagram: [
-              "you sense possible tension",
-              "you move to smooth it over",
-              "you say yes or stay quiet",
-              "you leave your real feeling behind",
-              "resentment builds later"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What does this pattern look like most for you?",
-            copy: `Pick the closest one.`,
-            choices: ["saying yes too fast", "over-explaining", "softening my real opinion", "feeling responsible for everyone’s emotions", "avoiding conflict at any cost"],
-            note: "The form matters because that’s where your next interruption starts."
-          },
-          {
-            tag: "Body",
-            title: "Notice what your body does before you override yourself.",
-            copy: `There is usually a signal before the people-pleasing move.
-
-A throat clench.
-A chest drop.
-A stomach sink.
-A quick “I don’t want to” that gets silenced fast.`,
-            toolTitle: "Somatic boundary check",
-            toolCopy: `<ul>
-              <li>Think about the thing you’re about to agree to.</li>
-              <li>Notice your stomach, throat, chest, and shoulders.</li>
-              <li>If your body contracts, pause before answering.</li>
-              <li>Put one hand on your chest and say: “Give me a second.”</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What did you actually want to say before you edited it?`,
-            reflectionPlaceholder: "Write the uncensored version."
-          },
-          {
-            tag: "Release",
-            title: "Let the unsaid no have somewhere to go.",
-            copy: `A lot of people-pleasing loosens when the censored truth finally has a place to exist.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “What I actually wanted to say was…”</li>
-              <li>Make a list of where you perform ease instead of honesty.</li>
-              <li>Write 5 boundary sentences you wish felt natural.</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Stay on your own side.",
-            copy: `No fake empowerment.
-No pretending boundaries suddenly feel easy.`,
-            mantra: `REAL TALK TO BORROW:
-“I am allowed to pause before I agree.
-Someone else’s comfort does not automatically matter more than my truth.
-I can be kind without disappearing.”`
-          },
-          {
-            tag: "Close",
-            title: "Start with one honest pause.",
-            copy: `Not a dramatic confrontation.
-Not a whole personality transplant.
-
-Just:
-“Let me think about that.”
-“I can’t do that tonight.”
-“That doesn’t work for me.”
-
-That is enough to start changing the pattern.`
-          }
-        ]
-      },
-
-      control: {
-        title: "Control / perfectionism",
-        desc: "Clenched, hyper-vigilant, “I have to get this right.”",
-        colors: ["#8a6e57","#bca9cf"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where holding it together starts to feel like the only way to stay safe.",
-            copy: `You plan more.
-You check more.
-You correct more.
-You rehearse more.
-You over-carry because letting things stay loose makes your body feel weirdly exposed.
-
-And because this pattern often looks capable, it gets praised.
-From the outside it can look disciplined, sharp, high-functioning.
-
-From the inside it can feel exhausting, rigid, and impossible to ever fully finish.`
-          },
-          {
-            tag: "Why",
-            title: "Control often looks cleaner than fear, but it’s still fear.",
-            copy: `A lot of perfectionism is really a nervous system strategy.
-
-If I do this right enough, prepare enough, stay ahead enough, maybe nothing will fall apart.
-Maybe no one can judge me first.
-Maybe I can get out in front of the pain.
-
-That doesn’t mean you’re “just controlling.”
-It often means your body does not trust uncertainty yet.`
-          },
-          {
-            tag: "Loop",
-            title: "Perfectionism promises relief it cannot actually deliver.",
-            copy: `It gives temporary relief, then hands you more pressure.`,
-            diagram: [
-              "uncertainty shows up",
-              "you tighten your grip",
-              "you get temporary relief",
-              "something still stays uncertain",
-              "you double down on control"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What are you trying to control most right now?",
-            copy: `Pick the one that hits closest.`,
-            choices: ["how I’m seen", "whether I fail", "other people’s reactions", "my future", "every detail so nothing slips"],
-            note: "The target changes. The need for safety underneath it is usually more consistent."
-          },
-          {
-            tag: "Body",
-            title: "Your body shows control before your mind admits it.",
-            copy: `Jaw.
-Forehead.
-Chest.
-Stomach.
-Hands.
-Shoulders.
-
-Control often feels like holding physically.`,
-            toolTitle: "Somatic release for gripping",
-            toolCopy: `<ul>
-              <li>Unclench your jaw and spread your fingers wide.</li>
-              <li>Inhale normally, exhale with a sigh.</li>
-              <li>Drop your shoulders and soften your belly on purpose.</li>
-              <li>Choose one thing to leave imperfect for the next hour.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `If you stopped trying to control this so hard, what are you afraid would happen?`,
-            reflectionPlaceholder: "Write the fear underneath the grip."
-          },
-          {
-            tag: "Release",
-            title: "Write the fear underneath the standard.",
-            copy: `A lot of perfectionism gets clearer when you stop calling it standards and ask what you are actually scared of.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “If I don’t control this, I’m scared that…”</li>
-              <li>Make 2 columns: “what I’m trying to perfect” / “what fear is underneath it.”</li>
-              <li>Draw what your life feels like when everything is clenched versus when one thing is allowed to be loose.</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Use something more honest than surrender language.",
-            copy: `You do not need “I surrender to the universe.”`,
-            mantra: `REAL TALK TO BORROW:
-“Control is the strategy I reach for when I don’t feel safe.
-I can loosen one grip without everything falling apart.”`
-          },
-          {
-            tag: "Close",
-            title: "Practice tolerating one loose end.",
-            copy: `Reply later.
-Leave one typo.
-Walk away before it feels finished.
-Let someone else do it differently.
-
-You are not lowering your worth.
-You are widening your tolerance for reality.`
-          }
-        ]
-      },
-
-      betrayal: {
-        title: "Betrayal / heartbreak",
-        desc: "Knife-in-the-chest ache, replaying, attachment wounds.",
-        colors: ["#8a6e57","#6f7d73"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where your body keeps trying to understand how something that felt real could still cut this deep.",
-            copy: `Betrayal doesn’t just hurt emotionally.
-It can feel like a knife in the chest.
-A body drop.
-A wave of disbelief.
-A replay loop that will not shut up.
-
-You may keep rereading things in your head.
-Replaying the moment.
-Looking for the sign you missed.
-Questioning whether you were naive, blind, too hopeful, too trusting, too much, not enough.
-
-That is what betrayal does.
-It doesn’t just hurt.
-It destabilizes.`
-          },
-          {
-            tag: "Why",
-            title: "Your mind keeps replaying because it wants the wound to make sense.",
-            copy: `The brain often thinks if it replays hard enough, it can find the missing answer and finally settle.
-
-But a lot of heartbreak loops are not really about information.
-They are about trying to metabolize a reality your system did not want to accept.
-
-That’s why knowing the facts doesn’t always stop the pain.`
-          },
-          {
-            tag: "Loop",
-            title: "The replay keeps reopening the same cut.",
-            copy: `You circle the moment because the moment never got fully digested.`,
-            diagram: [
-              "you replay the moment",
-              "you search for the missed sign",
-              "you blame yourself or them or both",
-              "the body stays activated",
-              "you replay it again"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What hurts most underneath this?",
-            copy: `Pick the closest one.`,
-            choices: ["being lied to", "being abandoned", "feeling replaceable", "losing trust in myself", "still wanting them despite everything"],
-            note: "This is not about making the pain neat. It’s about making it honest."
-          },
-          {
-            tag: "Body",
-            title: "Work with the body pain directly.",
-            copy: `Heartbreak often lands in the chest, stomach, throat, or behind the ribs.`,
-            toolTitle: "Somatic support for heartbreak",
-            toolCopy: `<ul>
-              <li>Put one hand on your chest and one below your ribs.</li>
-              <li>Exhale longer than you inhale 8 times.</li>
-              <li>Lean your back into something solid and let it support you.</li>
-              <li>If tears come, let them. If they don’t, that’s okay too.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What question do you keep asking that still doesn’t actually give you peace?`,
-            reflectionPlaceholder: "Write the question you keep circling."
-          },
-          {
-            tag: "Release",
-            title: "Give the unsent conversation somewhere to go.",
-            copy: `A lot of heartbreak softens when the words stop living only in your body.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write the full unsent letter.</li>
-              <li>Finish: “What hurt most was…” and “What I still don’t understand is…”</li>
-              <li>Make 2 lists: “what I lost” and “what I learned was never safe to rely on.”</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Do not force a lesson too fast.",
-            copy: `You do not need “everything happens for a reason.”`,
-            mantra: `REAL TALK TO BORROW:
-“This cut deep because I cared deeply.
-I do not need to minimize that.
-What happened says something about the wound, not my worth.”`
-          },
-          {
-            tag: "Close",
-            title: "You are allowed to stop interrogating yourself.",
-            copy: `Some betrayals reveal more about what someone was capable of than what you should have predicted.
-
-You can stop making yourself the crime scene.`
-          }
-        ]
-      },
-
-      insecurity: {
-        title: "Body shame / insecurity",
-        desc: "Surface-level thoughts tied to deeper core beliefs.",
-        colors: ["#bca9cf","#8a6e57"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where your mind acts like your appearance is the whole issue, even though something deeper is underneath it.",
-            copy: `It feels like it’s about your face.
-Your body.
-How you looked in that moment.
-How someone looked at you.
-What they did or didn’t choose.
-
-But underneath that is often a more brutal belief:
-something about me is not enough.
-
-A lot of people know logically the thought is distorted.
-That doesn’t stop it from landing like truth.
-That’s what makes it so exhausting.`
-          },
-          {
-            tag: "Why",
-            title: "Your brain latched onto appearance because it feels concrete.",
-            copy: `When worth feels shaky, the mind often zooms in on something visible.
-
-Looks.
-Weight.
-Skin.
-Aging.
-How you came across.
-How someone responded.
-
-Not because you’re shallow.
-Because it’s easier to obsess over what feels concrete than face the older, deeper ache underneath it.`
-          },
-          {
-            tag: "Loop",
-            title: "The insecurity loop turns fear into evidence.",
-            copy: `A trigger becomes a belief, the belief becomes a lens, the lens finds more reasons to keep believing itself.`,
-            diagram: [
-              "old self-doubt gets triggered",
-              "your mind zooms in on appearance",
-              "you treat the thought like fact",
-              "you compare, obsess, fixate, or hide",
-              "the belief feels even more real"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What’s the deeper fear under the insecurity?",
-            copy: `Pick the one that lands hardest.`,
-            choices: ["I’m not attractive enough", "I’m not worth choosing", "people will see what’s wrong with me", "I’m only okay if I look a certain way", "I’ll never feel enough"],
-            note: "The surface target shifts. The core wound is usually more stable."
-          },
-          {
-            tag: "Body",
-            title: "Check where the shame lands physically.",
-            copy: `Shame is physical before it becomes a full spiral.
-
-Chest.
-Face.
-Jaw.
-Stomach.
-Throat.
-Shoulders.`,
-            toolTitle: "Somatic interruption",
-            toolCopy: `<ul>
-              <li>Look in the mirror for 10 seconds without adjusting anything.</li>
-              <li>Notice where your body contracts first.</li>
-              <li>Put one hand there and press lightly.</li>
-              <li>Exhale through your mouth like you are fogging a mirror.</li>
-              <li>Unclench your face on purpose.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What are you actually afraid people see when they look at you?`,
-            reflectionPlaceholder: "Write the raw version, not the polished version."
-          },
-          {
-            tag: "Release",
-            title: "Expose the deeper belief instead of only fighting the surface thought.",
-            copy: `This is usually where the real work is.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “What I’m actually afraid people see when they look at me is…”</li>
-              <li>Then write: “If that were true, I would believe…”</li>
-              <li>Draw yourself as a silhouette and write the beliefs you carry around it.</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Do not force “I’m beautiful” if your body rejects it.",
-            copy: `You do not need to jump from self-hate to self-love in one sentence.`,
-            mantra: `REAL TALK TO BORROW:
-“I don’t fully believe the best about myself yet.
-But I also know the voice tearing me down is not neutral or fair.
-That thought is familiar, not factual.”`
-          },
-          {
-            tag: "Close",
-            title: "The goal is not instant self-love.",
-            copy: `The goal is less self-abandonment.
-Less treating insecurity like evidence.
-Less giving the loudest cruel thought the final vote.
-
-That is real progress.`
-          }
-        ]
-      },
-
-      identity: {
-        title: "Lost self / identity confusion",
-        desc: "Outgrowing old versions of yourself and not knowing who you are now.",
-        colors: ["#6f7d73","#bca9cf"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where the old version of you doesn’t fully fit anymore, but the new one isn’t fully solid yet.",
-            copy: `That can feel empty.
-Unsteady.
-Confusing.
-Almost like grief.
-
-You may know you can’t go back to who you were before.
-But you may not fully know who you are now, what you actually want, or how to move without the old patterns that used to organize your life.
-
-That in-between can feel terrifying because it doesn’t come with clean labels.`
-          },
-          {
-            tag: "Why",
-            title: "Not knowing who you are right now does not mean you are nothing.",
-            copy: `Sometimes identity confusion shows up because something real is changing.
-
-Old coping patterns stop fitting.
-Old roles stop making sense.
-Old relationships stop confirming the same version of you.
-Old dreams lose their charge.
-
-That doesn’t mean you’ve lost yourself forever.
-It can mean a false or outdated identity is loosening.`
-          },
-          {
-            tag: "Loop",
-            title: "The in-between gets scarier when you try to force certainty too fast.",
-            copy: `Trying to label everything immediately can become another way of panicking about transition.`,
-            diagram: [
-              "old identity stops fitting",
-              "you lose familiar coping patterns",
-              "the new version is not solid yet",
-              "you feel untethered",
-              "you start questioning everything"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What part of identity feels most unstable right now?",
-            copy: `Pick the one that hits closest.`,
-            choices: ["what I want", "how I see myself", "what kind of life fits me", "who I am without old roles", "who I’m becoming"],
-            note: "The confusion gets more workable when you narrow what part is actually moving."
-          },
-          {
-            tag: "Body",
-            title: "Ground before you define.",
-            copy: `You do not need to solve your whole identity tonight.
-Start with safety before clarity.`,
-            toolTitle: "Somatic anchor",
-            toolCopy: `<ul>
-              <li>Stand with both feet planted and feel your weight evenly.</li>
-              <li>Put one hand on your chest and say your name out loud.</li>
-              <li>Name 3 things that are true about your life right now.</li>
-              <li>Name 3 things you know you no longer want.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What version of you are you already outgrowing, even if part of you still tries to go back?`,
-            reflectionPlaceholder: "Write who or what no longer fits."
-          },
-          {
-            tag: "Release",
-            title: "Let the in-between speak without forcing clarity too fast.",
-            copy: `You do not need your whole identity figured out tonight.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “I am no longer…” and keep going.</li>
-              <li>Then write: “I might be becoming someone who…”</li>
-              <li>Create a collage or list of what feels dead, what feels alive, and what feels unknown.</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "You can be in transition without being lost forever.",
-            copy: `The in-between is not proof you are broken.
-It can be proof you are changing.`,
-            mantra: `REAL TALK TO BORROW:
-“I am not behind because I am in transition.
-Not knowing exactly who I am right now does not mean I am nothing.
-It means something real is shifting.”`
-          },
-          {
-            tag: "Close",
-            title: "You do not need to rush the becoming.",
-            copy: `Sometimes clarity comes after you stop trying to force a neat identity out of a real transformation.`
-          }
-        ]
-      },
-
-      rebuild: {
-        title: "Rebuilding / becoming",
-        desc: "Trying to live differently without going back to old survival patterns.",
-        colors: ["#8a6e57","#6f7d73"],
-        screens: [
-          {
-            tag: "Mirror",
-            title: "This is the part where the crisis might not be screaming anymore, but the work is still real.",
-            copy: `A lot of people know how to survive.
-Far fewer know how to rebuild.
-
-Because rebuilding is quieter.
-There may not be one dramatic moment to point to.
-It’s the day-to-day work of trying to live differently without sliding back into the same patterns, the same attachments, the same internal rules, the same ways of abandoning yourself.
-
-That work is real.
-And it still takes courage.`
-          },
-          {
-            tag: "Why",
-            title: "Old patterns can still pull even when you know better.",
-            copy: `That does not mean you’ve failed.
-It means patterns have momentum.
-
-A new life often feels unfamiliar before it feels safe.
-So your system may still reach for what is known, even when you know it no longer aligns.`
-          },
-          {
-            tag: "Loop",
-            title: "Rebuilding can get interrupted by shame about not being further along.",
-            copy: `That shame can pull you right back toward the thing you’re trying not to build your life around anymore.`,
-            diagram: [
-              "you notice an old pattern",
-              "you feel frustrated it is still there",
-              "you judge yourself for not being further along",
-              "shame pulls you toward the old coping move",
-              "you start over again"
-            ]
-          },
-          {
-            tag: "Check-in",
-            title: "What are you most trying to build right now?",
-            copy: `Pick the one that feels most true.`,
-            choices: ["self-trust", "consistency", "healthier choices", "a calmer life", "a more honest version of me"],
-            note: "Naming what you are building helps you stop measuring yourself only by what you’re leaving behind."
-          },
-          {
-            tag: "Body",
-            title: "Practice safety inside the new version of you.",
-            copy: `Rebuilding is not only mental. Your body has to learn it too.`,
-            toolTitle: "Somatic integration",
-            toolCopy: `<ul>
-              <li>Stand tall and take up slightly more space than usual.</li>
-              <li>Breathe into your lower ribs and let your shoulders stay down.</li>
-              <li>Say out loud one thing you are doing differently now.</li>
-              <li>Notice what part of your body resists that truth.</li>
-            </ul>`
-          },
-          {
-            tag: "Pause",
-            title: "Pause.",
-            copy: `What old pattern still tries to convince you it’s safer than the life you actually want?`,
-            reflectionPlaceholder: "Write the pull you still feel."
-          },
-          {
-            tag: "Release",
-            title: "Name what you are no longer willing to keep repeating.",
-            copy: `Rebuilding gets stronger when you stop speaking in vague terms and get specific.`,
-            promptTitle: "Expressive release",
-            promptCopy: `<ul>
-              <li>Write: “The version of me I am outgrowing still wants to…”</li>
-              <li>Then write: “The version of me I am building knows…”</li>
-              <li>Make a list called: “What I refuse to keep confusing with love, safety, or self-worth.”</li>
-            </ul>`
-          },
-          {
-            tag: "Truth",
-            title: "Support process, not perfection.",
-            copy: `You do not need to be fully healed to live differently.`,
-            mantra: `REAL TALK TO BORROW:
-“I am allowed to build this slowly.
-The fact that I still have old impulses does not erase the new choices I’m making.
-My story is my fuel for my purpose.”`
-          },
-          {
-            tag: "Close",
-            title: "This is what becoming can actually look like.",
-            copy: `Not polished.
-Not linear.
-Not perfectly regulated all the time.
-
-Just more honest.
-More aware.
-More willing to stay with yourself.
-
-That is real growth.`
+            copy: `It is what care can look like after activation.`
           }
         ]
       }
@@ -2495,7 +1554,6 @@ That is real growth.`
 
     const homeView = document.getElementById("homeView");
     const journeyView = document.getElementById("journeyView");
-    const journalView = document.getElementById("journalView");
     const moduleList = document.getElementById("moduleList");
     const screenContent = document.getElementById("screenContent");
     const stepBar = document.getElementById("stepBar");
@@ -2525,13 +1583,27 @@ That is real growth.`
     }
 
     function getScreensForMode(screens){
-      if(currentMode === "quick"){
-        return [screens[0], screens[3], screens[5], screens[8]].filter(Boolean);
-      }
-      if(currentMode === "deep"){
-        return [screens[0], screens[1], screens[2], screens[4], screens[6], screens[8]].filter(Boolean);
-      }
+      if(currentMode === "quick") return [screens[0], screens[2], screens[4], screens[screens.length - 1]].filter(Boolean);
+      if(currentMode === "deep") return [screens[0], screens[1], screens[2], screens[4], screens[6], screens[screens.length - 1]].filter(Boolean);
       return screens;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function startModule(key){
+      currentModuleKey = key;
+      currentScreens = getScreensForMode(modules[key].screens);
+      currentScreenIndex = 0;
+      buildModuleList();
+      renderScreen();
+      showView("journey");
     }
 
     function buildModuleList(){
@@ -2554,7 +1626,7 @@ That is real growth.`
           <div class="choice-grid">
             ${choices.map(choice => `<button class="choice-chip" type="button">${escapeHtml(choice)}</button>`).join("")}
           </div>
-          <div class="mini-note">Tap the one that hits hardest. You do not need the perfect answer.</div>
+          <div class="mini-note">You do not need the perfect answer. Just pick the one that hits hardest.</div>
         </div>
       `;
     }
@@ -2576,30 +1648,21 @@ That is real growth.`
         stepBar.appendChild(el);
       });
 
-      const visualStyle = `background:linear-gradient(135deg, ${mod.colors[0]}, ${mod.colors[1]});`;
-
+      const visualStyle = `background: linear-gradient(135deg, ${mod.colors[0]}, ${mod.colors[1]});`;
       let html = `
-        <div class="screen-tag">${escapeHtml(screen.tag)}</div>
+        <div class="screen-tag">${screen.tag}</div>
         <div class="module-visual" style="${visualStyle}"></div>
         <h2 class="screen-title">${escapeHtml(screen.title)}</h2>
         <div class="screen-copy">${escapeHtml(screen.copy).replace(/\n/g,"<br>")}</div>
       `;
 
-      if(screen.callout){
-        html += `<div class="callout">${escapeHtml(screen.callout).replace(/\n/g,"<br>")}</div>`;
-      }
-
       if(screen.diagram){
-        html += `<div class="diagram-box"><h4>What the loop usually looks like</h4><div class="diagram-flow">`;
-        screen.diagram.forEach(item => {
-          html += `<div class="diagram-step">${escapeHtml(item)}</div>`;
-        });
+        html += `<div class="diagram-box"><h4>What this loop often looks like</h4><div class="diagram-flow">`;
+        screen.diagram.forEach(item => html += `<div class="diagram-step">${escapeHtml(item)}</div>`);
         html += `</div></div>`;
       }
 
-      if(screen.choices){
-        html += renderChoices(screen.choices);
-      }
+      if(screen.choices) html += renderChoices(screen.choices);
 
       if(screen.toolCopy){
         html += `<div class="tool-box"><h4>${escapeHtml(screen.toolTitle || "Somatic tool")}</h4>${screen.toolCopy}</div>`;
@@ -2609,17 +1672,22 @@ That is real growth.`
         html += `
           <div class="pause-box">
             <strong>Pause</strong>
-            <textarea class="inline-reflection" id="inlineReflection" placeholder="${escapeHtml(screen.reflectionPlaceholder)}"></textarea>
+            <div class="screen-copy" style="font-size:.96rem;max-width:none;">This is the moment to stop performing clarity and say the thing more honestly.</div>
+            <textarea class="inline-reflection" placeholder="${escapeHtml(screen.reflectionPlaceholder)}"></textarea>
           </div>
         `;
       }
 
       if(screen.promptCopy){
-        html += `<div class="prompt-box"><h4>${escapeHtml(screen.promptTitle || "Expressive prompt")}</h4>${screen.promptCopy}</div>`;
+        html += `<div class="prompt-box"><h4>${escapeHtml(screen.promptTitle || "Expressive release")}</h4>${screen.promptCopy}</div>`;
       }
 
       if(screen.mantra){
         html += `<div class="mantra"><strong>Real talk to borrow</strong>${escapeHtml(screen.mantra).replace(/\n/g,"<br>")}</div>`;
+      }
+
+      if(screen.callout){
+        html += `<div class="callout">${escapeHtml(screen.callout).replace(/\n/g,"<br>")}</div>`;
       }
 
       screenContent.innerHTML = html;
@@ -2635,13 +1703,23 @@ That is real growth.`
       nextBtn.textContent = currentScreenIndex === currentScreens.length - 1 ? "Finish" : "Continue";
     }
 
-    function startModule(key){
-      currentModuleKey = key;
-      currentScreens = getScreensForMode(modules[key].screens);
-      currentScreenIndex = 0;
-      buildModuleList();
-      renderScreen();
-      showView("journey");
+    function saveReflection(){
+      const title = journalTitle.value.trim() || "Untitled reflection";
+      const body = journalInput.value.trim();
+      if(!body) return;
+
+      const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      items.unshift({
+        id: Date.now(),
+        title,
+        body,
+        module: currentModuleKey ? modules[currentModuleKey].title : "General",
+        createdAt: new Date().toLocaleString()
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      journalTitle.value = "";
+      journalInput.value = "";
+      renderSaved();
     }
 
     function renderSaved(){
@@ -2658,9 +1736,9 @@ That is real growth.`
       }
 
       items.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "saved-item";
-        div.innerHTML = `
+        const wrap = document.createElement("div");
+        wrap.className = "saved-item";
+        wrap.innerHTML = `
           <div class="saved-meta">${escapeHtml(item.createdAt)} · ${escapeHtml(item.module)}</div>
           <div class="saved-title">${escapeHtml(item.title)}</div>
           <div class="saved-body">${escapeHtml(item.body).replace(/\n/g,"<br>")}</div>
@@ -2669,7 +1747,7 @@ That is real growth.`
             <button type="button" data-delete="${item.id}">Delete</button>
           </div>
         `;
-        savedList.appendChild(div);
+        savedList.appendChild(wrap);
       });
 
       savedList.querySelectorAll("[data-copy]").forEach(btn => {
@@ -2695,35 +1773,6 @@ That is real growth.`
       });
     }
 
-    function saveReflection(){
-      const title = journalTitle.value.trim() || "Untitled reflection";
-      const body = journalInput.value.trim();
-      if(!body) return;
-
-      const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      items.unshift({
-        id: Date.now(),
-        title,
-        body,
-        module: currentModuleKey ? modules[currentModuleKey].title : "General",
-        createdAt: new Date().toLocaleString()
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-      localStorage.removeItem(DRAFT_KEY);
-      journalTitle.value = "";
-      journalInput.value = "";
-      renderSaved();
-    }
-
-    function escapeHtml(str){
-      return String(str)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-    }
-
     document.querySelectorAll(".mode-btn").forEach(btn => {
       btn.addEventListener("click", () => setMode(btn.dataset.mode));
     });
@@ -2732,15 +1781,14 @@ That is real growth.`
       btn.addEventListener("click", () => startModule(btn.dataset.module));
     });
 
-    document.querySelectorAll(".wheel-label[data-module]").forEach(label => {
-      label.addEventListener("click", () => startModule(label.dataset.module));
+    document.querySelectorAll(".feel-tag").forEach(btn => {
+      btn.addEventListener("click", () => startModule(btn.dataset.module));
     });
 
     document.getElementById("goHomeTop").addEventListener("click", () => showView("home"));
-
     document.getElementById("goJournalTop").addEventListener("click", () => {
       showView("journey");
-      journalView.scrollIntoView({behavior:"smooth", block:"start"});
+      document.getElementById("journalView").scrollIntoView({behavior:"smooth", block:"start"});
     });
 
     backBtn.addEventListener("click", () => {
@@ -2759,13 +1807,9 @@ That is real growth.`
         renderScreen();
         window.scrollTo({top:0, behavior:"smooth"});
       } else {
-        const mod = modules[currentModuleKey];
-        journalTitle.value = mod.title;
-        if(!journalInput.value.trim()){
-          journalInput.value = `What hit hardest for me:\n\nWhat I’m still not saying out loud:\n\nWhat I want to remember from this:\n`;
-        }
+        journalTitle.value = currentModuleKey ? modules[currentModuleKey].title : "";
         journalInput.focus();
-        journalView.scrollIntoView({behavior:"smooth", block:"start"});
+        document.getElementById("journalView").scrollIntoView({behavior:"smooth", block:"start"});
       }
     });
 
@@ -2774,47 +1818,9 @@ That is real growth.`
     document.querySelectorAll(".starter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const starter = btn.dataset.starter;
-        if(journalInput.value.trim()){
-          journalInput.value += `\n\n${starter}\n`;
-        } else {
-          journalInput.value = `${starter}\n`;
-        }
-        localStorage.setItem(DRAFT_KEY, journalInput.value);
+        journalInput.value = journalInput.value.trim() ? `${journalInput.value}\n\n${starter}\n` : `${starter}\n`;
         journalInput.focus();
       });
-    });
-
-    journalInput.addEventListener("input", () => {
-      localStorage.setItem(DRAFT_KEY, journalInput.value);
-    });
-
-    const existingDraft = localStorage.getItem(DRAFT_KEY);
-    if(existingDraft){
-      journalInput.value = existingDraft;
-    }
-
-    document.getElementById("speakBtn").addEventListener("click", () => {
-      if(!("speechSynthesis" in window)) return;
-      window.speechSynthesis.cancel();
-
-      let text = "Air It Out. The stuff people do not usually say out loud.";
-      if(currentModuleKey && currentScreens.length){
-        const s = currentScreens[currentScreenIndex];
-        text = `${s.title}. ${s.copy}`;
-      }
-
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.rate = 0.94;
-      utter.pitch = 0.96;
-      utter.volume = 1;
-
-      const voices = window.speechSynthesis.getVoices();
-      if(voices && voices.length){
-        const preferred = voices.find(v => /female|samantha|ava|victoria|karen/i.test(v.name)) || voices[0];
-        utter.voice = preferred;
-      }
-
-      speechSynthesis.speak(utter);
     });
 
     renderSaved();
