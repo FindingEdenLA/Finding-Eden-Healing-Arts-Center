@@ -110,49 +110,6 @@
       setTimeout(applyFixes, 3000);
     })();
   </script>
-  <script>
-(function () {
 
-  const IMAGE_MAP = {
-    "welcome-space.jpeg": "image2.jpeg",
-    "community-walk.jpeg": "image1.jpeg",
-    "group-circle.jpeg": "image3.jpeg",
-    "creative-studio.jpeg": "image8.jpeg"
-  };
-
-  function fixImages() {
-    document.querySelectorAll("img").forEach(img => {
-      let src = img.getAttribute("src");
-      if (!src) return;
-
-      const fileName = src.split("/").pop();
-
-      if (IMAGE_MAP[fileName]) {
-        img.src = "/images/" + IMAGE_MAP[fileName];
-      }
-    });
-  }
-
-  function fixBackgrounds() {
-    document.querySelectorAll("*").forEach(el => {
-      const bg = window.getComputedStyle(el).backgroundImage;
-
-      if (bg && bg.includes("welcome-space.jpeg")) {
-        el.style.backgroundImage = "url('/images/image2.jpeg')";
-      }
-    });
-  }
-
-  function applyFixes() {
-    fixImages();
-    fixBackgrounds();
-  }
-
-  setTimeout(applyFixes, 500);
-  setTimeout(applyFixes, 1500);
-  setTimeout(applyFixes, 3000);
-
-})();
-</script>
 </body>
 </html>
