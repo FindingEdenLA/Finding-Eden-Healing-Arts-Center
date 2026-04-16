@@ -74,13 +74,13 @@ function fixImages() {
     let fileName = src.split("/").pop();
 
     if (IMAGE_MAP[fileName]) {
-      img.src = "/images/" + IMAGE_MAP[fileName];
+      img.src = "./images/" + IMAGE_MAP[fileName];
       return;
     }
 
     // fallback safety
     if (src.includes(".jpeg") || src.includes(".jpg")) {
-      img.src = "/images/image2.jpeg";
+      img.src = "./images/image2.jpeg";
     }
   });
 }
@@ -89,7 +89,7 @@ function fixBackgrounds() {
     const bg = window.getComputedStyle(el).backgroundImage;
 
     if (bg && bg.includes(".jpeg")) {
-      el.style.backgroundImage = "url('/images/image2.jpeg')";
+      el.style.backgroundImage = "url('./images/image2.jpeg')";
     }
   });
 }
