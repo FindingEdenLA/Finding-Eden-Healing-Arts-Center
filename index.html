@@ -48,6 +48,51 @@ img[src*="founder.jpeg"] {
         "/online-journal": "/online-journal",
         "/air-it-out": "/air-it-out",
       };
+const IMAGE_MAP = {
+  "welcome-space.jpeg": "image2.jpeg",
+  "community-walk.jpeg": "image1.jpeg",
+  "group-circle.jpeg": "image3.jpeg",
+  "creative-studio.jpeg": "image8.jpeg",
+
+  "hero-space.jpeg": "image2.jpeg",
+  "healing-space.jpeg": "image2.jpeg",
+
+  "somatic-movement.jpeg": "image2.jpeg",
+  "creative-healing.jpeg": "image8.jpeg",
+  "nervous-system.jpeg": "image6.jpeg",
+
+  "founder.jpeg": "image9.jpeg",
+
+  "rooftop.jpeg": "image1.jpeg",
+  "yoga-room.jpeg": "image2.jpeg"
+};
+function fixImages() {
+  document.querySelectorAll("img").forEach(img => {
+    let src = img.getAttribute("src");
+    if (!src) return;
+
+    let fileName = src.split("/").pop();
+
+    if (IMAGE_MAP[fileName]) {
+      img.src = "/images/" + IMAGE_MAP[fileName];
+      return;
+    }
+
+    // fallback safety
+    if (src.includes(".jpeg") || src.includes(".jpg")) {
+      img.src = "/images/image2.jpeg";
+    }
+  });
+}
+function fixBackgrounds() {
+  document.querySelectorAll("*").forEach(el => {
+    const bg = window.getComputedStyle(el).backgroundImage;
+
+    if (bg && bg.includes(".jpeg")) {
+      el.style.backgroundImage = "url('/images/image2.jpeg')";
+    }
+  });
+}
 
       function fixLinks(root = document) {
         root.querySelectorAll("a[href]").forEach((link) => {
@@ -104,10 +149,13 @@ img[src*="founder.jpeg"] {
       }
 
       function applyFixes() {
-        fixLinks(document);
-        fixEmails(document.body);
-        removeReplitPill();
-      }
+  fixLinks(document);
+  fixEmails(document.body);
+  fixImages();
+  fixBackgrounds();
+  removeReplitPill();
+}
+
 
       // Run now and keep watching because the app renders after load
       applyFixes();
