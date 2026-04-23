@@ -46,88 +46,37 @@
     "/air-it-out": "/air-it-out",
   };
 
-  // 🔥 MAP YOUR ORIGINAL FILE NAMES HERE
-  const IMAGE_MAP = {
-    "hero-space.jpeg": "image0.jpeg",
-    "rooftop-circle.jpeg": "image1.jpeg",
-    "welcome-space.jpeg": "image2.jpeg",
-    "yoga-room.jpeg": "image3.jpeg",
-    "welcome-desk.jpeg": "image4.jpeg",
-    "exterior-building.jpeg": "image5.jpeg",
-    "living-room.jpeg": "image6.jpeg",
-    "community-walk.jpeg": "image7.jpeg",
-    "art-therapy.jpeg": "image8.jpeg",
-    "founder.jpeg": "image9.jpeg"
-  };
-
-  function fixImages() {
-    document.querySelectorAll("img").forEach(img => {
-      let src = img.getAttribute("src");
-      if (!src) return;
-
-      let fileName = src.split("/").pop();
-
-      if (IMAGE_MAP[fileName]) {
-        img.src = "./index_files/" + IMAGE_MAP[fileName];
-      }
-    });
-  }
-
-  function fixBackgroundImages() {
-    document.querySelectorAll("*").forEach(el => {
-      let bg = window.getComputedStyle(el).backgroundImage;
-
-      if (!bg || !bg.includes(".jpeg")) return;
-
-      Object.keys(IMAGE_MAP).forEach(original => {
-        if (bg.includes(original)) {
-          el.style.backgroundImage =
-            "url('./index_files/" + IMAGE_MAP[original] + "')";
-        }
-      });
-    });
-  }
-
   function fixLinks(root = document) {
     root.querySelectorAll("a[href]").forEach((link) => {
-      const href = link.getAttribute("href");
+      let href = link.getAttribute("href");
       if (!href) return;
 
-      let cleaned = href
+      href = href
         .replace("https://deploy-ready--privatehealing.replit.app", "")
         .replace("http://deploy-ready--privatehealing.replit.app", "");
 
-      if (link.textContent && link.textContent.trim() === "App") {
+      if (link.textContent.trim() === "App") {
         link.textContent = "Air It Out";
-        cleaned = "/air-it-out";
+        href = "/air-it-out";
       }
 
-      if (ROUTE_MAP[cleaned]) {
-        link.setAttribute("href", ROUTE_MAP[cleaned]);
-      } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
-        link.setAttribute("href", cleaned);
+      if (ROUTE_MAP[href]) {
+        link.setAttribute("href", ROUTE_MAP[href]);
       }
     });
   }
 
   function fixEmails(root = document.body) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-
-    nodes.forEach((node) => {
-      if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.nodeValue.includes("contact@findingeden.info")) {
         node.nodeValue = node.nodeValue.replaceAll(
           "contact@findingeden.info",
           "findingedenfoundation@gmail.com"
         );
       }
-    });
-
-    root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
-      a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
-      a.textContent = "findingedenfoundation@gmail.com";
-    });
+    }
   }
 
   function removeReplitPill() {
@@ -136,25 +85,34 @@
   }
 
   function applyFixes() {
-    fixLinks(document);
-    fixEmails(document.body);
-    fixImages();
-    fixBackgroundImages();
+    fixLinks();
+    fixEmails();
     removeReplitPill();
   }
 
   applyFixes();
 
-  const observer = new MutationObserver(() => applyFixes());
+  const observer = new MutationObserver(applyFixes);
   observer.observe(document.documentElement, { childList: true, subtree: true });
-
-  window.addEventListener("load", applyFixes);
-  setTimeout(applyFixes, 500);
-  setTimeout(applyFixes, 1500);
-  setTimeout(applyFixes, 3000);
 
 })();
 </script>
+
+<style>
+
+/* FORCE IMAGE PATHS */
+img[src*="hero"] { content: url("./index_files/image0.jpeg"); }
+img[src*="rooftop"] { content: url("./index_files/image1.jpeg"); }
+img[src*="welcome-space"] { content: url("./index_files/image2.jpeg"); }
+img[src*="yoga"] { content: url("./index_files/image3.jpeg"); }
+img[src*="welcome-desk"] { content: url("./index_files/image4.jpeg"); }
+img[src*="exterior"] { content: url("./index_files/image5.jpeg"); }
+img[src*="living"] { content: url("./index_files/image6.jpeg"); }
+img[src*="community"] { content: url("./index_files/image7.jpeg"); }
+img[src*="art"] { content: url("./index_files/image8.jpeg"); }
+img[src*="founder"] { content: url("./index_files/image9.jpeg"); }
+
+</style>
 
 </body>
 </html>
