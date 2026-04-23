@@ -48,7 +48,48 @@ img[src*="founder.jpeg"] {
         "/online-journal": "/online-journal",
         "/air-it-out": "/air-it-out",
       };
+const IMAGE_MAP = {
+  "welcome-space.jpeg": "welcome-space.jpeg",
+  "community-walk.jpeg": "community-walk.jpeg",
+  "group-circle.jpeg": "community-walk.jpeg",
 
+  "creative-studio.jpeg": "art-therapy.jpeg",
+  "creative-healing.jpeg": "art-therapy.jpeg",
+
+  "hero-space.jpeg": "hero-space.jpeg",
+  "healing-space.jpeg": "living-room.jpeg",
+
+  "somatic-movement.jpeg": "living-room.jpeg",
+  "nervous-system.jpeg": "living-room.jpeg",
+
+  "founder.jpeg": "founder.jpeg",
+
+  "rooftop.jpeg": "rooftop-circle.jpeg",
+  "yoga-room.jpeg": "yoga-room.jpeg"
+};
+
+function fixImages() {
+  document.querySelectorAll("img").forEach(img => {
+    let src = img.getAttribute("src");
+    if (!src) return;
+
+    let fileName = src.split("/").pop();
+
+    if (IMAGE_MAP[fileName]) {
+      img.src = "./images/" + IMAGE_MAP[fileName];
+    }
+  });
+}
+
+function fixBackgrounds() {
+  document.querySelectorAll("*").forEach(el => {
+    const bg = window.getComputedStyle(el).backgroundImage;
+
+    if (bg && bg.includes(".jpeg")) {
+      el.style.backgroundImage = "url('./images/hero-space.jpeg')";
+    }
+  });
+}
       function fixLinks(root = document) {
         root.querySelectorAll("a[href]").forEach((link) => {
           const href = link.getAttribute("href");
@@ -106,6 +147,8 @@ img[src*="founder.jpeg"] {
       function applyFixes() {
   fixLinks(document);
   fixEmails(document.body);
+  fixImages();
+  fixBackgrounds();
   removeReplitPill();
 }
 
