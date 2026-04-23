@@ -84,10 +84,41 @@
     document.querySelectorAll("#replit-pill-host, #replit-badge").forEach(el => el.remove());
   }
 
+  // 🔥 THIS FIXES ALL IMAGES SITEWIDE
+  function fixImages() {
+    const map = {
+      "creative": "/images/art.jpg",
+      "studio": "/images/art.jpg",
+      "community": "/images/community.jpg",
+      "circle": "/images/community.jpg",
+      "rooftop": "/images/rooftop.jpg",
+      "welcome": "/images/welcome-space.jpg",
+      "yoga": "/images/yoga.jpg",
+      "desk": "/images/welcome-desk.jpg",
+      "exterior": "/images/exterior.jpg",
+      "living": "/images/living.jpg",
+      "art": "/images/art.jpg",
+      "founder": "/images/founder.jpg",
+      "hero": "/images/hero.jpg"
+    };
+
+    document.querySelectorAll("img").forEach(img => {
+      const src = (img.getAttribute("src") || "").toLowerCase();
+
+      for (const key in map) {
+        if (src.includes(key)) {
+          img.src = map[key];
+          break;
+        }
+      }
+    });
+  }
+
   function applyFixes() {
     fixLinks();
     fixEmails();
     removeReplitPill();
+    fixImages(); // 🔥 IMPORTANT
   }
 
   applyFixes();
@@ -97,22 +128,7 @@
 
 })();
 </script>
-
 <style>
-
-/* CORRECT IMAGE PATHS (ROOT LEVEL) */
-img[src*="hero"] { content: url("/image0.jpeg"); }
-img[src*="rooftop"] { content: url("/image1.jpeg"); }
-img[src*="welcome-space"] { content: url("/image2.jpeg"); }
-img[src*="yoga"] { content: url("/image3.jpeg"); }
-img[src*="welcome-desk"] { content: url("/image4.jpeg"); }
-img[src*="exterior"] { content: url("/image5.jpeg"); }
-img[src*="living"] { content: url("/image6.jpeg"); }
-img[src*="community"] { content: url("/image7.jpeg"); }
-img[src*="art"] { content: url("/image8.jpeg"); }
-img[src*="founder"] { content: url("/image9.jpeg"); }
-
-</style>
 
 </body>
 </html>
