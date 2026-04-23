@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finding Eden</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="./index_files/css2" rel="stylesheet">
 
   <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
   <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
 
   <style>
-    /* Founder image fix */
-    img[src*="founder.jpeg"] {
-      max-width: 320px;
+    img {
       width: 100%;
       height: auto;
       border-radius: 16px;
       object-fit: cover;
       display: block;
-      margin: 20px auto;
     }
   </style>
 </head>
+
+<body>
+  <div id="root"></div>
+
 <script>
 (function () {
 
@@ -33,181 +33,85 @@
       const src = (img.getAttribute("src") || "").toLowerCase();
       const alt = (img.getAttribute("alt") || "").toLowerCase();
 
-      // HERO / LANDING
-      if (src.includes("hero") || alt.includes("hero")) {
-        img.src = "/images/hero.jpg";
+      // 🔥 DIRECT MATCHING TO YOUR FILES
+
+      if (alt.includes("creative")) {
+        img.src = "./creative-studio.jpeg";
       }
 
-      // ROOFTOP / CITY
-      else if (src.includes("rooftop") || alt.includes("rooftop")) {
-        img.src = "/images/rooftop.jpg";
+      else if (alt.includes("community healing") || alt.includes("circle")) {
+        img.src = "./community-circle.jpeg";
       }
 
-      // WELCOME SPACE
-      else if (src.includes("welcome") || alt.includes("welcome")) {
-        img.src = "/images/welcome-space.jpg";
+      else if (alt.includes("community")) {
+        img.src = "./community.jpeg";
       }
 
-      // YOGA / SOMATIC
-      else if (src.includes("yoga") || alt.includes("movement")) {
-        img.src = "/images/yoga.jpg";
+      else if (alt.includes("walk")) {
+        img.src = "./community-walk.jpeg";
       }
 
-      // FRONT DESK / ENTRY
-      else if (src.includes("desk") || alt.includes("desk")) {
-        img.src = "/images/welcome-desk.jpg";
+      else if (alt.includes("somatic")) {
+        img.src = "./program-somatic.jpeg";
       }
 
-      // EXTERIOR BUILDING
-      else if (src.includes("exterior") || alt.includes("exterior")) {
-        img.src = "/images/exterior.jpg";
+      else if (alt.includes("regulation") || alt.includes("nervous")) {
+        img.src = "./program-regulation.jpeg";
       }
 
-      // LIVING / COMMUNITY ROOM
-      else if (src.includes("living") || alt.includes("living")) {
-        img.src = "/images/living.jpg";
+      else if (alt.includes("circles")) {
+        img.src = "./program-circles.jpeg";
       }
 
-      // COMMUNITY / GROUP / CIRCLES
-      else if (
-        src.includes("community") ||
-        src.includes("circle") ||
-        alt.includes("community") ||
-        alt.includes("circle")
-      ) {
-        img.src = "/images/community.jpg";
+      else if (alt.includes("quiet")) {
+        img.src = "./quiet-room.jpeg";
       }
 
-      // ART / CREATIVE HEALING
-      else if (
-        src.includes("art") ||
-        src.includes("creative") ||
-        alt.includes("creative") ||
-        alt.includes("studio")
-      ) {
-        img.src = "/images/art.jpg";
+      else if (alt.includes("rooftop")) {
+        img.src = "./rooftop-circle.jpeg";
       }
 
-      // FOUNDER
-      else if (src.includes("founder") || alt.includes("founder")) {
-        img.src = "/images/founder.jpg";
+      else if (alt.includes("desk") || alt.includes("welcome")) {
+        img.src = "./welcome-desk.jpeg";
       }
 
-    });
-  }
-
-  // run immediately
-  fixImages();
-
-  // keep fixing as React loads pages
-  const observer = new MutationObserver(fixImages);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
-<body>
-  <div id="root"></div>
-
-<script>
-(function () {
-
-  const ROUTE_MAP = {
-    "/": "/",
-    "/about": "/about",
-    "/programs": "/programs",
-    "/start-here": "/start-here",
-    "/tools": "/tools",
-    "/resources": "/resources",
-    "/voices": "/voices",
-    "/event": "/event",
-    "/get-involved": "/get-involved",
-    "/online-journal": "/online-journal",
-    "/air-it-out": "/air-it-out",
-  };
-
-  function fixLinks(root = document) {
-    root.querySelectorAll("a[href]").forEach((link) => {
-      let href = link.getAttribute("href");
-      if (!href) return;
-
-      href = href
-        .replace("https://deploy-ready--privatehealing.replit.app", "")
-        .replace("http://deploy-ready--privatehealing.replit.app", "");
-
-      if (link.textContent.trim() === "App") {
-        link.textContent = "Air It Out";
-        href = "/air-it-out";
+      else if (alt.includes("yoga")) {
+        img.src = "./yoga-room.jpeg";
       }
 
-      if (ROUTE_MAP[href]) {
-        link.setAttribute("href", ROUTE_MAP[href]);
+      else if (alt.includes("living")) {
+        img.src = "./living-room.jpeg";
       }
-    });
-  }
 
-  function fixEmails(root = document.body) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    let node;
-    while (node = walker.nextNode()) {
-      if (node.nodeValue.includes("contact@findingeden.info")) {
-        node.nodeValue = node.nodeValue.replaceAll(
-          "contact@findingeden.info",
-          "findingedenfoundation@gmail.com"
-        );
+      else if (alt.includes("event")) {
+        img.src = "./launch-event.jpeg";
       }
-    }
-  }
 
-  function removeReplitPill() {
-    document.querySelectorAll('script[src*="replit"]').forEach(el => el.remove());
-    document.querySelectorAll("#replit-pill-host, #replit-badge").forEach(el => el.remove());
-  }
+      else if (alt.includes("exterior")) {
+        img.src = "./exterior-building.jpeg";
+      }
 
-  // 🔥 THIS FIXES ALL IMAGES SITEWIDE
-  function fixImages() {
-    const map = {
-      "creative": "/images/art.jpg",
-      "studio": "/images/art.jpg",
-      "community": "/images/community.jpg",
-      "circle": "/images/community.jpg",
-      "rooftop": "/images/rooftop.jpg",
-      "welcome": "/images/welcome-space.jpg",
-      "yoga": "/images/yoga.jpg",
-      "desk": "/images/welcome-desk.jpg",
-      "exterior": "/images/exterior.jpg",
-      "living": "/images/living.jpg",
-      "art": "/images/art.jpg",
-      "founder": "/images/founder.jpg",
-      "hero": "/images/hero.jpg"
-    };
+      else if (alt.includes("art")) {
+        img.src = "./art.jpeg";
+      }
 
-    document.querySelectorAll("img").forEach(img => {
-      const src = (img.getAttribute("src") || "").toLowerCase();
-
-      for (const key in map) {
-        if (src.includes(key)) {
-          img.src = map[key];
-          break;
-        }
+      else if (alt.includes("founder")) {
+        img.src = "./founder.jpeg";
       }
     });
   }
 
   function applyFixes() {
-    fixLinks();
-    fixEmails();
-    removeReplitPill();
-    fixImages(); // 🔥 IMPORTANT
+    fixImages();
   }
 
   applyFixes();
 
   const observer = new MutationObserver(applyFixes);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer.observe(document.body, { childList: true, subtree: true });
 
 })();
 </script>
-<style>
 
 </body>
 </html>
