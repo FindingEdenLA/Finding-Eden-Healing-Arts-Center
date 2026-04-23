@@ -25,7 +25,86 @@
     }
   </style>
 </head>
+<script>
+(function () {
 
+  function fixImages() {
+    document.querySelectorAll("img").forEach(img => {
+      const src = (img.getAttribute("src") || "").toLowerCase();
+      const alt = (img.getAttribute("alt") || "").toLowerCase();
+
+      // HERO / LANDING
+      if (src.includes("hero") || alt.includes("hero")) {
+        img.src = "/images/hero.jpg";
+      }
+
+      // ROOFTOP / CITY
+      else if (src.includes("rooftop") || alt.includes("rooftop")) {
+        img.src = "/images/rooftop.jpg";
+      }
+
+      // WELCOME SPACE
+      else if (src.includes("welcome") || alt.includes("welcome")) {
+        img.src = "/images/welcome-space.jpg";
+      }
+
+      // YOGA / SOMATIC
+      else if (src.includes("yoga") || alt.includes("movement")) {
+        img.src = "/images/yoga.jpg";
+      }
+
+      // FRONT DESK / ENTRY
+      else if (src.includes("desk") || alt.includes("desk")) {
+        img.src = "/images/welcome-desk.jpg";
+      }
+
+      // EXTERIOR BUILDING
+      else if (src.includes("exterior") || alt.includes("exterior")) {
+        img.src = "/images/exterior.jpg";
+      }
+
+      // LIVING / COMMUNITY ROOM
+      else if (src.includes("living") || alt.includes("living")) {
+        img.src = "/images/living.jpg";
+      }
+
+      // COMMUNITY / GROUP / CIRCLES
+      else if (
+        src.includes("community") ||
+        src.includes("circle") ||
+        alt.includes("community") ||
+        alt.includes("circle")
+      ) {
+        img.src = "/images/community.jpg";
+      }
+
+      // ART / CREATIVE HEALING
+      else if (
+        src.includes("art") ||
+        src.includes("creative") ||
+        alt.includes("creative") ||
+        alt.includes("studio")
+      ) {
+        img.src = "/images/art.jpg";
+      }
+
+      // FOUNDER
+      else if (src.includes("founder") || alt.includes("founder")) {
+        img.src = "/images/founder.jpg";
+      }
+
+    });
+  }
+
+  // run immediately
+  fixImages();
+
+  // keep fixing as React loads pages
+  const observer = new MutationObserver(fixImages);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
 <body>
   <div id="root"></div>
 
