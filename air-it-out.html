@@ -936,6 +936,7 @@
 
           <div class="action-row">
             <button class="action-btn primary" id="saveReflection" type="button">Save reflection</button>
+<button class="action-btn secondary" id="submitReflection" type="button">Submit anonymously</button>
           </div>
 
           <div class="saved-list" id="savedList"></div>
@@ -1853,6 +1854,26 @@ Right now, in this exact moment, I can soften a little.”`},
         journalInput.focus();
       });
     });
+
+
+
+    const submitReflectionBtn = document.getElementById("submitReflection");
+    if (submitReflectionBtn) {
+      submitReflectionBtn.addEventListener("click", async () => {
+        const title = journalTitle.value.trim() || "Anonymous Voices submission";
+        const body = journalInput.value.trim();
+        if (!body) { alert("Write something first."); return; }
+        try {
+          const res = await fetch("https://formspree.io/f/mqedapga", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ title, message: body, module: currentModuleKey ? modules[currentModuleKey].title : "General", source: "Air It Out / Voices of Strength" })
+          });
+          if (!res.ok) throw new Error("Form submission failed");
+          alert("Submitted anonymously. Thank you for trusting this space.");
+        } catch(e) { alert("Something went wrong. Please try again or email submit.vos@gmail.com."); }
+      });
+    }
 
     renderSaved();
   </script>

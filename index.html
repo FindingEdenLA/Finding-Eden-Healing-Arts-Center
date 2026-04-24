@@ -2,116 +2,1880 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finding Eden</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Air It Out | Finding Eden</title>
+  <meta name="theme-color" content="#7b8c81" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      object-fit: cover;
-      display: block;
+    :root{
+      --bg:#f6f2ec;
+      --bg-2:#efe9df;
+      --paper:rgba(255,255,255,.76);
+      --paper-strong:rgba(255,255,255,.9);
+      --text:#221c18;
+      --muted:#6a625a;
+      --line:#e5dbcf;
+      --sage:#7b8c81;
+      --sage-deep:#5f7267;
+      --lav:#b8a7c8;
+      --lav-deep:#7a678f;
+      --wood:#947763;
+      --wood-deep:#715847;
+      --rose:#c79ea1;
+      --gold:#b59a76;
+      --ink:#453a55;
+      --shadow:0 20px 70px rgba(36,24,12,.08);
+      --shadow-soft:0 10px 30px rgba(36,24,12,.06);
+      --radius:26px;
+      --radius-sm:18px;
+      --transition:.28s ease;
+      --max:1220px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:"Inter",sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(184,167,200,.18), transparent 26%),
+        radial-gradient(circle at 88% 78%, rgba(123,140,129,.18), transparent 26%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        radial-gradient(circle at center, transparent 50%, rgba(0,0,0,.035));
+      pointer-events:none;
+      z-index:0;
+    }
+
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+    .hidden{display:none!important}
+    .app{
+      position:relative;
+      z-index:1;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px 16px 46px;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:60;
+      margin:0 -16px 18px;
+      padding:0 16px;
+      background:rgba(246,242,236,.8);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(229,219,207,.92);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .brand-wrap{display:flex;flex-direction:column;gap:4px}
+    .brand-kicker{
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--ink);
+      font-weight:700;
+    }
+    .brand{
+      margin:0;
+      font-family:"EB Garamond",serif;
+      font-size:2.5rem;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+    .tagline{
+      margin:0;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+    .top-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .ghost-btn{
+      border:none;
+      background:rgba(255,255,255,.6);
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+    }
+    .ghost-btn:hover{transform:translateY(-1px); background:#fff}
+
+    .view{display:none; animation:fadeUp .32s ease}
+    .view.active{display:block}
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(10px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.65);
+      backdrop-filter:blur(22px);
+      box-shadow:var(--shadow);
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(125deg, rgba(255,255,255,.18), transparent 42%),
+        radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 22%);
+      pointer-events:none;
+    }
+    .hero-main, .hero-side, .utility-card, .states-card, .side-nav, .screen-shell, .journal-shell{
+      position:relative;
+      z-index:1;
+      padding:28px;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      padding:7px 12px;
+      border-radius:999px;
+      background:#eee6f6;
+      color:#4b405a;
+      font-size:.77rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      margin-bottom:14px;
+    }
+
+    .hero-title,
+    .screen-title,
+    .section-title,
+    .journal-heading{
+      margin:0 0 12px;
+      font-family:"EB Garamond",serif;
+      letter-spacing:-.045em;
+      color:#241d19;
+    }
+    .hero-title{
+      font-size:clamp(2.15rem,4.6vw,4rem);
+      line-height:1.06;
+      max-width:12ch;
+    }
+    .hero-copy{
+      margin:0 0 14px;
+      color:#3f3934;
+      font-size:1.02rem;
+      line-height:1.9;
+      max-width:62ch;
+    }
+
+    .visual-veil{
+      height:180px;
+      border-radius:22px;
+      margin:0 0 18px;
+      background:
+        linear-gradient(140deg, rgba(123,140,129,.92), rgba(184,167,200,.72)),
+        radial-gradient(circle at 16% 18%, rgba(255,255,255,.25), transparent 24%),
+        radial-gradient(circle at 82% 72%, rgba(255,255,255,.12), transparent 20%);
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(255,255,255,.45);
+    }
+    .visual-veil::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), transparent 60%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px);
+      mix-blend-mode:screen;
+    }
+
+    .mode-row{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+    .mode-btn{
+      border:none;
+      background:#f4eee6;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 12px;
+      text-align:center;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+    }
+    .mode-btn strong{display:block; font-size:.98rem; margin-bottom:4px}
+    .mode-btn span{display:block; font-size:.84rem; color:var(--muted)}
+    .mode-btn.active{
+      background:linear-gradient(180deg,var(--ink),#5d4d73);
+      color:#fff;
+      border-color:transparent;
+    }
+    .mode-btn.active span{color:rgba(255,255,255,.85)}
+    .small-note{
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.65;
+      margin:12px 0 0;
+    }
+
+    .feature-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .pill{
+      padding:8px 11px;
+      border-radius:999px;
+      background:#faf7f2;
+      border:1px solid var(--line);
+      color:#544c45;
+      font-size:.84rem;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .quote-box,
+    .soft-box,
+    .support-box{
+      border-radius:22px;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.72), rgba(241,235,227,.8));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+      margin-top:14px;
+    }
+    .quote-box .line{
+      font-family:"EB Garamond",serif;
+      font-size:1.42rem;
+      line-height:1.35;
+    }
+    .soft-box strong,
+    .support-box strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--wood);
+    }
+
+    .utility-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .utility-card h3{
+      margin:0 0 8px;
+      font-size:1.28rem;
+      letter-spacing:-.02em;
+    }
+    .utility-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.72;
+    }
+
+    .precision-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+    .precision-chip{
+      border:none;
+      padding:11px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:#4c443e;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+    }
+    .precision-chip:hover{transform:translateY(-1px); background:#f8f4ee}
+
+    .states-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+    .state-btn{
+      position:relative;
+      overflow:hidden;
+      border:none;
+      width:100%;
+      text-align:left;
+      border-radius:22px;
+      padding:18px;
+      color:#fff;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:0 12px 30px rgba(20,10,0,.12);
+    }
+    .state-btn:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.03);
+    }
+    .state-btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 45%, transparent 80%);
+      transform:translateX(-120%);
+      transition:transform .8s ease;
+    }
+    .state-btn:hover::after{transform:translateX(140%)}
+    .state-btn strong{display:block; font-size:1rem; margin-bottom:4px}
+    .state-btn span{display:block; font-size:.9rem; line-height:1.48; opacity:.95}
+    .sage{background:linear-gradient(180deg,#83968a 0%, #708277 100%)}
+    .lav{background:linear-gradient(180deg,#9c89b0 0%, #7f6b95 100%)}
+    .wood{background:linear-gradient(180deg,#a18269 0%, #876852 100%)}
+    .rose{background:linear-gradient(180deg,#cbabb0 0%, #ad8589 100%)}
+
+    .journey-layout{
+      display:grid;
+      grid-template-columns:.88fr 1.12fr;
+      gap:18px;
+    }
+    .side-nav p, .journal-shell p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.72;
+    }
+    .module-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:16px;
+      max-height:780px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .module-btn{
+      width:100%;
+      border:none;
+      background:#fbf8f3;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:15px;
+      text-align:left;
+      color:var(--text);
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+    }
+    .module-btn:hover{background:#fff; transform:translateY(-1px)}
+    .module-btn.active{
+      background:linear-gradient(180deg,var(--ink),#5d4d73);
+      color:#fff;
+      border-color:transparent;
+    }
+    .module-btn strong{display:block; margin-bottom:4px; font-size:.98rem}
+    .module-btn span{display:block; font-size:.86rem; line-height:1.45; color:inherit; opacity:.92}
+
+    .progress-wrap{margin-bottom:14px}
+    .progress-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      margin-bottom:8px;
+    }
+    .progress-top small{
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    .progress-bar{
+      height:8px;
+      border-radius:999px;
+      background:#ede5da;
+      overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--lav-deep),var(--sage));
+      border-radius:999px;
+      transition:width .34s ease;
+    }
+    .step-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:0 0 16px;
+    }
+    .step{
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.8rem;
+      background:#f1ebe3;
+      border:1px solid var(--line);
+      color:#5d544c;
+    }
+    .step.active{
+      background:var(--sage);
+      color:#fff;
+      border-color:transparent;
+    }
+
+    .screen-tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eee6f6;
+      color:#4d405c;
+      font-size:.77rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      margin-bottom:10px;
+    }
+    .module-visual{
+      height:190px;
+      border-radius:22px;
+      margin-bottom:18px;
+      border:1px solid rgba(255,255,255,.5);
+      box-shadow:var(--shadow-soft);
+      position:relative;
+      overflow:hidden;
+    }
+    .module-visual::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.34), transparent 24%),
+        radial-gradient(circle at 78% 76%, rgba(255,255,255,.16), transparent 18%),
+        linear-gradient(135deg, rgba(255,255,255,.12), transparent 50%);
+    }
+    .module-visual::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px);
+      mix-blend-mode:screen;
+    }
+
+    .screen-title{
+      font-size:2rem;
+      line-height:1.08;
+      max-width:18ch;
+    }
+    .screen-copy{
+      color:#3d3833;
+      font-size:1rem;
+      line-height:1.95;
+      white-space:pre-line;
+      max-width:63ch;
+    }
+
+    .checkin-wrap,
+    .callout,
+    .tool-box,
+    .prompt-box,
+    .diagram-box,
+    .mantra,
+    .pause-box,
+    .demo-box,
+    .identity-box{
+      border-radius:20px;
+      padding:16px;
+      margin-top:16px;
+      box-shadow:var(--shadow-soft);
+    }
+    .checkin-wrap{background:#f7f2fb; border:1px solid #e4d9ee}
+    .diagram-box{background:#f7f2fb; border:1px solid #e5d8ef; color:#453953}
+    .tool-box{background:#f6f9f7; border:1px solid #d9e3dd}
+    .prompt-box{background:#fbf7f1; border:1px dashed #d5c5b6}
+    .callout{background:#f5eee6; border-left:4px solid var(--wood); color:#473e36}
+    .pause-box{background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(241,235,227,.78)); border:1px solid var(--line)}
+    .demo-box{background:#f4f7fb; border:1px solid #d9e0ea}
+    .identity-box{background:#f8f4ef; border:1px solid #e5d9cc}
+    .checkin-wrap h4,
+    .diagram-box h4,
+    .tool-box h4,
+    .prompt-box h4,
+    .demo-box h4,
+    .identity-box h4{
+      margin:0 0 8px;
+      font-size:1rem;
+      letter-spacing:-.01em;
+    }
+
+    .choice-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .choice-chip{
+      border:none;
+      border-radius:999px;
+      padding:10px 12px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:#3f3832;
+      cursor:pointer;
+      transition:var(--transition);
+    }
+    .choice-chip:hover{transform:translateY(-1px); background:#fdfcff}
+    .choice-chip.active{
+      background:var(--ink);
+      color:#fff;
+      border-color:transparent;
+    }
+    .mini-note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.65;
+    }
+
+    .diagram-flow{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .diagram-step{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(126,103,152,.28);
+      background:rgba(255,255,255,.68);
+      font-size:.92rem;
+    }
+
+    .tool-box ul,
+    .prompt-box ul,
+    .demo-box ul,
+    .identity-box ul{
+      margin:10px 0 0;
+      padding-left:18px;
+    }
+    .tool-box li,
+    .prompt-box li,
+    .demo-box li,
+    .identity-box li{
+      margin:8px 0;
+      line-height:1.72;
+    }
+
+    .mantra{
+      background:linear-gradient(180deg,#f1ece6 0%, #fbf8f3 100%);
+      border:1px solid var(--line);
+      color:#342d28;
+    }
+    .mantra strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:.82rem;
+      color:var(--wood);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .pause-box strong,
+    .support-box strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--wood);
+    }
+
+    .inline-reflection,
+    .journal-title,
+    .journal-input{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      background:#fff;
+      color:var(--text);
+      box-shadow:var(--shadow-soft);
+    }
+    .inline-reflection{
+      min-height:105px;
+      margin-top:10px;
+      resize:vertical;
+      line-height:1.7;
+    }
+    .journal-title, .journal-input{margin-top:12px}
+    .journal-input{
+      min-height:210px;
+      resize:vertical;
+      line-height:1.7;
+    }
+
+    .starter-prompts{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .starter-btn{
+      border:none;
+      border-radius:999px;
+      padding:10px 12px;
+      background:#f3ede6;
+      border:1px solid var(--line);
+      cursor:pointer;
+      transition:var(--transition);
+    }
+    .starter-btn:hover{background:#fff; transform:translateY(-1px)}
+
+    .action-row{
+      display:flex;
+      gap:10px;
+      margin-top:18px;
+    }
+    .action-btn{
+      flex:1;
+      border:none;
+      border-radius:16px;
+      padding:15px 14px;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+    }
+    .action-btn:hover{transform:translateY(-1px)}
+    .action-btn.primary{
+      background:linear-gradient(180deg,var(--sage),var(--sage-deep));
+      color:#fff;
+    }
+    .action-btn.secondary{
+      background:#ece5f3;
+      color:#31293a;
+    }
+
+    .saved-list{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+      max-height:520px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .saved-item{
+      padding:14px;
+      border-radius:18px;
+      background:#fbf8f3;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+    }
+    .saved-meta{
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:8px;
+    }
+    .saved-title{
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    .saved-body{
+      color:#3d3833;
+      line-height:1.68;
+      white-space:pre-line;
+    }
+    .saved-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .saved-actions button{
+      border:none;
+      border-radius:12px;
+      padding:10px 12px;
+      background:#ede6dd;
+      cursor:pointer;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:.9rem;
+      margin-top:18px;
+      line-height:1.7;
+      padding:0 6px;
+    }
+
+    @media (max-width:980px){
+      .hero,.utility-grid,.journey-layout{grid-template-columns:1fr}
+      .module-list,.saved-list{max-height:none}
+    }
+    @media (max-width:620px){
+      .states-grid,.precision-grid{grid-template-columns:1fr}
+      .mode-row{grid-template-columns:1fr}
+      .action-row{flex-direction:column}
+      .hero-title{font-size:2.5rem}
+      .screen-title{font-size:1.7rem}
+      .module-visual{height:150px}
+      .top-actions{width:100%}
     }
   </style>
 </head>
-
 <body>
-  <div id="root"></div>
+  <div class="app">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <div class="brand-kicker">Finding Eden · Voices of Strength</div>
+          <h1 class="brand">Air It Out</h1>
+          <p class="tagline">The stuff people don’t usually say out loud.</p>
+        </div>
+        <div class="top-actions">
+          <a class="ghost-btn" href="/">Back to site</a>
+          <button class="ghost-btn" id="goHomeTop" type="button">Home</button>
+          <button class="ghost-btn" id="goJourneyTop" type="button">Journey</button>
+          <button class="ghost-btn" id="goJournalTop" type="button">Reflections</button>
+        </div>
+      </div>
+    </div>
 
-<script>
-(function () {
+    <section class="view active" id="homeView">
+      <div class="hero">
+        <div class="card hero-main">
+          <div class="eyebrow">Raw, direct, actually useful</div>
+          <div class="visual-veil"></div>
+          <h2 class="hero-title">If your brain won’t shut up, if you feel numb and overloaded at the same time… start here.</h2>
+          <p class="hero-copy">
+            This is not here to hand you fake calm or polished advice your body does not believe.
+            It is here to meet the state you are actually in, make emotional precision easier,
+            and give you something honest to do with what is happening.
+          </p>
+          <p class="hero-copy">
+            You do not need to be ready. You do not need to sound wise. You do not need to perform healing.
+            You just need to tell the truth about where you actually are.
+          </p>
+          <div class="mode-row">
+            <button class="mode-btn active" data-mode="quick">
+              <strong>Quick</strong>
+              <span>5 screens</span>
+            </button>
+            <button class="mode-btn" data-mode="deep">
+              <strong>Deep</strong>
+              <span>8 screens</span>
+            </button>
+            <button class="mode-btn" data-mode="full">
+              <strong>Full</strong>
+              <span>all screens</span>
+            </button>
+          </div>
+          <p class="small-note">Quick for low capacity. Deep when you can stay longer. Full for the premium full process.</p>
+        </div>
 
-  function fixImages() {
-    document.querySelectorAll("img").forEach(img => {
-      const src = (img.getAttribute("src") || "").toLowerCase();
-      const alt = (img.getAttribute("alt") || "").toLowerCase();
+        <div class="card hero-side">
+          <div class="feature-pills">
+            <div class="pill">Emotional precision</div>
+            <div class="pill">Somatic tools</div>
+            <div class="pill">Trauma-informed</div>
+            <div class="pill">Identity repair</div>
+            <div class="pill">Saved reflections</div>
+            <div class="pill">No fake positivity</div>
+          </div>
 
-      // 🔥 DIRECT MATCHING TO YOUR FILES
+          <div class="quote-box">
+            <div class="eyebrow" style="margin-bottom:10px;">Core line</div>
+            <div class="line">Your story is your fuel for your purpose.</div>
+          </div>
 
-      if (alt.includes("creative")) {
-        img.src = "./creative-studio.jpeg";
+          <div class="soft-box">
+            <strong>Why this exists</strong>
+            A lot of people do not need more self-help language.
+            They need something that actually sounds like what this feels like when it is messy,
+            humiliating, confusing, lonely, overloaded, or hard to name.
+          </div>
+
+          <div class="support-box">
+            <strong>Use this like this</strong>
+            Pick the state that feels closest. Let the module walk you through what it is,
+            why it makes sense, what your body may be doing, and what to try next.
+          </div>
+        </div>
+      </div>
+
+      <div class="utility-grid">
+        <div class="card utility-card">
+          <h3>Emotional precision</h3>
+          <p>When all you know is “I feel off,” start with the closest texture.</p>
+          <div class="precision-grid">
+            <button class="precision-chip" data-module="numb">numb</button>
+            <button class="precision-chip" data-module="overwhelm">overwhelmed</button>
+            <button class="precision-chip" data-module="freeze">stuck</button>
+            <button class="precision-chip" data-module="selfAttack">ashamed</button>
+            <button class="precision-chip" data-module="anger">angry</button>
+            <button class="precision-chip" data-module="unseen">alone</button>
+            <button class="precision-chip" data-module="grief">grieving</button>
+            <button class="precision-chip" data-module="triggered">triggered</button>
+          </div>
+          <p class="small-note">Tap one and it will open that state immediately.</p>
+        </div>
+
+        <div class="card utility-card">
+          <h3>What this walks through</h3>
+          <p>
+            Every module includes state language, nervous system understanding,
+            somatic support, interactive check-ins, demonstrations, reflection, and identity repair lines.
+          </p>
+          <ul style="margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.8;">
+            <li>what this state actually feels like</li>
+            <li>why it makes sense</li>
+            <li>what your body may be doing</li>
+            <li>the hidden loop underneath it</li>
+            <li>somatic exercises and demonstrations</li>
+            <li>expressive prompts and real-talk rewiring lines</li>
+            <li>private saved reflections</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card states-card">
+        <div class="eyebrow">Choose your state</div>
+        <div class="states-grid">
+          <button class="state-btn sage" data-module="numb"><strong>Numb / checked out</strong><span>Detached, avoidant, hard to care, hard to connect.</span></button>
+          <button class="state-btn lav" data-module="overwhelm"><strong>Overwhelmed / spiraling</strong><span>Too much, too fast, too loud, brain won’t stop.</span></button>
+          <button class="state-btn wood" data-module="freeze"><strong>Freeze / stuck</strong><span>Know what to do, still can’t move.</span></button>
+          <button class="state-btn rose" data-module="selfAttack"><strong>Self-attack / shame</strong><span>Inner critic, insecurity, tearing yourself apart.</span></button>
+          <button class="state-btn wood" data-module="anger"><strong>Anger / reactive</strong><span>Buildup, resentment, snapping, pressure.</span></button>
+          <button class="state-btn sage" data-module="unseen"><strong>Alone / unseen</strong><span>Invisible, misunderstood, tired of surface-level connection.</span></button>
+          <button class="state-btn lav" data-module="grief"><strong>Grief / heaviness</strong><span>Loss, ache, sadness, emptiness that lingers.</span></button>
+          <button class="state-btn rose" data-module="triggered"><strong>Triggered / thrown back</strong><span>Old wound activated, body reacts fast.</span></button>
+          <button class="state-btn sage" data-module="peoplePleasing"><strong>People-pleasing / fawning</strong><span>Over-accommodating, over-explaining, disappearing yourself.</span></button>
+          <button class="state-btn wood" data-module="control"><strong>Control / perfectionism</strong><span>Clenched, hyper-vigilant, “I have to get this right.”</span></button>
+          <button class="state-btn lav" data-module="betrayal"><strong>Betrayal / heartbreak</strong><span>Replay, disbelief, attachment wound, emotional aftershock.</span></button>
+          <button class="state-btn rose" data-module="insecurity"><strong>Body shame / insecurity</strong><span>Surface worry tied to deeper core beliefs.</span></button>
+          <button class="state-btn wood" data-module="burnout"><strong>Burnout / depleted</strong><span>Tired beyond sleep, emotionally overused, empty.</span></button>
+          <button class="state-btn sage" data-module="dread"><strong>Dread / anticipatory fear</strong><span>Waiting for the other shoe to drop.</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="journeyView">
+      <div class="journey-layout">
+        <div class="card side-nav">
+          <h3 class="section-title">Your process</h3>
+          <p>This is not about fixing you. It is about understanding what is happening so it stops running you in the dark.</p>
+          <div class="module-list" id="moduleList"></div>
+        </div>
+
+        <div class="card screen-shell">
+          <div class="progress-wrap">
+            <div class="progress-top">
+              <small id="progressText">Step 1</small>
+              <small id="progressPercent">0%</small>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="step-bar" id="stepBar"></div>
+          <div id="screenContent"></div>
+
+          <div class="action-row">
+            <button class="action-btn secondary" id="backBtn" type="button">Back</button>
+            <button class="action-btn primary" id="nextBtn" type="button">Continue</button>
+          </div>
+        </div>
+
+        <div class="card journal-shell" id="journalView">
+          <h3 class="journal-heading">Private reflections</h3>
+          <p>Everything you save stays only in this browser on this device.</p>
+
+          <div class="starter-prompts">
+            <button class="starter-btn" type="button" data-starter="What am I not saying out loud?">What am I not saying out loud?</button>
+            <button class="starter-btn" type="button" data-starter="What hurt more than I admitted?">What hurt more than I admitted?</button>
+            <button class="starter-btn" type="button" data-starter="What am I pretending doesn’t affect me?">What am I pretending doesn’t affect me?</button>
+            <button class="starter-btn" type="button" data-starter="What truth do I keep circling but not fully facing?">What truth do I keep circling but not fully facing?</button>
+          </div>
+
+          <input class="journal-title" id="journalTitle" placeholder="Give this reflection a name (optional)" />
+          <textarea class="journal-input" id="journalInput" placeholder="Write the honest version. Not the cleaned-up version."></textarea>
+
+          <div class="action-row">
+            <button class="action-btn primary" id="saveReflection" type="button">Save reflection</button>
+<button class="action-btn secondary" id="submitReflection" type="button">Submit anonymously</button>
+          </div>
+
+          <div class="saved-list" id="savedList"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">Air It Out exists to help people stop hiding from the parts of themselves that need truth, witness, movement, language, and depth that actually lands.</div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "air_it_out_full_premium_reflections_v2";
+    let currentMode = "quick";
+    let currentModuleKey = null;
+    let currentScreens = [];
+    let currentScreenIndex = 0;
+
+    const baseModules = {
+      numb: {
+        title:"Numb / checked out",
+        desc:"Detached, avoidant, hard to care, hard to connect.",
+        colors:["#708277","#b8a7c8"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where you are technically still here, but not fully in your life.", copy:`You answer people.
+You go through motions.
+You may still laugh, work, or get through the day.
+
+But it all feels slightly far away.
+Muted.
+Flat.
+Distant.
+
+A lot of people call this laziness or apathy because that is easier than admitting how much they have actually been carrying.
+
+Numbness is rarely emptiness.
+More often it is protection.`},
+          {tag:"Meaning", title:"Numbness usually shows up because full access to your feelings got too expensive.", copy:`This can happen after long stress.
+Long grief.
+Long over-functioning.
+Long relational disappointment.
+Long periods of having to push through things you never really got to process.
+
+So your system stops opening all the way.
+
+Not because there is nothing inside you.
+Because there is too much waiting there.`},
+          {tag:"Loop", title:"The numb loop keeps you disconnected and then makes you hate yourself for being disconnected.", copy:`That is why this state can become so sticky.`, diagram:["too much for too long","disconnect to survive it","feel guilty for disconnecting","pull back more","feel even less alive"]},
+          {tag:"Check-in", title:"What part of this feels most true right now?", copy:`Pick what hits closest.`, choices:["I feel flat","I feel foggy","I feel disconnected from myself","I feel disconnected from other people","I feel like I’m only performing presence"], note:"You do not need perfect language. Just notice what your body reacts to."},
+          {tag:"Body", title:"The goal is not motivation first. The goal is contact.", copy:`You are not trying to suddenly become inspired.
+You are trying to come back online a little.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Press both feet into the floor for 10 seconds. Release. Repeat 3 times.</li>
+            <li>Rub your hands together until you feel heat.</li>
+            <li>Touch your arms, neck, or face and notice pressure and temperature.</li>
+            <li>Lift your shoulders to your ears, hold for 3 seconds, then let them drop.</li>
+            <li>Look around the room and name 5 things you can see, 4 things you can feel, 3 things you can hear.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: how to come back online without forcing yourself.", copy:`Do this exactly, not perfectly.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Stand up.</li>
+            <li>Put both hands on your chest.</li>
+            <li>Say: “I’m here. I’m still here.”</li>
+            <li>Walk slowly across the room and back once.</li>
+            <li>Notice whether you feel 1% more here than you did a minute ago.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause here.", copy:`What are you pretending does not affect you as much as it actually does?`, reflectionPlaceholder:"Write the thing you keep minimizing."},
+          {tag:"Release", title:"Give the numbness somewhere to go besides silence.", copy:`You do not need insight first.
+You just need a crack in the shutdown.`, promptTitle:"Expressive release", promptCopy:`<ul>
+            <li>Write for 2 minutes: “Right now I don’t want to…”</li>
+            <li>Start a list called: “What I’ve been pretending doesn’t affect me.”</li>
+            <li>Take one color and cover a page with marks that match how muted you feel.</li>
+            <li>Record a voice note saying the honest version of what you’ve gone quiet about.</li>
+          </ul>`},
+          {tag:"Identity", title:"Numbness can distort identity.", copy:`You start thinking “I’m boring,” “I’m empty,” “I’m not passionate anymore.”
+
+But numbness is a state, not your personality.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>You are not empty. You are protected.</li>
+            <li>You are not broken because access got limited.</li>
+            <li>A protected nervous system can still soften safely.</li>
+          </ul>`},
+          {tag:"Truth", title:"Borrow a line your body can actually believe.", copy:`Do not force a fake affirmation here.`, mantra:`REAL TALK TO BORROW:
+“I’ve been carrying more than I let myself admit.
+No wonder I shut down.
+That doesn’t mean I’m hopeless.
+It means I need care before I can reconnect.”`},
+          {tag:"Close", title:"If you feel even a little more here, that counts.", copy:`This is not a performance.
+This is contact.
+
+And contact matters more than perfection.`}
+        ]
+      },
+
+      overwhelm: {
+        title:"Overwhelmed / spiraling",
+        desc:"Too much, too fast, too loud, brain won’t stop.",
+        colors:["#b8a7c8","#947763"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where your brain keeps trying to solve everything at once and your body keeps paying for it.", copy:`You check your phone and feel worse.
+You replay the same thing even though you already know the answer.
+You try to distract yourself but your body won’t drop it.
+
+This is not just stress.
+This is mental noise plus pressure plus fear plus self-awareness.`},
+          {tag:"Meaning", title:"You are not overreacting. Your system is overloaded.", copy:`A lot of the time your logical mind is not confused.
+Your nervous system is just holding too many unresolved loops at once.
+
+The text you did not answer.
+The thing you are scared to admit.
+The future you keep trying to control.
+The pain you keep calling stress instead of grief.`},
+          {tag:"Loop", title:"The spiral turns everything into an emergency.", copy:`That is why one message can feel like collapse.`, diagram:["stress builds quietly","mind scans ahead","body reads that as danger","panic rises","everything feels urgent at once"]},
+          {tag:"Check-in", title:"What kind of overwhelm is this?", copy:`Pick the closest texture.`, choices:["future dread","panic","mental noise","too many open loops","I feel like I’m failing at everything"]},
+          {tag:"Body", title:"You do not need to calm down first. You need to downshift.", copy:`Trying to “calm down” can feel insulting when you’re maxed out.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Unclench your jaw on purpose.</li>
+            <li>Exhale longer than you inhale 6 times.</li>
+            <li>Press your back into a chair or wall and notice support.</li>
+            <li>Move only your eyes slowly left to right across the room.</li>
+            <li>Put one hand on chest and one lower on stomach for 20 seconds.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: break the spiral in under a minute.", copy:`Do it with me.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Name the main problem in 6 words or less.</li>
+            <li>Say out loud: “Not all of this needs me right now.”</li>
+            <li>Pick one thing that is actually for today.</li>
+            <li>Everything else becomes later, not never.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What is the one loop your mind keeps circling right now?`, reflectionPlaceholder:"Name the main loop, not all the side loops."},
+          {tag:"Release", title:"Get the charge out of your head and into something else.", copy:`Overwhelm gets worse when everything stays abstract.`, promptTitle:"Expressive release", promptCopy:`<ul>
+            <li>Write: “Everything in my head right now is…” without stopping for 2 minutes.</li>
+            <li>Make 3 columns: actual emergency / feels urgent / can wait.</li>
+            <li>Draw the pressure as shapes or marks.</li>
+            <li>Send yourself a voice memo with the uncensored version.</li>
+          </ul>`},
+          {tag:"Identity", title:"Overwhelm can make you feel like you are incapable.", copy:`But being overloaded is not the same thing as being incapable.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>You are not weak because your system is maxed out.</li>
+            <li>Capacity is not the same thing as worth.</li>
+            <li>You do not need to handle everything to still be enough.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line your body can work with.", copy:`Not “I’m calm.” Something truer.`, mantra:`REAL TALK TO BORROW:
+“I don’t need to solve my whole life tonight.
+This feeling is real, but it is not the whole truth.
+I can slow this down one piece at a time.”`},
+          {tag:"Close", title:"Shrink the frame.", copy:`Not your whole future.
+Not every possible outcome.
+Just this hour.
+Maybe just the next 10 minutes.`}
+        ]
+      },
+
+      freeze: {
+        title:"Freeze / stuck",
+        desc:"Know what to do, still can’t move.",
+        colors:["#708277","#947763"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where you know exactly what to do and still cannot get yourself to move.", copy:`So now you’re not just stuck.
+You’re stuck and embarrassed about being stuck.
+Stuck and frustrated.
+Stuck and starting to question your character.`},
+          {tag:"Meaning", title:"Sometimes movement feels emotionally loaded.", copy:`If I move, it becomes real.
+If I answer, I have to face what comes next.
+If I start, I can fail.
+If I choose, I lose all the other choices.`},
+          {tag:"Loop", title:"Freeze often promises movement later, once you “feel ready.”", copy:`But movement usually creates readiness, not the other way around.`, diagram:["pressure builds","movement feels risky","you delay","delay becomes shame","shame makes movement even harder"]},
+          {tag:"Body", title:"Your body often needs motion before your mind fully buys in.", copy:`Not a whole productive day.
+Just enough movement to tell your system: we’re not trapped.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Stand up and sway side to side for 20 seconds.</li>
+            <li>Roll your shoulders back 10 times slowly.</li>
+            <li>March in place for 30 seconds.</li>
+            <li>Shake out your hands and arms.</li>
+            <li>Walk through a doorway on purpose as a cue that you are changing states.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: thaw the freeze with one-minute action.", copy:`This is not about motivation. It is about thawing.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Say out loud the next physical action only.</li>
+            <li>Not the whole task. Just the first physical move.</li>
+            <li>Do that move before your brain negotiates with you.</li>
+            <li>Stop there if you need to. Count that as progress.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What feels loaded about moving forward?`, reflectionPlaceholder:"What does taking action mean to you emotionally?"},
+          {tag:"Identity", title:"Freeze can make you call yourself lazy.", copy:`But stuck is not lazy. Stuck is often scared, overloaded, ashamed, or over-activated.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Being blocked is not the same thing as not caring.</li>
+            <li>Having a nervous system response is not a moral failure.</li>
+            <li>Tiny movement still counts.</li>
+          </ul>`},
+          {tag:"Truth", title:"Borrow a steadier line.", copy:`Something more honest than “just do it.”`, mantra:`REAL TALK TO BORROW:
+“I’m not failing because movement is hard right now.
+Something in me is bracing.
+I can work with that by going smaller.”`},
+          {tag:"Close", title:"The goal is not speed. It’s thawing.", copy:`Open the document.
+Put on the shoes.
+Send the one line.
+Tiny movement is still movement.`}
+        ]
+      },
+
+      selfAttack: {
+        title:"Self-attack / shame",
+        desc:"Inner critic, insecurity, tearing yourself apart.",
+        colors:["#c79ea1","#b8a7c8"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where the loudest voice in your head sounds true just because it has been there for years.", copy:`You zoom in on what is wrong.
+What is embarrassing.
+What makes you feel unwanted, hard to love, behind, not enough, too much, or easy to replace.`},
+          {tag:"Meaning", title:"A lot of self-attack started as protection.", copy:`The brain attacks first as if beating everyone else to it might somehow make rejection safer.`},
+          {tag:"Loop", title:"Shame narrows the whole frame.", copy:`It turns one mistake into identity.`, diagram:["something hurts","inner critic activates","you believe the harshest voice","your body contracts","you act smaller and call that proof"]},
+          {tag:"Check-in", title:"What form is the self-attack taking?", copy:`Pick the closest.`, choices:["I feel ugly","I feel behind","I feel embarrassing","I feel hard to love","I feel like there’s something wrong with me"]},
+          {tag:"Body", title:"Locate where the shame lands physically.", copy:`For a lot of people it lands in the chest, throat, face, stomach, or behind the eyes.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Notice where your body contracts first.</li>
+            <li>Put one hand there and press lightly.</li>
+            <li>Exhale through your mouth like you are fogging a mirror.</li>
+            <li>Unclench your face on purpose.</li>
+            <li>Stand up taller than the shame wants you to.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: interrupt the critic without pretending you love yourself.", copy:`Use a line you can actually tolerate.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Say the critic line out loud once.</li>
+            <li>Then say: “That is not neutral. That is attack.”</li>
+            <li>Then add one fuller truth.</li>
+            <li>Example: “I feel rejected. That is not the same thing as being worthless.”</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What exactly are you accusing yourself of right now?`, reflectionPlaceholder:"Write the charge clearly, not vaguely."},
+          {tag:"Identity", title:"Shame lies about identity.", copy:`It makes temporary pain sound like permanent truth.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Your pain is not proof of your inadequacy.</li>
+            <li>Your insecurity is not objective evidence.</li>
+            <li>The harshest voice in your head is not automatically the truest one.</li>
+          </ul>`},
+          {tag:"Truth", title:"Do not jump to a line your body rejects.", copy:`Use a believable line.`, mantra:`REAL TALK TO BORROW:
+“I don’t fully believe the best about myself right now.
+But I know the voice tearing me down is not fair, neutral, or complete.
+I do not have to worship the worst voice in my head.”`},
+          {tag:"Close", title:"Less self-cruelty is real progress.", copy:`You do not need instant confidence.
+A little less attack already changes the room.`}
+        ]
+      },
+
+      anger: {
+        title:"Anger / reactive",
+        desc:"Buildup, resentment, snapping, pressure.",
+        colors:["#947763","#708277"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where something in you is done swallowing it.", copy:`You have less patience.
+Everything feels closer to the surface.
+You may be snapping, fantasizing about saying what you really think, or feeling pressure in your chest like something is trying to break out.`},
+          {tag:"Meaning", title:"Anger is often not the first emotion. It is the one that made it to the front.", copy:`Under anger there is often hurt, humiliation, powerlessness, dismissal, or going against yourself too many times.`},
+          {tag:"Loop", title:"Resentment builds where truth keeps getting deferred.", copy:`That is why the reaction can look bigger than the moment.`, diagram:["boundary missed","hurt swallowed","pressure builds","small thing happens","reaction explodes"]},
+          {tag:"Check-in", title:"Which layer feels closest?", copy:`Pick the one that fits.`, choices:["hurt","resentment","disrespect","powerlessness","I’m tired of adapting"]},
+          {tag:"Body", title:"Move the charge before you try to reason with it.", copy:`Anger is a high-energy state.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Press both palms hard into a wall for 15 seconds. Release. Repeat 3 times.</li>
+            <li>Stomp in place for 20 seconds if your body wants movement.</li>
+            <li>Shake out your arms, jaw, and shoulders.</li>
+            <li>Exhale hard through the mouth.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: turn anger into information instead of damage.", copy:`You do not need to suppress it or obey it.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Finish this sentence: “What I’m actually not okay with is…”</li>
+            <li>Then: “What boundary got missed is…”</li>
+            <li>Then: “What I need now is…”</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What are you really reacting to underneath the surface event?`, reflectionPlaceholder:"What was the actual wound?"},
+          {tag:"Identity", title:"Anger can make you feel like you are “too much.”", copy:`But anger is often your system finally saying: enough.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Being angry does not make you bad.</li>
+            <li>Intensity is not the same thing as irrationality.</li>
+            <li>Your boundary signals matter.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that respects the signal without handing it the wheel.", copy:`No shaming. No glorifying.`, mantra:`REAL TALK TO BORROW:
+“Something in me is not okay with this.
+I can respect that signal without letting it wreck everything around me.”`},
+          {tag:"Close", title:"Ask the harder question.", copy:`Where did I go against myself before I got here?`}
+        ]
+      },
+
+      unseen: {
+        title:"Alone / unseen",
+        desc:"Invisible, misunderstood, tired of surface-level connection.",
+        colors:["#708277","#b8a7c8"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where you can be around people and still feel emotionally alone.", copy:`It is not just loneliness.
+It is the ache of not feeling met.
+
+You show up.
+You listen.
+You care.
+You know there is more in you than what is being touched.
+And still something feels shallow or unreachable.`},
+          {tag:"Meaning", title:"Feeling unseen changes how much of yourself you bring into a room.", copy:`After enough disappointment, you start editing yourself first.
+You downplay.
+You keep it light.
+You stop going there.
+You pretend you do not need depth as much as you actually do.`},
+          {tag:"Loop", title:"The more unseen you feel, the more you hide. The more you hide, the more unseen you feel.", copy:`That loop hurts.`, diagram:["don’t feel met","share less","feel lonelier","need more depth","pull back more"]},
+          {tag:"Check-in", title:"What kind of unseen is this?", copy:`Pick the closest.`, choices:["misunderstood","emotionally lonely","not chosen","not valued","I feel like no one really gets me"]},
+          {tag:"Body", title:"Notice where the ache sits.", copy:`For a lot of people this lands in the chest, throat, or behind the eyes.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Put one hand on your chest and one on your throat or stomach.</li>
+            <li>Stay there for 20 seconds without trying to change anything.</li>
+            <li>Look around the room and let your eyes land on something steady.</li>
+            <li>Say quietly: “I’m here.”</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: name the real need without apologizing for it.", copy:`Need does not make you weak.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Finish this sentence: “What I actually wish someone would understand is…”</li>
+            <li>Then: “What I need more of is…”</li>
+            <li>Do not minimize it.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What part of you have you stopped bringing into rooms because you assume it won’t be met?`, reflectionPlaceholder:"Write the edited part."},
+          {tag:"Identity", title:"Feeling unseen can distort identity.", copy:`You start wondering whether you are too much, too deep, too complicated, too intense.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Just because you’ve felt unseen does not mean you are unseeable.</li>
+            <li>Being in the wrong rooms is not proof that you are too much.</li>
+            <li>Your depth is not the problem.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that doesn’t erase the ache.", copy:`No fake “I’m so loved” if your body doesn’t buy it.`, mantra:`REAL TALK TO BORROW:
+“Just because I’ve felt unseen before doesn’t mean I don’t matter.
+It may mean I’ve been in spaces that didn’t know how to meet me.”`},
+          {tag:"Close", title:"You are allowed to want depth.", copy:`You are allowed to want the real thing, not just company.`}
+        ]
+      },
+
+      grief: {
+        title:"Grief / heaviness",
+        desc:"Loss, ache, sadness, emptiness that lingers.",
+        colors:["#947763","#b8a7c8"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where everything feels heavier than it looks from the outside.", copy:`You may still be functioning.
+But underneath that there is an ache.
+A weight.
+A kind of emotional gravity that makes everything feel slower and dimmer.`},
+          {tag:"Meaning", title:"Some things are heavy because they mattered.", copy:`Not everything painful needs to become a lesson immediately.
+
+Some things are just sad.
+Some things are just gone.
+Some things leave a kind of ache ordinary conversation does not know how to hold.`},
+          {tag:"Loop", title:"Grief gets harder when you keep trying to rush it into meaning.", copy:`Let some things be heavy because they are heavy.`, diagram:["loss or rupture","pain rises","you try to intellectualize it","body still hurts","you feel behind in your healing"]},
+          {tag:"Body", title:"Let grief have a body, not just a story.", copy:`You do not need to explain it well.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Wrap your arms around yourself or hold a pillow to your chest.</li>
+            <li>Exhale with sound if it wants to come out.</li>
+            <li>Rock gently side to side.</li>
+            <li>Put your hand where the ache feels strongest and stay there for 20 seconds.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: make room for grief without drowning in it.", copy:`Small containers help.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Set a timer for 3 minutes.</li>
+            <li>Let yourself feel or write freely for that window.</li>
+            <li>When it ends, place one hand on your chest and orient to the room.</li>
+            <li>That is not avoidance. That is titration.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What are you still carrying that you keep trying to talk yourself out of grieving?`, reflectionPlaceholder:"Name the person, version, future, hope, or part of yourself."},
+          {tag:"Identity", title:"Grief can make you feel like you’ve become “too sad” or “too heavy.”", copy:`But grief is not a personality flaw.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Your sadness is not an inconvenience to reality.</li>
+            <li>Heaviness does not mean weakness.</li>
+            <li>Missing what mattered is human.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that honors the weight.", copy:`No forced silver lining.`, mantra:`REAL TALK TO BORROW:
+“This still hurts because it mattered.
+I do not need to rush my way out of that.”`},
+          {tag:"Close", title:"You are allowed to miss what mattered and still keep living.", copy:`Those things can exist together.`}
+        ]
+      },
+
+      triggered: {
+        title:"Triggered / thrown back",
+        desc:"Old wound activated, body reacts fast.",
+        colors:["#b8a7c8","#708277"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where something small hits your body like something huge.", copy:`A tone.
+A silence.
+A delay.
+A look.
+A phrase.
+
+And suddenly the reaction is bigger than the moment seems to deserve.`},
+          {tag:"Meaning", title:"Your body often remembers before your mind does.", copy:`A trigger usually means something about the present feels familiar enough to wake up a survival response fast.`},
+          {tag:"Loop", title:"The nervous system reacts now and explains later.", copy:`That doesn’t mean you made it up.`, diagram:["cue feels familiar","body activates fast","mind scrambles for meaning","fear rises","you judge yourself for reacting"]},
+          {tag:"Check-in", title:"What does this activation feel most like?", copy:`Pick what fits closest.`, choices:["panic","shutdown","rage","urgency","abandonment terror"]},
+          {tag:"Body", title:"Get yourself back into now before analyzing it.", copy:`Orientation matters here.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Look around the room slowly and name 5 objects.</li>
+            <li>Press both feet into the floor for 10 seconds. Release. Repeat.</li>
+            <li>Touch a solid surface and describe it: cold, warm, smooth, rough.</li>
+            <li>Say today’s date, your age, and where you are.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: tell your body the difference between then and now.", copy:`This helps more than arguing with yourself.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Say: “This reminds me of something. That’s why it feels big.”</li>
+            <li>Then: “But I am here now.”</li>
+            <li>Then name three ways the present is different from the past.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What does this moment remind your body of, even if your mind doesn’t have the full story yet?`, reflectionPlaceholder:"What feels familiar here?"},
+          {tag:"Identity", title:"Being triggered can make you feel dramatic or unstable.", copy:`But activation is not the same thing as irrationality.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Your body had a reason for reacting fast.</li>
+            <li>Needing time to come down does not make you weak.</li>
+            <li>Regulation is not proof that it was nothing. It is care.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that brings you back into the present without denying the past.", copy:`No “I’m fine.”`, mantra:`REAL TALK TO BORROW:
+“My body got thrown back for a second.
+That makes sense.
+But I am here now, and I can help myself come back.”`},
+          {tag:"Close", title:"Coming back down is real work.", copy:`That counts.`}
+        ]
+      },
+
+      peoplePleasing: {
+        title:"People-pleasing / fawning",
+        desc:"Over-accommodating, over-explaining, disappearing yourself.",
+        colors:["#708277","#c79ea1"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where keeping the peace starts costing you yourself.", copy:`You say yes too fast.
+You explain too much.
+You adapt to the room before checking what you actually want.
+You can feel resentment growing, but you still keep smoothing everything over.`},
+          {tag:"Meaning", title:"A lot of fawning started as survival.", copy:`If softness from others felt conditional, then making yourself easy became a strategy.`},
+          {tag:"Loop", title:"Fawning protects you short-term and erases you long-term.", copy:`That is why it becomes exhausting.`, diagram:["sense tension","adapt fast","get temporary safety","lose contact with yourself","resentment grows"]},
+          {tag:"Body", title:"Notice the urge to rush toward pleasing.", copy:`That urge is often physical before it becomes verbal.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Pause before replying.</li>
+            <li>Feel your feet.</li>
+            <li>Take one breath before saying yes.</li>
+            <li>Relax your face and jaw.</li>
+            <li>Ask internally: what do I actually want?</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: a boundary without over-explaining.", copy:`Shorter is often stronger.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Practice saying: “I can’t do that.”</li>
+            <li>Then stop.</li>
+            <li>No extra apology paragraph.</li>
+            <li>No whole courtroom defense.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`Where are you being easier to manage than you are honest?`, reflectionPlaceholder:"Write where you keep shrinking yourself."},
+          {tag:"Identity", title:"People-pleasing can make you think your value is in how easy you are.", copy:`But your worth is not in being endlessly adaptable.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>You are not difficult for having preferences.</li>
+            <li>You are not bad for disappointing someone.</li>
+            <li>You are allowed to be clear.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that respects your own center.", copy:`Not “I need everyone to like me.”`, mantra:`REAL TALK TO BORROW:
+“I’m allowed to stay connected to myself even when someone else is uncomfortable.”`},
+          {tag:"Close", title:"You do not have to disappear to stay safe forever.", copy:`A different way is possible.`}
+        ]
+      },
+
+      control: {
+        title:"Control / perfectionism",
+        desc:"Clenched, hyper-vigilant, “I have to get this right.”",
+        colors:["#947763","#708277"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where relaxing feels irresponsible.", copy:`You keep tightening.
+Editing.
+Preparing.
+Checking.
+Overthinking.
+Trying to get it right enough that nothing painful can touch you.`},
+          {tag:"Meaning", title:"Control is often fear wearing a polished outfit.", copy:`It can look high-functioning.
+But underneath it there is usually dread, pressure, fear of failure, fear of criticism, or fear of things falling apart if you loosen your grip.`},
+          {tag:"Loop", title:"Perfectionism promises safety and delivers exhaustion.", copy:`It never fully says enough.`, diagram:["fear rises","tighten control","temporary relief","new standard appears","tension returns"]},
+          {tag:"Body", title:"Notice where you clench.", copy:`Jaw.
+Chest.
+Hands.
+Pelvis.
+Shoulders.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Uncurl your fingers.</li>
+            <li>Drop your shoulders.</li>
+            <li>Loosen your jaw.</li>
+            <li>Exhale with sound.</li>
+            <li>Sit back against support for 20 seconds.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: practice enough, not perfect.", copy:`This is exposure, not laziness.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Choose one thing you can finish at 80% instead of 100%.</li>
+            <li>Notice the discomfort.</li>
+            <li>Stay with it without fixing it.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What are you scared will happen if you loosen your grip?`, reflectionPlaceholder:"Write the feared consequence."},
+          {tag:"Identity", title:"Perfectionism can make you confuse performance with worth.", copy:`They are not the same thing.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>You are not safer because you are harder on yourself.</li>
+            <li>Your value is not hanging from flawless execution.</li>
+            <li>Softening control is not failure.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that allows imperfection without collapse.", copy:`Something steadier.`, mantra:`REAL TALK TO BORROW:
+“I don’t need to be perfect to be safe, worthy, or taken seriously.
+Good enough can still be true.”`},
+          {tag:"Close", title:"Your nervous system does not need to live clenched forever.", copy:`A little less gripping is still movement.`}
+        ]
+      },
+
+      betrayal: {
+        title:"Betrayal / heartbreak",
+        desc:"Replay, disbelief, attachment wound, emotional aftershock.",
+        colors:["#b8a7c8","#c79ea1"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where your chest keeps replaying what your mind already knows happened.", copy:`You go over details.
+You wonder how you missed it.
+You keep trying to understand how someone could say one thing and do another.
+
+Betrayal hurts because it is not just pain.
+It is pain plus disbelief plus loss of trust in your own reading of reality.`},
+          {tag:"Meaning", title:"Heartbreak is not always about romance. Betrayal is not always about the event itself.", copy:`A lot of the pain comes from what it breaks:
+safety,
+trust,
+innocence,
+assumption,
+hope,
+identity.`},
+          {tag:"Loop", title:"Replay is often your mind trying to regain control.", copy:`It is trying to solve what cannot be unsolved retroactively.`, diagram:["hurt happens","mind replays","you search for proof","blame yourself for missing signs","trust in self drops"]},
+          {tag:"Body", title:"Betrayal often lives in the chest and stomach.", copy:`That sick-drop feeling matters.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Press one hand into your chest and one into your stomach.</li>
+            <li>Exhale slowly through your mouth.</li>
+            <li>Push your feet into the floor.</li>
+            <li>Name one thing that is solid in the room right now.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: separate their choice from your identity.", copy:`This is hard, but important.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Finish this sentence: “What they did means…”</li>
+            <li>Then ask: “Is that about me, or about their capacity/character/choices?”</li>
+            <li>Write both separately.</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What meaning have you attached to the betrayal about you?`, reflectionPlaceholder:"Write the story you keep making it mean."},
+          {tag:"Identity", title:"Betrayal can make you doubt your own judgment, value, and desirability.", copy:`That damage is real. But it is not the whole truth.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Someone violating trust is not proof that you were foolish to trust.</li>
+            <li>Their choice is not a final statement on your worth.</li>
+            <li>Your ability to love was not the mistake.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that doesn’t gaslight the wound.", copy:`No fake closure line.`, mantra:`REAL TALK TO BORROW:
+“What happened hurt because I trusted.
+That doesn’t make me stupid.
+It makes the rupture real.”`},
+          {tag:"Close", title:"You are allowed to grieve what broke and rebuild self-trust slowly.", copy:`Slow is still real.`}
+        ]
+      },
+
+      insecurity: {
+        title:"Body shame / insecurity",
+        desc:"Surface worry tied to deeper core beliefs.",
+        colors:["#c79ea1","#947763"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where one insecurity turns into a whole argument against yourself.", copy:`You focus on a body part, a feature, an image, a comparison, a flaw.
+And suddenly it is not just about appearance.
+It becomes a whole case for why you are not enough.`},
+          {tag:"Meaning", title:"Body shame is rarely only about the body.", copy:`A lot of the time it is carrying deeper fears:
+Will I be chosen?
+Will I be loved?
+Will I be rejected?
+Am I too much? Not enough? Wrong somehow?`},
+          {tag:"Loop", title:"The more you monitor yourself, the worse you feel.", copy:`Hyper-focus becomes self-harm in slow motion.`, diagram:["notice “flaw”","compare","criticize","contract","look for more evidence"]},
+          {tag:"Body", title:"Interrupt the spiral in the body before the mirror gets the final word.", copy:`This is about de-intensifying fixation.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Step away from the mirror or camera.</li>
+            <li>Look at the farthest point in the room.</li>
+            <li>Put both hands on your thighs and feel pressure.</li>
+            <li>Take one long exhale.</li>
+            <li>Name one thing your body let you do today.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: shift from objectification to relationship.", copy:`Try relating, not inspecting.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Instead of “How do I look?” ask: “How do I feel in my body right now?”</li>
+            <li>Instead of “What’s wrong with me?” ask: “What am I needing from myself?”</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What are you scared your body or appearance says about you?`, reflectionPlaceholder:"Write the deeper fear underneath the surface thought."},
+          {tag:"Identity", title:"Insecurity often tries to reduce identity to appearance.", copy:`But you are not a single angle, feature, or comparison point.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Your body is not a courtroom.</li>
+            <li>Looking human is not failing.</li>
+            <li>Being insecure does not make the criticism accurate.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that reduces attack without forcing love.", copy:`Believability first.`, mantra:`REAL TALK TO BORROW:
+“I don’t need to adore my body to stop treating it like the enemy.”`},
+          {tag:"Close", title:"You deserve a less violent relationship with yourself.", copy:`That is real healing too.`}
+        ]
+      },
+
+      burnout: {
+        title:"Burnout / depleted",
+        desc:"Tired beyond sleep, emotionally overused, empty.",
+        colors:["#947763","#708277"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where rest doesn’t seem to fully touch the level of tired you are.", copy:`You are not just sleepy.
+You are used up.
+Emotionally thin.
+Harder to access.
+Harder to care.
+Harder to recover.`},
+          {tag:"Meaning", title:"Burnout is often what happens when output keeps outpacing replenishment for too long.", copy:`Not just work.
+People.
+Caretaking.
+Surviving.
+Managing everyone.
+Holding things together.
+Always adapting.`},
+          {tag:"Loop", title:"Burnout makes it harder to do what would actually help.", copy:`That is part of why it feels so stuck.`, diagram:["overgive","run on pressure","deplete further","lose access to joy","judge yourself for being flat"]},
+          {tag:"Body", title:"Your body may need gentler support than your mind wants to allow.", copy:`Not productivity hacks. Actual care.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Lie down or sit with full back support for 3 minutes.</li>
+            <li>Place something weighted or your hands on your chest/stomach.</li>
+            <li>Take slower exhales than inhales.</li>
+            <li>Let your eyes close if that feels good.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: ask a burnout question instead of a hustle question.", copy:`Not “How do I push?”`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Ask: “What has been costing me the most lately?”</li>
+            <li>Then: “What would reduce even 5% of that?”</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What has been overusing you lately?`, reflectionPlaceholder:"Name the drain clearly."},
+          {tag:"Identity", title:"Burnout can make you think you’ve become lazy, dull, or less capable.", copy:`Depleted is not defective.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>You are not failing because you ran out of capacity.</li>
+            <li>Needing restoration is not weakness.</li>
+            <li>Depletion is information.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that honors depletion.", copy:`No fake hustle.`, mantra:`REAL TALK TO BORROW:
+“I’m not weak. I’m overused.
+Something about my life has been costing more than I’ve admitted.”`},
+          {tag:"Close", title:"Rest is not always enough when the pattern stays the same.", copy:`Pay attention to what has to change, not just what you have to endure.`}
+        ]
+      },
+
+      dread: {
+        title:"Dread / anticipatory fear",
+        desc:"Waiting for the other shoe to drop.",
+        colors:["#708277","#b8a7c8"],
+        screens:[
+          {tag:"Mirror", title:"This is the part where nothing has happened yet and your body is already bracing.", copy:`You feel a low-level sense that something bad is coming.
+That if you relax, you’ll miss it.
+That safety is temporary and you shouldn’t trust it too much.`},
+          {tag:"Meaning", title:"Dread often grows in people who’ve learned that calm can get interrupted fast.", copy:`So the body stops fully settling.
+It starts scanning ahead in case vigilance could somehow prevent pain.`},
+          {tag:"Loop", title:"Dread keeps asking for certainty it can’t actually get.", copy:`That is why reassurance rarely holds for long.`, diagram:["uncertainty appears","mind scans worst-case","body braces","temporary reassurance fades","scan again"]},
+          {tag:"Body", title:"Your body needs present-time evidence, not just reassurance.", copy:`Orientation helps.`, toolTitle:"Somatic exercise", toolCopy:`<ul>
+            <li>Look around and name 5 signs that in this exact moment you are okay enough.</li>
+            <li>Feel your feet and your seat.</li>
+            <li>Lengthen your exhale.</li>
+            <li>Unclench your hands.</li>
+          </ul>`},
+          {tag:"Demo", title:"Demonstration: turn vague dread into specific fear.", copy:`Specific is easier to work with than ambient terror.`, demoTitle:"Try this live", demoCopy:`<ul>
+            <li>Finish: “What I’m afraid will happen is…”</li>
+            <li>Then: “What evidence says it is happening right now?”</li>
+            <li>Then: “What am I actually dealing with in this moment?”</li>
+          </ul>`},
+          {tag:"Pause", title:"Pause.", copy:`What does your body keep expecting?`, reflectionPlaceholder:"Write the feared future image."},
+          {tag:"Identity", title:"Dread can make you feel broken for not relaxing when things are technically okay.", copy:`But bracing is learned.`, identityTitle:"Identity repair", identityCopy:`<ul>
+            <li>Your body learned to anticipate pain for reasons.</li>
+            <li>Struggle to relax is not a character flaw.</li>
+            <li>Safety can be relearned slowly.</li>
+          </ul>`},
+          {tag:"Truth", title:"Use a line that brings you back without false certainty.", copy:`No “nothing bad will ever happen.”`, mantra:`REAL TALK TO BORROW:
+“I don’t need total certainty to come back into this moment.
+Right now, in this exact moment, I can soften a little.”`},
+          {tag:"Close", title:"You don’t have to spend the whole future braced.", copy:`A little unbracing is still a real shift.`}
+        ]
+      }
+    };
+
+    function screensForMode(screens){
+      if(currentMode === "quick") return [screens[0], screens[2], screens[4], screens[7], screens[screens.length-1]].filter(Boolean);
+      if(currentMode === "deep") return [screens[0], screens[1], screens[2], screens[3], screens[4], screens[5], screens[7], screens[screens.length-1]].filter(Boolean);
+      return screens;
+    }
+
+    const homeView = document.getElementById("homeView");
+    const journeyView = document.getElementById("journeyView");
+    const moduleList = document.getElementById("moduleList");
+    const screenContent = document.getElementById("screenContent");
+    const stepBar = document.getElementById("stepBar");
+    const progressText = document.getElementById("progressText");
+    const progressPercent = document.getElementById("progressPercent");
+    const progressFill = document.getElementById("progressFill");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const journalTitle = document.getElementById("journalTitle");
+    const journalInput = document.getElementById("journalInput");
+    const savedList = document.getElementById("savedList");
+
+    function showView(view){
+      [homeView, journeyView].forEach(v=>v.classList.remove("active"));
+      if(view === "home") homeView.classList.add("active");
+      if(view === "journey") journeyView.classList.add("active");
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function setMode(mode){
+      currentMode = mode;
+      document.querySelectorAll(".mode-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.mode === mode);
+      });
+      if(currentModuleKey) startModule(currentModuleKey);
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function startModule(key){
+      currentModuleKey = key;
+      currentScreens = screensForMode(baseModules[key].screens);
+      currentScreenIndex = 0;
+      buildModuleList();
+      renderScreen();
+      showView("journey");
+    }
+
+    function buildModuleList(){
+      moduleList.innerHTML = "";
+      Object.keys(baseModules).forEach(key => {
+        const mod = baseModules[key];
+        const btn = document.createElement("button");
+        btn.className = "module-btn" + (key === currentModuleKey ? " active" : "");
+        btn.innerHTML = `<strong>${mod.title}</strong><span>${mod.desc}</span>`;
+        btn.addEventListener("click", () => startModule(key));
+        moduleList.appendChild(btn);
+      });
+    }
+
+    function renderChoices(choices){
+      if(!choices || !choices.length) return "";
+      return `
+        <div class="checkin-wrap">
+          <h4>Pick what feels closest</h4>
+          <div class="choice-grid">
+            ${choices.map(choice => `<button class="choice-chip" type="button">${escapeHtml(choice)}</button>`).join("")}
+          </div>
+          <div class="mini-note">You do not need the perfect answer. Just pick what hits.</div>
+        </div>
+      `;
+    }
+
+    function visualStyle(colors){
+      return `background:
+        radial-gradient(circle at 16% 18%, rgba(255,255,255,.36), transparent 20%),
+        radial-gradient(circle at 82% 76%, rgba(255,255,255,.16), transparent 18%),
+        linear-gradient(135deg, ${colors[0]}, ${colors[1]});`;
+    }
+
+    function renderScreen(){
+      const mod = baseModules[currentModuleKey];
+      const screen = currentScreens[currentScreenIndex];
+      const pct = Math.round(((currentScreenIndex + 1) / currentScreens.length) * 100);
+
+      progressText.textContent = `Step ${currentScreenIndex + 1} of ${currentScreens.length}`;
+      progressPercent.textContent = `${pct}%`;
+      progressFill.style.width = `${pct}%`;
+
+      stepBar.innerHTML = "";
+      currentScreens.forEach((s, i) => {
+        const el = document.createElement("div");
+        el.className = "step" + (i === currentScreenIndex ? " active" : "");
+        el.textContent = s.tag;
+        stepBar.appendChild(el);
+      });
+
+      let html = `
+        <div class="screen-tag">${escapeHtml(screen.tag)}</div>
+        <div class="module-visual" style="${visualStyle(mod.colors)}"></div>
+        <h2 class="screen-title">${escapeHtml(screen.title)}</h2>
+        <div class="screen-copy">${escapeHtml(screen.copy).replace(/\n/g,"<br>")}</div>
+      `;
+
+      if(screen.diagram){
+        html += `<div class="diagram-box"><h4>What this loop often looks like</h4><div class="diagram-flow">`;
+        screen.diagram.forEach(item => html += `<div class="diagram-step">${escapeHtml(item)}</div>`);
+        html += `</div></div>`;
       }
 
-      else if (alt.includes("community healing") || alt.includes("circle")) {
-        img.src = "./community-circle.jpeg";
+      if(screen.choices) html += renderChoices(screen.choices);
+
+      if(screen.toolCopy){
+        html += `<div class="tool-box"><h4>${escapeHtml(screen.toolTitle || "Somatic tool")}</h4>${screen.toolCopy}</div>`;
       }
 
-      else if (alt.includes("community")) {
-        img.src = "./community.jpeg";
+      if(screen.demoCopy){
+        html += `<div class="demo-box"><h4>${escapeHtml(screen.demoTitle || "Demonstration")}</h4>${screen.demoCopy}</div>`;
       }
 
-      else if (alt.includes("walk")) {
-        img.src = "./community-walk.jpeg";
+      if(screen.reflectionPlaceholder){
+        html += `
+          <div class="pause-box">
+            <strong>Pause</strong>
+            <div class="screen-copy" style="font-size:.96rem; max-width:none;">Stop performing clarity and name the thing more honestly.</div>
+            <textarea class="inline-reflection" placeholder="${escapeHtml(screen.reflectionPlaceholder)}"></textarea>
+          </div>
+        `;
       }
 
-      else if (alt.includes("somatic")) {
-        img.src = "./program-somatic.jpeg";
+      if(screen.promptCopy){
+        html += `<div class="prompt-box"><h4>${escapeHtml(screen.promptTitle || "Expressive release")}</h4>${screen.promptCopy}</div>`;
       }
 
-      else if (alt.includes("regulation") || alt.includes("nervous")) {
-        img.src = "./program-regulation.jpeg";
+      if(screen.identityCopy){
+        html += `<div class="identity-box"><h4>${escapeHtml(screen.identityTitle || "Identity repair")}</h4>${screen.identityCopy}</div>`;
       }
 
-      else if (alt.includes("circles")) {
-        img.src = "./program-circles.jpeg";
+      if(screen.mantra){
+        html += `<div class="mantra"><strong>Real talk to borrow</strong>${escapeHtml(screen.mantra).replace(/\n/g,"<br>")}</div>`;
       }
 
-      else if (alt.includes("quiet")) {
-        img.src = "./quiet-room.jpeg";
+      if(screen.callout){
+        html += `<div class="callout">${escapeHtml(screen.callout).replace(/\n/g,"<br>")}</div>`;
       }
 
-      else if (alt.includes("rooftop")) {
-        img.src = "./rooftop-circle.jpeg";
+      screenContent.innerHTML = html;
+
+      screenContent.querySelectorAll(".choice-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          screenContent.querySelectorAll(".choice-chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      backBtn.textContent = currentScreenIndex === 0 ? "Home" : "Back";
+      nextBtn.textContent = currentScreenIndex === currentScreens.length - 1 ? "Finish" : "Continue";
+    }
+
+    function saveReflection(){
+      const title = journalTitle.value.trim() || "Untitled reflection";
+      const body = journalInput.value.trim();
+      if(!body) return;
+
+      const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      items.unshift({
+        id: Date.now(),
+        title,
+        body,
+        module: currentModuleKey ? baseModules[currentModuleKey].title : "General",
+        createdAt: new Date().toLocaleString()
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      journalTitle.value = "";
+      journalInput.value = "";
+      renderSaved();
+    }
+
+    function renderSaved(){
+      const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      savedList.innerHTML = "";
+      if(!items.length){
+        savedList.innerHTML = `
+          <div class="saved-item">
+            <div class="saved-meta">No saved reflections yet</div>
+            <div class="saved-body">Anything you save here stays private to this browser on this device.</div>
+          </div>
+        `;
+        return;
       }
 
-      else if (alt.includes("desk") || alt.includes("welcome")) {
-        img.src = "./welcome-desk.jpeg";
-      }
+      items.forEach(item => {
+        const wrap = document.createElement("div");
+        wrap.className = "saved-item";
+        wrap.innerHTML = `
+          <div class="saved-meta">${escapeHtml(item.createdAt)} · ${escapeHtml(item.module)}</div>
+          <div class="saved-title">${escapeHtml(item.title)}</div>
+          <div class="saved-body">${escapeHtml(item.body).replace(/\n/g,"<br>")}</div>
+          <div class="saved-actions">
+            <button type="button" data-copy="${item.id}">Copy</button>
+            <button type="button" data-delete="${item.id}">Delete</button>
+          </div>
+        `;
+        savedList.appendChild(wrap);
+      });
 
-      else if (alt.includes("yoga")) {
-        img.src = "./yoga-room.jpeg";
-      }
+      savedList.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.copy);
+          const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+          const found = items.find(i => i.id === id);
+          if(found){
+            navigator.clipboard.writeText(`${found.title}\n\n${found.body}`);
+            btn.textContent = "Copied";
+            setTimeout(() => btn.textContent = "Copy", 1200);
+          }
+        });
+      });
 
-      else if (alt.includes("living")) {
-        img.src = "./living-room.jpeg";
-      }
+      savedList.querySelectorAll("[data-delete]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.delete);
+          const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]").filter(i => i.id !== id);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+          renderSaved();
+        });
+      });
+    }
 
-      else if (alt.includes("event")) {
-        img.src = "./launch-event.jpeg";
-      }
+    document.querySelectorAll(".mode-btn").forEach(btn => {
+      btn.addEventListener("click", () => setMode(btn.dataset.mode));
+    });
 
-      else if (alt.includes("exterior")) {
-        img.src = "./exterior-building.jpeg";
-      }
+    document.querySelectorAll(".state-btn").forEach(btn => {
+      btn.addEventListener("click", () => startModule(btn.dataset.module));
+    });
 
-      else if (alt.includes("art")) {
-        img.src = "./art.jpeg";
-      }
+    document.querySelectorAll(".precision-chip").forEach(btn => {
+      btn.addEventListener("click", () => startModule(btn.dataset.module));
+    });
 
-      else if (alt.includes("founder")) {
-        img.src = "./founder.jpeg";
+    document.getElementById("goHomeTop").addEventListener("click", () => showView("home"));
+    document.getElementById("goJourneyTop").addEventListener("click", () => {
+      if(!currentModuleKey) startModule("overwhelm");
+      else showView("journey");
+    });
+    document.getElementById("goJournalTop").addEventListener("click", () => {
+      showView("journey");
+      document.getElementById("journalView").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    backBtn.addEventListener("click", () => {
+      if(currentScreenIndex === 0){
+        showView("home");
+      } else {
+        currentScreenIndex -= 1;
+        renderScreen();
+        window.scrollTo({top:0, behavior:"smooth"});
       }
     });
-  }
 
-  function applyFixes() {
-    fixImages();
-  }
+    nextBtn.addEventListener("click", () => {
+      if(currentScreenIndex < currentScreens.length - 1){
+        currentScreenIndex += 1;
+        renderScreen();
+        window.scrollTo({top:0, behavior:"smooth"});
+      } else {
+        journalTitle.value = currentModuleKey ? baseModules[currentModuleKey].title : "";
+        showView("journey");
+        document.getElementById("journalView").scrollIntoView({behavior:"smooth", block:"start"});
+        journalInput.focus();
+      }
+    });
 
-  applyFixes();
+    document.getElementById("saveReflection").addEventListener("click", saveReflection);
 
-  const observer = new MutationObserver(applyFixes);
-  observer.observe(document.body, { childList: true, subtree: true });
+    document.querySelectorAll(".starter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const starter = btn.dataset.starter;
+        journalInput.value = journalInput.value.trim()
+          ? `${journalInput.value}\n\n${starter}\n`
+          : `${starter}\n`;
+        journalInput.focus();
+      });
+    });
 
-})();
-</script>
 
+
+    const submitReflectionBtn = document.getElementById("submitReflection");
+    if (submitReflectionBtn) {
+      submitReflectionBtn.addEventListener("click", async () => {
+        const title = journalTitle.value.trim() || "Anonymous Voices submission";
+        const body = journalInput.value.trim();
+        if (!body) { alert("Write something first."); return; }
+        try {
+          const res = await fetch("https://formspree.io/f/mqedapga", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ title, message: body, module: currentModuleKey ? modules[currentModuleKey].title : "General", source: "Air It Out / Voices of Strength" })
+          });
+          if (!res.ok) throw new Error("Form submission failed");
+          alert("Submitted anonymously. Thank you for trusting this space.");
+        } catch(e) { alert("Something went wrong. Please try again or email submit.vos@gmail.com."); }
+      });
+    }
+
+    renderSaved();
+  </script>
 </body>
 </html>
