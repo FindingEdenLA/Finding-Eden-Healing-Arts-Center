@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
-
   <style>
     img {
       width: 100%;
@@ -21,8 +18,70 @@
     }
   </style>
 </head>
+<script>
+(function () {
 
-<body>
+  const ROUTES = [
+    "index.html",
+    "about.html",
+    "programs.html",
+    "start-here.html",
+    "tools.html",
+    "resources.html",
+    "voices.html",
+    "event.html",
+    "get-involved.html",
+    "donate.html",
+    "online-journal.html",
+    "air-it-out.html"
+  ];
+
+  function fixLinks() {
+    document.querySelectorAll("a[href]").forEach(link => {
+      let href = link.getAttribute("href");
+
+      if (!href) return;
+
+      // 🔥 Remove ANY Replit or external routing
+      href = href
+        .replace(/https?:\/\/.*replit\.app/gi, "")
+        .replace(/https?:\/\/.*replit\.dev/gi, "");
+
+      // 🔥 Force clean .html navigation
+      ROUTES.forEach(route => {
+        const clean = route.replace(".html", "");
+        if (href === "/" + clean || href === clean || href.includes(clean)) {
+          href = "/" + route;
+        }
+      });
+
+      link.setAttribute("href", href);
+      link.removeAttribute("target"); // prevents weird behavior
+    });
+  }
+
+  // 🔥 Kill any JS router interference
+  window.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+
+    if (href && href.endsWith(".html")) {
+      e.stopPropagation();
+      e.preventDefault();
+      window.location.href = href;
+    }
+  }, true);
+
+  fixLinks();
+
+  const observer = new MutationObserver(fixLinks);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
+<body> 
   <div id="root"></div>
 
 <script>
