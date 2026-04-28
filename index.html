@@ -1,110 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finding Eden</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding Eden</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
-
-  <style>
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Founder image */
-    img[src*="founder.jpeg"] {
-      max-width: 320px;
-      margin: 20px auto;
-    }
-  </style>
+<style>
+body { margin:0; font-family: 'EB Garamond', serif; background:#f6f4ef; }
+.nav { display:flex; gap:16px; padding:16px; background:white; }
+.nav a { text-decoration:none; color:#2f3e34; }
+.container { max-width:1100px; margin:auto; padding:24px; }
+img { width:100%; border-radius:16px; }
+h1,h2 { color:#2f3e34; }
+p { color:#4a5a4f; }
+.cta { background:#2f4a3c; color:white; padding:40px; border-radius:20px; text-align:center; }
+.btn { display:inline-block; margin-top:12px; padding:10px 18px; background:#e8d3a3; color:#2f3e34; border-radius:30px; text-decoration:none; }
+</style>
 </head>
 
 <body>
-  <div id="root"></div>
 
-<script>
-(function () {
+<!-- NAV -->
+<div class="nav">
+  <a href="/">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/programs.html">Programs</a>
+  <a href="/voices.html">Voices</a>
+  <a href="/event.html">Event</a>
+  <a href="/get-involved.html">Get Involved</a>
+  <a href="/online-journal">Journal</a>
+  <a href="/air-it-out">Air It Out</a>
+</div>
 
-  const IMAGE_MAP = {
-    somatic: "/images/yoga.jpg",
-    regulation: "/images/community-circle.jpg",
-    circles: "/images/writing-circle.jpg",
-    storytelling: "/images/writing-circle-2.jpg",
-    voices: "/images/writing-circle-hero.jpg",
-    youth: "/images/youth-program.jpg",
-    art: "/images/art-room.jpg",
-    event: "/images/rooftop-evening.jpg",
-    community: "/images/community-main.jpg"
-  };
+<div class="container">
 
-  function lockImages() {
-    document.querySelectorAll("img").forEach(img => {
-      const alt = (img.getAttribute("alt") || "").toLowerCase();
+<img src="/assets/home-hero.jpeg">
 
-      if (alt.includes("somatic")) img.src = IMAGE_MAP.somatic;
-      else if (alt.includes("regulation") || alt.includes("nervous")) img.src = IMAGE_MAP.regulation;
-      else if (alt.includes("circle")) img.src = IMAGE_MAP.circles;
-      else if (alt.includes("story") || alt.includes("voice")) img.src = IMAGE_MAP.voices;
-      else if (alt.includes("youth")) img.src = IMAGE_MAP.youth;
-      else if (alt.includes("art")) img.src = IMAGE_MAP.art;
-      else if (alt.includes("event")) img.src = IMAGE_MAP.event;
-      else if (alt.includes("community")) img.src = IMAGE_MAP.community;
-    });
-  }
+<h1>Finding Eden</h1>
+<p>Where wellness finds you. Real spaces. Real connection.</p>
 
-  function fixLinks(root = document) {
-    root.querySelectorAll("a[href]").forEach((link) => {
-      let href = link.getAttribute("href");
-      if (!href) return;
+<div class="cta">
+<h2>Start here</h2>
+<a href="/programs.html" class="btn">Explore Programs</a>
+</div>
 
-      href = href
-        .replace("https://deploy-ready--privatehealing.replit.app", "")
-        .replace("http://deploy-ready--privatehealing.replit.app", "");
-
-      if (link.textContent.trim() === "App") {
-        link.textContent = "Air It Out";
-        href = "/air-it-out";
-      }
-
-      link.setAttribute("href", href);
-    });
-  }
-
-  function fixEmails(root = document.body) {
-    root.innerHTML = root.innerHTML.replaceAll(
-      "contact@findingeden.info",
-      "findingedenfoundation@gmail.com"
-    );
-  }
-
-  function removeReplit() {
-    document.querySelectorAll('[src*="replit"]').forEach(el => el.remove());
-  }
-
-  function applyAll() {
-    lockImages();
-    fixLinks();
-    fixEmails();
-    removeReplit();
-  }
-
-  applyAll();
-
-  const observer = new MutationObserver(applyAll);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
+</div>
 
 </body>
-</html>
 </html>
