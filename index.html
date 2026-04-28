@@ -28,82 +28,54 @@
 <script>
 (function () {
 
+ <script>
+(function () {
+
   function fixImages() {
     document.querySelectorAll("img").forEach(img => {
-      const src = (img.getAttribute("src") || "").toLowerCase();
-      const alt = (img.getAttribute("alt") || "").toLowerCase();
+      const src = img.getAttribute("src") || "";
 
-      // 🔥 DIRECT MATCHING TO YOUR FILES
+      // 🔥 TARGET BROKEN PROGRAMS IMAGES DIRECTLY
 
-      if (alt.includes("creative")) {
-        img.src = "./creative-studio.jpeg";
+      if (src.includes("story") || src.includes("voice")) {
+        img.src = "./rooftop-circle.jpeg"; // BEST VOS match
       }
 
-      else if (alt.includes("community healing") || alt.includes("circle")) {
-        img.src = "./community-circle.jpeg";
+      else if (src.includes("youth")) {
+        img.src = "./community.jpeg"; // youth group image
       }
 
-      else if (alt.includes("community")) {
-        img.src = "./community.jpeg";
-      }
-
-      else if (alt.includes("walk")) {
-        img.src = "./community-walk.jpeg";
-      }
-
-      else if (alt.includes("somatic")) {
+      else if (src.includes("somatic")) {
         img.src = "./program-somatic.jpeg";
       }
 
-      else if (alt.includes("regulation") || alt.includes("nervous")) {
+      else if (src.includes("regulation")) {
         img.src = "./program-regulation.jpeg";
       }
 
-      else if (alt.includes("circles")) {
-        img.src = "./program-circles.jpeg";
+      else if (src.includes("circle")) {
+        img.src = "./community-circle.jpeg";
       }
 
-      else if (alt.includes("quiet")) {
-        img.src = "./quiet-room.jpeg";
+      // 🔥 FALLBACK FIX (catches broken ? images)
+      if (img.src.includes("undefined") || img.src.includes("null")) {
+        img.src = "./community-circle.jpeg";
       }
 
-      else if (alt.includes("rooftop")) {
-        img.src = "./rooftop-circle.jpeg";
-      }
-
-      else if (alt.includes("desk") || alt.includes("welcome")) {
-        img.src = "./welcome-desk.jpeg";
-      }
-
-      else if (alt.includes("yoga")) {
-        img.src = "./yoga-room.jpeg";
-      }
-
-      else if (alt.includes("living")) {
-        img.src = "./living-room.jpeg";
-      }
-
-      else if (alt.includes("event")) {
-        img.src = "./launch-event.jpeg";
-      }
-
-      else if (alt.includes("exterior")) {
-        img.src = "./exterior-building.jpeg";
-      }
-
-      else if (alt.includes("art")) {
-        img.src = "./art.jpeg";
-      }
-
-      else if (alt.includes("founder")) {
-        img.src = "./founder.jpeg";
-      }
     });
   }
 
   function applyFixes() {
     fixImages();
   }
+
+  applyFixes();
+
+  const observer = new MutationObserver(applyFixes);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
 
   applyFixes();
 
