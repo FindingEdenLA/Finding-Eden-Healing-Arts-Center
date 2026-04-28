@@ -112,6 +112,138 @@
 
 })();
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Finding Eden</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="./index_files/css2" rel="stylesheet">
+
+  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
+  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
+  <style>
+/* Founder image fix */
+img[src*="founder.jpeg"] {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Optional: tighten spacing around it */
+img[src*="founder.jpeg"] {
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script>
+    (function () {
+      const ROUTE_MAP = {
+        "/": "/",
+        "/about": "/about",
+        "/programs": "/programs",
+        "/start-here": "/start-here",
+        "/tools": "/tools",
+        "/resources": "/resources",
+        "/voices": "/voices",
+        "/event": "/event",
+        "/get-involved": "/get-involved",
+        "/online-journal": "/online-journal",
+        "/air-it-out": "/air-it-out",
+      };
+
+      function fixLinks(root = document) {
+        root.querySelectorAll("a[href]").forEach((link) => {
+          const href = link.getAttribute("href");
+          if (!href) return;
+
+          // Strip old Replit domain
+          let cleaned = href
+            .replace("https://deploy-ready--privatehealing.replit.app", "")
+            .replace("http://deploy-ready--privatehealing.replit.app", "");
+
+          // Force App label/link to Air It Out
+          if (link.textContent && link.textContent.trim() === "App") {
+            link.textContent = "Air It Out";
+            cleaned = "/air-it-out";
+          }
+
+          if (ROUTE_MAP[cleaned]) {
+            link.setAttribute("href", ROUTE_MAP[cleaned]);
+          } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
+            link.setAttribute("href", cleaned);
+          }
+        });
+      }
+
+      function fixEmails(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach((node) => {
+          if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
+            node.nodeValue = node.nodeValue.replaceAll(
+              "contact@findingeden.info",
+              "findingedenfoundation@gmail.com"
+            );
+          }
+        });
+
+        root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
+          a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
+          if (a.textContent.includes("contact@findingeden.info")) {
+            a.textContent = a.textContent.replaceAll(
+              "contact@findingeden.info",
+              "findingedenfoundation@gmail.com"
+            );
+          }
+        });
+      }
+
+      function removeReplitPill() {
+        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
+        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
+      }
+
+      function applyFixes() {
+  fixLinks(document);
+  fixEmails(document.body);
+  removeReplitPill();
+}
+
+
+      // Run now and keep watching because the app renders after load
+      applyFixes();
+
+      const observer = new MutationObserver(() => {
+        applyFixes();
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      window.addEventListener("load", applyFixes);
+      setTimeout(applyFixes, 500);
+      setTimeout(applyFixes, 1500);
+      setTimeout(applyFixes, 3000);
+    })();
+  </script>
+
+</body>
+</html>
 </body>
 </html>
