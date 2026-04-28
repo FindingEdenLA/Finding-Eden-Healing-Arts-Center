@@ -19,6 +19,12 @@
       object-fit: cover;
       display: block;
     }
+
+    /* Founder image */
+    img[src*="founder.jpeg"] {
+      max-width: 320px;
+      margin: 20px auto;
+    }
   </style>
 </head>
 
@@ -28,194 +34,77 @@
 <script>
 (function () {
 
- <script>
-(function () {
+  const IMAGE_MAP = {
+    somatic: "/images/yoga.jpg",
+    regulation: "/images/community-circle.jpg",
+    circles: "/images/writing-circle.jpg",
+    storytelling: "/images/writing-circle-2.jpg",
+    voices: "/images/writing-circle-hero.jpg",
+    youth: "/images/youth-program.jpg",
+    art: "/images/art-room.jpg",
+    event: "/images/rooftop-evening.jpg",
+    community: "/images/community-main.jpg"
+  };
 
-  function fixImages() {
+  function lockImages() {
     document.querySelectorAll("img").forEach(img => {
-      const src = img.getAttribute("src") || "";
+      const alt = (img.getAttribute("alt") || "").toLowerCase();
 
-      // 🔥 TARGET BROKEN PROGRAMS IMAGES DIRECTLY
-
-      if (src.includes("story") || src.includes("voice")) {
-        img.src = "./rooftop-circle.jpeg"; // BEST VOS match
-      }
-
-      else if (src.includes("youth")) {
-        img.src = "./community.jpeg"; // youth group image
-      }
-
-      else if (src.includes("somatic")) {
-        img.src = "./program-somatic.jpeg";
-      }
-
-      else if (src.includes("regulation")) {
-        img.src = "./program-regulation.jpeg";
-      }
-
-      else if (src.includes("circle")) {
-        img.src = "./community-circle.jpeg";
-      }
-
-      // 🔥 FALLBACK FIX (catches broken ? images)
-      if (img.src.includes("undefined") || img.src.includes("null")) {
-        img.src = "./community-circle.jpeg";
-      }
-
+      if (alt.includes("somatic")) img.src = IMAGE_MAP.somatic;
+      else if (alt.includes("regulation") || alt.includes("nervous")) img.src = IMAGE_MAP.regulation;
+      else if (alt.includes("circle")) img.src = IMAGE_MAP.circles;
+      else if (alt.includes("story") || alt.includes("voice")) img.src = IMAGE_MAP.voices;
+      else if (alt.includes("youth")) img.src = IMAGE_MAP.youth;
+      else if (alt.includes("art")) img.src = IMAGE_MAP.art;
+      else if (alt.includes("event")) img.src = IMAGE_MAP.event;
+      else if (alt.includes("community")) img.src = IMAGE_MAP.community;
     });
   }
 
-  function applyFixes() {
-    fixImages();
+  function fixLinks(root = document) {
+    root.querySelectorAll("a[href]").forEach((link) => {
+      let href = link.getAttribute("href");
+      if (!href) return;
+
+      href = href
+        .replace("https://deploy-ready--privatehealing.replit.app", "")
+        .replace("http://deploy-ready--privatehealing.replit.app", "");
+
+      if (link.textContent.trim() === "App") {
+        link.textContent = "Air It Out";
+        href = "/air-it-out";
+      }
+
+      link.setAttribute("href", href);
+    });
   }
 
-  applyFixes();
+  function fixEmails(root = document.body) {
+    root.innerHTML = root.innerHTML.replaceAll(
+      "contact@findingeden.info",
+      "findingedenfoundation@gmail.com"
+    );
+  }
 
-  const observer = new MutationObserver(applyFixes);
+  function removeReplit() {
+    document.querySelectorAll('[src*="replit"]').forEach(el => el.remove());
+  }
+
+  function applyAll() {
+    lockImages();
+    fixLinks();
+    fixEmails();
+    removeReplit();
+  }
+
+  applyAll();
+
+  const observer = new MutationObserver(applyAll);
   observer.observe(document.body, { childList: true, subtree: true });
 
 })();
 </script>
-
-  applyFixes();
-
-  const observer = new MutationObserver(applyFixes);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>Finding Eden</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="./index_files/css2" rel="stylesheet">
-
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
-  <style>
-/* Founder image fix */
-img[src*="founder.jpeg"] {
-  max-width: 320px;
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Optional: tighten spacing around it */
-img[src*="founder.jpeg"] {
-  margin-top: 20px;
-}
-</style>
-</head>
-
-<body>
-  <div id="root"></div>
-
-  <script>
-    (function () {
-      const ROUTE_MAP = {
-        "/": "/",
-        "/about": "/about",
-        "/programs": "/programs",
-        "/start-here": "/start-here",
-        "/tools": "/tools",
-        "/resources": "/resources",
-        "/voices": "/voices",
-        "/event": "/event",
-        "/get-involved": "/get-involved",
-        "/online-journal": "/online-journal",
-        "/air-it-out": "/air-it-out",
-      };
-
-      function fixLinks(root = document) {
-        root.querySelectorAll("a[href]").forEach((link) => {
-          const href = link.getAttribute("href");
-          if (!href) return;
-
-          // Strip old Replit domain
-          let cleaned = href
-            .replace("https://deploy-ready--privatehealing.replit.app", "")
-            .replace("http://deploy-ready--privatehealing.replit.app", "");
-
-          // Force App label/link to Air It Out
-          if (link.textContent && link.textContent.trim() === "App") {
-            link.textContent = "Air It Out";
-            cleaned = "/air-it-out";
-          }
-
-          if (ROUTE_MAP[cleaned]) {
-            link.setAttribute("href", ROUTE_MAP[cleaned]);
-          } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
-            link.setAttribute("href", cleaned);
-          }
-        });
-      }
-
-      function fixEmails(root = document.body) {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-        const nodes = [];
-        while (walker.nextNode()) nodes.push(walker.currentNode);
-
-        nodes.forEach((node) => {
-          if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
-            node.nodeValue = node.nodeValue.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-
-        root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
-          a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
-          if (a.textContent.includes("contact@findingeden.info")) {
-            a.textContent = a.textContent.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-      }
-
-      function removeReplitPill() {
-        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
-        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
-      }
-
-      function applyFixes() {
-  fixLinks(document);
-  fixEmails(document.body);
-  removeReplitPill();
-}
-
-
-      // Run now and keep watching because the app renders after load
-      applyFixes();
-
-      const observer = new MutationObserver(() => {
-        applyFixes();
-      });
-
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-
-      window.addEventListener("load", applyFixes);
-      setTimeout(applyFixes, 500);
-      setTimeout(applyFixes, 1500);
-      setTimeout(applyFixes, 3000);
-    })();
-  </script>
 
 </body>
 </html>
-</body>
 </html>
