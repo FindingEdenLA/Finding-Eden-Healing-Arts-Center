@@ -80,6 +80,61 @@
           }
         });
       }
+<script>
+(function () {
+
+  function fixImages() {
+    document.querySelectorAll("img").forEach(img => {
+      const src = (img.getAttribute("src") || "").toLowerCase();
+
+      //  SOMATIC
+      if (src.includes("somatic") || src.includes("movement")) {
+        img.src = "/images/program-somatic.jpg";
+      }
+
+      //  STORYTELLING / VOICES (NO ROOFTOP)
+      else if (src.includes("voice") || src.includes("story")) {
+        img.src = "/images/writing-circle.jpg";
+      }
+
+      //  YOUTH PROGRAMS
+      else if (src.includes("youth")) {
+        img.src = "/images/youth-programs.jpg";
+      }
+
+      // ART / CREATIVE
+      else if (src.includes("art") || src.includes("creative")) {
+        img.src = "/images/art-studio.jpg";
+      }
+
+      // COMMUNITY / CIRCLES
+      else if (src.includes("community") || src.includes("circle")) {
+        img.src = "/images/community-circle.jpg";
+      }
+
+      //  EVENTS
+      else if (src.includes("event")) {
+        img.src = "/images/launch-event.jpg";
+      }
+
+      //  HERO / DEFAULT FALLBACK
+      else if (!img.src || img.src.includes("undefined") || img.src.includes("null")) {
+        img.src = "/images/header.jpg";
+      }
+    });
+  }
+
+  function applyFixes() {
+    fixImages();
+  }
+
+  applyFixes();
+
+  const observer = new MutationObserver(applyFixes);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
 
       function removeReplitPill() {
         document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
