@@ -83,57 +83,73 @@
 <script>
 (function () {
 
-  function fixImages() {
+  function lockImages() {
     document.querySelectorAll("img").forEach(img => {
-      const src = (img.getAttribute("src") || "").toLowerCase();
+      const alt = (img.alt || "").toLowerCase();
 
-      //  SOMATIC
-      if (src.includes("somatic") || src.includes("movement")) {
-        img.src = "/images/program-somatic.jpg";
+      // HERO / HOMEPAGE
+      if (alt.includes("hero") || alt.includes("header")) {
+        img.src = "/community-circle.jpeg";
       }
 
-      //  STORYTELLING / VOICES (NO ROOFTOP)
-      else if (src.includes("voice") || src.includes("story")) {
-        img.src = "/images/writing-circle.jpg";
+      // PROGRAMS PAGE
+      if (alt.includes("somatic")) {
+        img.src = "/program-somatic.jpeg";
       }
 
-      //  YOUTH PROGRAMS
-      else if (src.includes("youth")) {
-        img.src = "/images/youth-programs.jpg";
+      if (alt.includes("regulation")) {
+        img.src = "/program-regulation.jpeg";
       }
 
-      // ART / CREATIVE
-      else if (src.includes("art") || src.includes("creative")) {
-        img.src = "/images/art-studio.jpg";
+      if (alt.includes("circle")) {
+        img.src = "/community-circle.jpeg";
       }
 
-      // COMMUNITY / CIRCLES
-      else if (src.includes("community") || src.includes("circle")) {
-        img.src = "/images/community-circle.jpg";
+      if (alt.includes("story") || alt.includes("voice")) {
+        img.src = "/group-circle.jpeg";
       }
 
-      //  EVENTS
-      else if (src.includes("event")) {
-        img.src = "/images/launch-event.jpg";
+      if (alt.includes("youth")) {
+        img.src = "/community.jpeg";
       }
 
-      //  HERO / DEFAULT FALLBACK
-      else if (!img.src || img.src.includes("undefined") || img.src.includes("null")) {
-        img.src = "/images/header.jpg";
+      if (alt.includes("art")) {
+        img.src = "/creative-studio.jpeg";
       }
+
+      // ABOUT PAGE
+      if (alt.includes("founder")) {
+        img.src = "/founder.jpeg";
+      }
+
+      if (alt.includes("space") || alt.includes("building")) {
+        img.src = "/exterior-building.jpeg";
+      }
+
+      // START HERE / TOOLS
+      if (alt.includes("tools") || alt.includes("grounding")) {
+        img.src = "/living-room.jpeg";
+      }
+
+      if (alt.includes("walk")) {
+        img.src = "/community-walk.jpeg";
+      }
+
+      // EVENT
+      if (alt.includes("event")) {
+        img.src = "/launch-event.jpeg";
+      }
+
     });
   }
 
-  function applyFixes() {
-    fixImages();
-  }
-
-  applyFixes();
-
-  const observer = new MutationObserver(applyFixes);
-  observer.observe(document.body, { childList: true, subtree: true });
+  // Run multiple times because React loads late
+  setTimeout(lockImages, 500);
+  setTimeout(lockImages, 1500);
+  setTimeout(lockImages, 3000);
 
 })();
+
 </script>
 
       function removeReplitPill() {
