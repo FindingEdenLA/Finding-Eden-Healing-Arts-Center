@@ -153,36 +153,6 @@
 
 })();
 
-</script>
 
-      function removeReplitPill() {
-        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
-        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
-      }
-
-      function applyFixes() {
-        fixLinks(document);
-        fixEmails(document.body);
-        removeReplitPill();
-      }
-
-      // Run now and keep watching because the app renders after load
-      applyFixes();
-
-      const observer = new MutationObserver(() => {
-        applyFixes();
-      });
-
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-
-      window.addEventListener("load", applyFixes);
-      setTimeout(applyFixes, 500);
-      setTimeout(applyFixes, 1500);
-      setTimeout(applyFixes, 3000);
-    })();
-  </script>
 </body>
 </html>
