@@ -129,7 +129,45 @@
         });
       }
 <script>
+// 🔥 FORCE REMOVE ALL REPLIT LINKS + EMBEDS (global fix)
 
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 1. Fix ALL links
+  document.querySelectorAll("a").forEach(link => {
+    const href = link.getAttribute("href") || "";
+
+    if (href.includes("replit")) {
+      link.setAttribute("href", "/air-it-out.html");
+    }
+  });
+
+  // 2. Fix ALL buttons
+  document.querySelectorAll("button").forEach(btn => {
+    const onclick = btn.getAttribute("onclick") || "";
+
+    if (onclick.includes("replit")) {
+      btn.setAttribute("onclick", "window.location.href='/air-it-out.html'");
+    }
+  });
+
+  // 3. REMOVE ANY IFRAME (this is the big one)
+  document.querySelectorAll("iframe").forEach(frame => {
+    if (frame.src.includes("replit")) {
+      frame.remove();
+    }
+  });
+
+  // 4. Kill any JS redirects to replit
+  const scripts = document.querySelectorAll("script");
+  scripts.forEach(script => {
+    if (script.innerHTML.includes("replit")) {
+      script.innerHTML = script.innerHTML.replace(/https?:\/\/.*replit\.(app|dev)/gi, "/air-it-out.html");
+    }
+  });
+
+});
+</script>
 
 </body>
 </html>
