@@ -1,122 +1,3 @@
-
-Body&Mind Healing
-Mon, Apr 27, 10:21 PM (3 days ago)
-to me
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finding Eden</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
-
-  <style>
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      object-fit: cover;
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="root"></div>
-
-<script>
-(function () {
-
-  function fixImages() {
-    document.querySelectorAll("img").forEach(img => {
-      const src = (img.getAttribute("src") || "").toLowerCase();
-      const alt = (img.getAttribute("alt") || "").toLowerCase();
-
-      // 🔥 DIRECT MATCHING TO YOUR FILES
-
-      if (alt.includes("creative")) {
-        img.src = "./creative-studio.jpeg";
-      }
-
-      else if (alt.includes("community healing") || alt.includes("circle")) {
-        img.src = "./community-circle.jpeg";
-      }
-
-      else if (alt.includes("community")) {
-        img.src = "./community.jpeg";
-      }
-
-      else if (alt.includes("walk")) {
-        img.src = "./community-walk.jpeg";
-      }
-
-      else if (alt.includes("somatic")) {
-        img.src = "./program-somatic.jpeg";
-      }
-
-      else if (alt.includes("regulation") || alt.includes("nervous")) {
-        img.src = "./program-regulation.jpeg";
-      }
-
-      else if (alt.includes("circles")) {
-        img.src = "./program-circles.jpeg";
-      }
-
-      else if (alt.includes("quiet")) {
-        img.src = "./quiet-room.jpeg";
-      }
-
-      else if (alt.includes("rooftop")) {
-        img.src = "./rooftop-circle.jpeg";
-      }
-
-      else if (alt.includes("desk") || alt.includes("welcome")) {
-        img.src = "./welcome-desk.jpeg";
-      }
-
-      else if (alt.includes("yoga")) {
-        img.src = "./yoga-room.jpeg";
-      }
-
-      else if (alt.includes("living")) {
-        img.src = "./living-room.jpeg";
-      }
-
-      else if (alt.includes("event")) {
-        img.src = "./launch-event.jpeg";
-      }
-
-      else if (alt.includes("exterior")) {
-        img.src = "./exterior-building.jpeg";
-      }
-
-      else if (alt.includes("art")) {
-        img.src = "./art.jpeg";
-      }
-
-      else if (alt.includes("founder")) {
-        img.src = "./founder.jpeg";
-      }
-    });
-  }
-
-  function applyFixes() {
-    fixImages();
-  }
-
-  applyFixes();
-
-  const observer = new MutationObserver(applyFixes);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-})();
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,24 +10,8 @@ to me
   <link href="./index_files/css2" rel="stylesheet">
 
   <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
+ 
   <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
-  <style>
-/* Founder image fix */
-img[src*="founder.jpeg"] {
-  max-width: 320px;
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Optional: tighten spacing around it */
-img[src*="founder.jpeg"] {
-  margin-top: 20px;
-}
-</style>
 </head>
 
 <body>
@@ -216,39 +81,8 @@ img[src*="founder.jpeg"] {
           }
         });
       }
-
-      function removeReplitPill() {
-        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
-        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
-      }
-
-      function applyFixes() {
-  fixLinks(document);
-  fixEmails(document.body);
-  removeReplitPill();
-}
+<script>
 
 
-      // Run now and keep watching because the app renders after load
-      applyFixes();
-
-      const observer = new MutationObserver(() => {
-        applyFixes();
-      });
-
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-
-      window.addEventListener("load", applyFixes);
-      setTimeout(applyFixes, 500);
-      setTimeout(applyFixes, 1500);
-      setTimeout(applyFixes, 3000);
-    })();
-  </script>
-
-</body>
-</html>
 </body>
 </html>
