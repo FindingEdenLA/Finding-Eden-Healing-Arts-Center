@@ -33,29 +33,71 @@
         "/air-it-out": "/air-it-out",
       };
 
-      function fixLinks(root = document) {
-        root.querySelectorAll("a[href]").forEach((link) => {
-          const href = link.getAttribute("href");
-          if (!href) return;
+     <script>
+(function () {
 
-          // Strip old Replit domain
-          let cleaned = href
-            .replace("https://deploy-ready--privatehealing.replit.app", "")
-            .replace("http://deploy-ready--privatehealing.replit.app", "");
+  const ROUTES = [
+    "index.html",
+    "about.html",
+    "programs.html",
+    "start-here.html",
+    "tools.html",
+    "resources.html",
+    "voices.html",
+    "event.html",
+    "get-involved.html",
+    "donate.html",
+    "online-journal.html",
+    "air-it-out.html"
+  ];
 
-          // Force App label/link to https://www.findingeden.info/air-it-out
-          if (link.textContent && link.textContent.trim() === "App") {
-            link.textContent = "Air It Out";
-            cleaned = "/air-it-out";
-          }
+  function fixLinks() {
+    document.querySelectorAll("a[href]").forEach(link => {
+      let href = link.getAttribute("href");
 
-          if (ROUTE_MAP[cleaned]) {
-            link.setAttribute("href", ROUTE_MAP[cleaned]);
-          } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
-            link.setAttribute("href", cleaned);
-          }
-        });
-      }
+      if (!href) return;
+
+      // 🔥 Remove ANY Replit or external routing
+      href = href
+        .replace(/https?:\/\/.*replit\.app/gi, "")
+        .replace(/https?:\/\/.*replit\.dev/gi, "");
+
+      // 🔥 Force clean .html navigation
+      ROUTES.forEach(route => {
+        const clean = route.replace(".html", "");
+        if (href === "/" + clean || href === clean || href.includes(clean)) {
+          href = "/" + route;
+        }
+      });
+
+      link.setAttribute("href", href);
+      link.removeAttribute("target"); // prevents weird behavior
+    });
+  }
+
+  // 🔥 Kill any JS router interference
+  window.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+
+    if (href && href.endsWith(".html")) {
+      e.stopPropagation();
+      e.preventDefault();
+      window.location.href = href;
+    }
+  }, true);
+
+  fixLinks();
+
+  const observer = new MutationObserver(fixLinks);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
+
+
 
       function fixEmails(root = document.body) {
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
