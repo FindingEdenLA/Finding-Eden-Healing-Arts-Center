@@ -52,22 +52,28 @@
   ];
 
   function fixLinks() {
-    document.querySelectorAll("a[href]").forEach(link => {
-      let href = link.getAttribute("href");
+  document.querySelectorAll("a[href]").forEach(link => {
+    let href = link.getAttribute("href");
 
-      if (!href) return;
+    if (!href) return;
 
-// 🔥 Replace ANY replit links with your real Air It Out page
-if (/replit\.app|replit\.dev/i.test(href)) {
-  href = "/air-it-out.html";
+    // 🔥 Replace ANY replit links
+    if (/replit\.app|replit\.dev/i.test(href)) {
+      href = "/air-it-out.html";
+    }
+
+    // 🔥 Clean routing
+    ROUTES.forEach(route => {
+      const clean = route.replace(".html", "");
+      if (href === "/" + clean || href === clean || href.includes(clean)) {
+        href = "/" + route;
+      }
+    });
+
+    // 🔥 APPLY FIX
+    link.setAttribute("href", href);
+  });
 }
-      // 🔥 Force clean .html navigation
-      ROUTES.forEach(route => {
-        const clean = route.replace(".html", "");
-        if (href === "/" + clean || href === clean || href.includes(clean)) {
-          href = "/" + route;
-        }
-      });
 
       link.setAttribute("href", href);
       link.removeAttribute("target"); // prevents weird behavior
