@@ -57,11 +57,10 @@
 
       if (!href) return;
 
-      // 🔥 Remove ANY Replit or external routing
-      href = href
-        .replace(/https?:\/\/.*replit\.app/gi, "")
-        .replace(/https?:\/\/.*replit\.dev/gi, "");
-
+// 🔥 Replace ANY replit links with your real Air It Out page
+if (/replit\.app|replit\.dev/i.test(href)) {
+  href = "/air-it-out.html";
+}
       // 🔥 Force clean .html navigation
       ROUTES.forEach(route => {
         const clean = route.replace(".html", "");
