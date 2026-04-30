@@ -67,32 +67,6 @@ body {
 </section>
 
 </script>
-function fixEmails(root = document.body) {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-        const nodes = [];
-        while (walker.nextNode()) nodes.push(walker.currentNode);
-
-        nodes.forEach((node) => {
-          if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
-            node.nodeValue = node.nodeValue.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-
-        root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
-          a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
-          if (a.textContent.includes("contact@findingeden.info")) {
-            a.textContent = a.textContent.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-      }
-
-</script>
 
 </body>
 </html>
