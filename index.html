@@ -1,3 +1,122 @@
+
+Body&Mind Healing
+Mon, Apr 27, 10:21 PM (3 days ago)
+to me
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finding Eden</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
+  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
+
+  <style>
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+<script>
+(function () {
+
+  function fixImages() {
+    document.querySelectorAll("img").forEach(img => {
+      const src = (img.getAttribute("src") || "").toLowerCase();
+      const alt = (img.getAttribute("alt") || "").toLowerCase();
+
+      // 🔥 DIRECT MATCHING TO YOUR FILES
+
+      if (alt.includes("creative")) {
+        img.src = "./creative-studio.jpeg";
+      }
+
+      else if (alt.includes("community healing") || alt.includes("circle")) {
+        img.src = "./community-circle.jpeg";
+      }
+
+      else if (alt.includes("community")) {
+        img.src = "./community.jpeg";
+      }
+
+      else if (alt.includes("walk")) {
+        img.src = "./community-walk.jpeg";
+      }
+
+      else if (alt.includes("somatic")) {
+        img.src = "./program-somatic.jpeg";
+      }
+
+      else if (alt.includes("regulation") || alt.includes("nervous")) {
+        img.src = "./program-regulation.jpeg";
+      }
+
+      else if (alt.includes("circles")) {
+        img.src = "./program-circles.jpeg";
+      }
+
+      else if (alt.includes("quiet")) {
+        img.src = "./quiet-room.jpeg";
+      }
+
+      else if (alt.includes("rooftop")) {
+        img.src = "./rooftop-circle.jpeg";
+      }
+
+      else if (alt.includes("desk") || alt.includes("welcome")) {
+        img.src = "./welcome-desk.jpeg";
+      }
+
+      else if (alt.includes("yoga")) {
+        img.src = "./yoga-room.jpeg";
+      }
+
+      else if (alt.includes("living")) {
+        img.src = "./living-room.jpeg";
+      }
+
+      else if (alt.includes("event")) {
+        img.src = "./launch-event.jpeg";
+      }
+
+      else if (alt.includes("exterior")) {
+        img.src = "./exterior-building.jpeg";
+      }
+
+      else if (alt.includes("art")) {
+        img.src = "./art.jpeg";
+      }
+
+      else if (alt.includes("founder")) {
+        img.src = "./founder.jpeg";
+      }
+    });
+  }
+
+  function applyFixes() {
+    fixImages();
+  }
+
+  applyFixes();
+
+  const observer = new MutationObserver(applyFixes);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+})();
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,64 +128,127 @@
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="./index_files/css2" rel="stylesheet">
 
-</head>
-</body>
-<style>
-body {
-  margin: 0;
-  font-family: 'PT Serif', serif;
-  background: #f5f5f2;
-  color: #1a1a1a;
+  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
+  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
+  <style>
+/* Founder image fix */
+img[src*="founder.jpeg"] {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 20px;
-  background: white;
-}
-
-.nav a {
-  text-decoration: none;
-  color: #1a1a1a;
-}
-
-.hero {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: url('/images/hero.jpg') center/cover no-repeat;
-  text-align: center;
-}
-
-.btn {
+/* Optional: tighten spacing around it */
+img[src*="founder.jpeg"] {
   margin-top: 20px;
-  padding: 10px 20px;
-  background: black;
-  color: white;
-  text-decoration: none;
 }
 </style>
+</head>
+
 <body>
+  <div id="root"></div>
 
-<nav class="nav">
-  <a href="/index.html">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/programs.html">Programs</a>
-  <a href="/online-journal.html">Journal</a> <!-- KEEP -->
-  <a href="/air-it-out.html">Air It Out</a> <!-- FIXED -->
-</nav>
+  <script>
+    (function () {
+      const ROUTE_MAP = {
+        "/": "/",
+        "/about": "/about",
+        "/programs": "/programs",
+        "/start-here": "/start-here",
+        "/tools": "/tools",
+        "/resources": "/resources",
+        "/voices": "/voices",
+        "/event": "/event",
+        "/get-involved": "/get-involved",
+        "/online-journal": "/online-journal",
+        "/air-it-out": "/air-it-out",
+      };
 
-<section class="hero">
-  <h1>Finding Eden</h1>
-  <p>Where healing finds you</p>
-  <a href="/air-it-out.html" class="btn">Start Writing</a>
-</section>
+      function fixLinks(root = document) {
+        root.querySelectorAll("a[href]").forEach((link) => {
+          const href = link.getAttribute("href");
+          if (!href) return;
 
-</script>
+          // Strip old Replit domain
+          let cleaned = href
+            .replace("https://deploy-ready--privatehealing.replit.app", "")
+            .replace("http://deploy-ready--privatehealing.replit.app", "");
 
+          // Force App label/link to Air It Out
+          if (link.textContent && link.textContent.trim() === "App") {
+            link.textContent = "Air It Out";
+            cleaned = "/air-it-out";
+          }
+
+          if (ROUTE_MAP[cleaned]) {
+            link.setAttribute("href", ROUTE_MAP[cleaned]);
+          } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
+            link.setAttribute("href", cleaned);
+          }
+        });
+      }
+
+      function fixEmails(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach((node) => {
+          if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
+            node.nodeValue = node.nodeValue.replaceAll(
+              "contact@findingeden.info",
+              "findingedenfoundation@gmail.com"
+            );
+          }
+        });
+
+        root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
+          a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
+          if (a.textContent.includes("contact@findingeden.info")) {
+            a.textContent = a.textContent.replaceAll(
+              "contact@findingeden.info",
+              "findingedenfoundation@gmail.com"
+            );
+          }
+        });
+      }
+
+      function removeReplitPill() {
+        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
+        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
+      }
+
+      function applyFixes() {
+  fixLinks(document);
+  fixEmails(document.body);
+  removeReplitPill();
+}
+
+
+      // Run now and keep watching because the app renders after load
+      applyFixes();
+
+      const observer = new MutationObserver(() => {
+        applyFixes();
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      window.addEventListener("load", applyFixes);
+      setTimeout(applyFixes, 500);
+      setTimeout(applyFixes, 1500);
+      setTimeout(applyFixes, 3000);
+    })();
+  </script>
+
+</body>
+</html>
 </body>
 </html>
