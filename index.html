@@ -9,102 +9,65 @@
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="./index_files/css2" rel="stylesheet">
 
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
- 
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
 </head>
-
-<body>
-  <div id="root"></div>
-
-  <script>
-    (function () {
-      const ROUTE_MAP = {
-        "/": "/",
-        "/about": "/about",
-        "/programs": "/programs",
-        "/start-here": "/start-here",
-        "/tools": "/tools",
-        "/resources": "/resources",
-        "/voices": "/voices",
-        "/event": "/event",
-        "/get-involved": "/get-involved",
-        "/online-journal": "/online-journal",
-        "/air-it-out": "/air-it-out",
-      };
-
-     <script>
-(function () {
-
-  const ROUTES = [
-    "index.html",
-    "about.html",
-    "programs.html",
-    "start-here.html",
-    "tools.html",
-    "resources.html",
-    "voices.html",
-    "event.html",
-    "get-involved.html",
-    "donate.html",
-    "online-journal.html",
-    "air-it-out.html"
-  ];
-
-  function fixLinks() {
-  document.querySelectorAll("a[href]").forEach(link => {
-    let href = link.getAttribute("href");
-
-    if (!href) return;
-
-    // 🔥 Replace ANY replit links
-    if (/replit\.app|replit\.dev/i.test(href)) {
-      href = "/air-it-out.html";
-    }
-
-    // 🔥 Clean routing
-    ROUTES.forEach(route => {
-      const clean = route.replace(".html", "");
-      if (href === "/" + clean || href === clean || href.includes(clean)) {
-        href = "/" + route;
-      }
-    });
-
-    // 🔥 APPLY FIX
-    link.setAttribute("href", href);
-  });
+</body>
+<style>
+body {
+  margin: 0;
+  font-family: 'PT Serif', serif;
+  background: #f5f5f2;
+  color: #1a1a1a;
 }
 
-      link.setAttribute("href", href);
-      link.removeAttribute("target"); // prevents weird behavior
-    });
-  }
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  background: white;
+}
 
-  // 🔥 Kill any JS router interference
-  window.addEventListener("click", function (e) {
-    const link = e.target.closest("a");
-    if (!link) return;
+.nav a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
 
-    const href = link.getAttribute("href");
+.hero {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url('/images/hero.jpg') center/cover no-repeat;
+  text-align: center;
+}
 
-    if (href && href.endsWith(".html")) {
-      e.stopPropagation();
-      e.preventDefault();
-      window.location.href = href;
-    }
-  }, true);
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: black;
+  color: white;
+  text-decoration: none;
+}
+</style>
+<body>
 
-  fixLinks();
+<nav class="nav">
+  <a href="/index.html">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/programs.html">Programs</a>
+  <a href="/online-journal.html">Journal</a> <!-- KEEP -->
+  <a href="/air-it-out.html">Air It Out</a> <!-- FIXED -->
+</nav>
 
-  const observer = new MutationObserver(fixLinks);
-  observer.observe(document.body, { childList: true, subtree: true });
+<section class="hero">
+  <h1>Finding Eden</h1>
+  <p>Where healing finds you</p>
+  <a href="/air-it-out.html" class="btn">Start Writing</a>
+</section>
 
-})();
 </script>
-
-
-
-      function fixEmails(root = document.body) {
+function fixEmails(root = document.body) {
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
         const nodes = [];
         while (walker.nextNode()) nodes.push(walker.currentNode);
@@ -128,45 +91,7 @@
           }
         });
       }
-<script>
-// 🔥 FORCE REMOVE ALL REPLIT LINKS + EMBEDS (global fix)
 
-document.addEventListener("DOMContentLoaded", function () {
-
-  // 1. Fix ALL links
-  document.querySelectorAll("a").forEach(link => {
-    const href = link.getAttribute("href") || "";
-
-    if (href.includes("replit")) {
-      link.setAttribute("href", "/air-it-out.html");
-    }
-  });
-
-  // 2. Fix ALL buttons
-  document.querySelectorAll("button").forEach(btn => {
-    const onclick = btn.getAttribute("onclick") || "";
-
-    if (onclick.includes("replit")) {
-      btn.setAttribute("onclick", "window.location.href='/air-it-out.html'");
-    }
-  });
-
-  // 3. REMOVE ANY IFRAME (this is the big one)
-  document.querySelectorAll("iframe").forEach(frame => {
-    if (frame.src.includes("replit")) {
-      frame.remove();
-    }
-  });
-
-  // 4. Kill any JS redirects to replit
-  const scripts = document.querySelectorAll("script");
-  scripts.forEach(script => {
-    if (script.innerHTML.includes("replit")) {
-      script.innerHTML = script.innerHTML.replace(/https?:\/\/.*replit\.(app|dev)/gi, "/air-it-out.html");
-    }
-  });
-
-});
 </script>
 
 </body>
